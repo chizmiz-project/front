@@ -5,6 +5,7 @@ import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import createCache from '@emotion/cache';
 import MainLayout from './layouts/MainLayout';
+import GridLayout from './layouts/GridLayout';
 
 const theme = createTheme({
   direction: 'rtl',
@@ -20,7 +21,9 @@ function App() {
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
-        <MainLayout></MainLayout>
+        <MainLayout>
+          <GridLayout></GridLayout>
+        </MainLayout>
     </ThemeProvider>
     </CacheProvider>
   );
