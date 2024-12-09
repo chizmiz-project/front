@@ -6,7 +6,8 @@ import {
     TextField,
     InputAdornment,
     Box,
-    SwipeableDrawer
+    SwipeableDrawer,
+    easing
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -24,8 +25,11 @@ export default function MainLayout(props) {
             open={state}
             onClose={toggleDrawer}
             onOpen={toggleDrawer}
+            SlideProps={{
+                direction: 'left',
+            }}
         >
-            <Box width='500px' height='100px' m={2} bgcolor='gray'></Box>
+            <Box width='350px' height='100px' m={2} bgcolor='gray'></Box>
         </SwipeableDrawer>
 
         <AppBar position="static" color="default">
