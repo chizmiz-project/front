@@ -1,24 +1,34 @@
 import logo from './logo.svg';
 import './App.css';
+import { createTheme } from '@mui/material/styles';
+import { CacheProvider, ThemeProvider } from '@emotion/react';
+import rtlPlugin from 'stylis-plugin-rtl';
+import { prefixer } from 'stylis';
+import createCache from '@emotion/cache';
+import { TextField } from '@mui/material';
+
+const theme = createTheme({
+  direction: 'rtl',
+});
+
+const cacheRtl = createCache({
+  key: 'muirtl',
+  stylisPlugins: [prefixer, rtlPlugin],
+});
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          فایل <code>src/App.js</code> را ویرایش کنید 
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          پروژه اولیه ریکت به زبان فارسی
-        </a>
-      </header>
-    </div>
+    <CacheProvider value={cacheRtl}>
+      <ThemeProvider theme={theme}>
+      <TextField
+        label="ملصق"
+        placeholder="العنصر النائب"
+        helperText="هذا نص مساعد"
+        variant="outlined"
+      />
+    </ThemeProvider>
+    </CacheProvider>
   );
 }
 
