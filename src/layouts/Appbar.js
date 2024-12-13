@@ -1,22 +1,15 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import InputBase from '@mui/material/InputBase';
-import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { blueGrey } from '@mui/material/colors';
 import SidebarMenu from '../components/SidebarMenu';
 
@@ -64,26 +57,6 @@ function DrawerAppBar(props) {
     const handleDrawerToggle = () => {
         setDrawerState((prevState) => !prevState);
     };
-
-    const drawer = (
-        <SidebarMenu></SidebarMenu>
-        // <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-        //     <Typography variant="h6" sx={{ my: 2 }}>
-        //         MUI
-        //     </Typography>
-        //     <Divider />
-        //     <List>
-        //         {navItems.map((item) => (
-        //             <ListItem key={item} disablePadding>
-        //                 <ListItemButton sx={{ textAlign: 'center' }}>
-        //                     <ListItemText primary={item} />
-        //                 </ListItemButton>
-        //             </ListItem>
-        //         ))}
-        //         <Button variant='contained'>ورود/ثبت نام</Button>
-        //     </List>
-        // </Box>
-    );
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -140,7 +113,7 @@ function DrawerAppBar(props) {
                         keepMounted: true, // Better open performance on mobile.
                     }}
                 >
-                    {drawer}
+                    <SidebarMenu></SidebarMenu>
                 </SwipeableDrawer>
             </nav>
             <Box component="main" sx={{ p: 1 }}>
