@@ -9,6 +9,9 @@ import GridLayout from './layouts/GridLayout';
 
 const theme = createTheme({
   direction: 'rtl',
+  shape: {
+    borderRadius: '.5rem'
+  }
 });
 
 const cacheRtl = createCache({
