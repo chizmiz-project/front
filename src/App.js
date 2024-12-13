@@ -6,11 +6,24 @@ import { prefixer } from 'stylis';
 import createCache from '@emotion/cache';
 import MainLayout from './layouts/MainLayout';
 import GridLayout from './layouts/GridLayout';
+import { blueGrey } from '@mui/material/colors';
+
+const borderColor = blueGrey[50]
 
 const theme = createTheme({
   direction: 'rtl',
   shape: {
     borderRadius: '.5rem'
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'white',
+          borderBottom: `1px solid ${borderColor}`
+        }
+      }
+    }
   }
 });
 

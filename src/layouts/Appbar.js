@@ -85,11 +85,10 @@ function DrawerAppBar(props) {
 
     return (
         <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar component="nav">
+            <AppBar component="nav" elevation={false}>
                 <Toolbar >
+
                     <IconButton
-                        color="inherit"
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
@@ -97,6 +96,7 @@ function DrawerAppBar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
+
                     <Box display={'flex'} flexGrow={1} alignItems={'center'} padding={1}>
                         <Typography
                             variant="h6"
@@ -117,13 +117,13 @@ function DrawerAppBar(props) {
                     </Box>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
-                            <Button key={item} sx={{ color: '#fff' }}>
+                            <Button key={item}>
                                 {item}
                             </Button>
                         ))}
                         <Button variant='contained'>ورود/ثبت نام</Button>
-
                     </Box>
+
                 </Toolbar>
             </AppBar>
             <nav>
