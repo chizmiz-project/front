@@ -12,25 +12,25 @@ import {
 export function AdCard({ ad }) {
     return (
         <Card sx={{
+            maxHeight: '110px',
             display: 'flex',
-            padding: '1rem',
+            padding: '0.5rem',
+            width: '100%',
+            justifyContent: 'space-between'
         }}>
+            <CardContent>
+                <Typography variant="h3" component="h3" noWrap>
+                    {ad.title}
+                </Typography>
+                <Typography mt={2}>{ad.price}</Typography>
+                <Typography variant='caption' >{ad.createdAt}</Typography>
+            </CardContent>
             <CardMedia
                 component="img"
                 image={ad.imageUrl}
                 alt={ad.title}
-                sx={{ maxWidth: '200px', aspectRatio: '1', objectFit: 'cover' }}
+                sx={{ maxWidth: '130px', aspectRatio: '1', objectFit: 'cover' }}
             />
-            <CardContent>
-                <Typography gutterBottom variant="h6" component="h2" noWrap>
-                    {ad.title}
-                </Typography>
-                <Box sx={{ mt: 2, mb: 1 }}>
-                    <Typography>{ad.price}</Typography>
-                </Box>
-                <Chip label="دست دوم"></Chip>
-                <Typography>{ad.createdAt}</Typography>
-            </CardContent>
         </Card>
     );
 }
