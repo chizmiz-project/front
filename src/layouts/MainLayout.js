@@ -16,12 +16,6 @@ import Container from '@mui/material/Container';
 
 export default function MainLayout(props) {
 
-    const [state, setState] = React.useState(false);
-
-    const toggleDrawer = (event) => {
-        setState((state) => !state);
-    };
-
     return <Container>
         <DrawerAppBar></DrawerAppBar>
         {/* <SwipeableDrawer
@@ -60,7 +54,7 @@ export default function MainLayout(props) {
             </Toolbar>
         </AppBar> */}
 
-        <Box>
+        <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={3}>
             {props.children}
         </Box>
         </Container>
