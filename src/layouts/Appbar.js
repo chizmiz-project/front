@@ -18,6 +18,7 @@ import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import { blueGrey } from '@mui/material/colors';
+import SidebarMenu from '../components/SidebarMenu';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -65,22 +66,23 @@ function DrawerAppBar(props) {
     };
 
     const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-            <Typography variant="h6" sx={{ my: 2 }}>
-                MUI
-            </Typography>
-            <Divider />
-            <List>
-                {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-                <Button variant='contained'>ورود/ثبت نام</Button>
-            </List>
-        </Box>
+        <SidebarMenu></SidebarMenu>
+        // <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+        //     <Typography variant="h6" sx={{ my: 2 }}>
+        //         MUI
+        //     </Typography>
+        //     <Divider />
+        //     <List>
+        //         {navItems.map((item) => (
+        //             <ListItem key={item} disablePadding>
+        //                 <ListItemButton sx={{ textAlign: 'center' }}>
+        //                     <ListItemText primary={item} />
+        //                 </ListItemButton>
+        //             </ListItem>
+        //         ))}
+        //         <Button variant='contained'>ورود/ثبت نام</Button>
+        //     </List>
+        // </Box>
     );
 
     return (
