@@ -68,16 +68,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
-# Resources:
-
-https://media.cgtrader.com/variants/JB8nygcgjtQ2G7WVcRPqGeBV/508c09fe26e63b93baec6d888aa2950650a509b5e04f2f03a4f2af52a04363ea/1.jpg
-
-
-https://media.sketchfab.com/models/fab332b5caef4811b281eba394b101a9/thumbnails/29317763d1f64064a368d98d656d2629/e43c4a73353f4b5e97d35b1b02cff73b.jpeg
-https://media.sketchfab.com/models/a6e726f298384355bec6ec8b7b720a9e/thumbnails/207f3a3dd5364e5e918b7cb4f37588e9/387a62928c0e4d82a22b390cb0cb3640.jpeg
-
-pixels:
-https://www.megavoxels.com/wp-content/uploads/2022/05/best-voxel-art-cars-15.png
-https://www.megavoxels.com/wp-content/uploads/2022/05/voxel-car.png

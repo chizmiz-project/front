@@ -1,5 +1,5 @@
 import { AdCard } from "../components/Ad";
-import { Box, Grid2 } from "@mui/material";
+import { Grid2 } from "@mui/material";
 import cars from '../resources/cars.json'
 
 

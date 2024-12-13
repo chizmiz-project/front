@@ -11,7 +11,6 @@ import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
-import { Box, Stack, Typography } from '@mui/material';
 
 export default function SidebarMenu() {
   const [open, setOpen] = React.useState(true);
