@@ -7,6 +7,7 @@ import createCache from '@emotion/cache';
 import MainLayout from './layouts/MainLayout';
 import GridLayout from './layouts/GridLayout';
 import { blueGrey } from '@mui/material/colors';
+import CategoryGrid from './components/CategoryGrid'
 
 const borderColor = blueGrey[50]
 const border = `1px solid ${borderColor}`
@@ -71,6 +72,7 @@ function App() {
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
         <MainLayout>
+          <CategoryGrid></CategoryGrid>
           <GridLayout></GridLayout>
         </MainLayout>
     </ThemeProvider>
