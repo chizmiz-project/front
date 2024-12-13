@@ -9,6 +9,7 @@ import GridLayout from './layouts/GridLayout';
 import { blueGrey } from '@mui/material/colors';
 
 const borderColor = blueGrey[50]
+const border = `1px solid ${borderColor}`
 
 const theme = createTheme({
   typography: {
@@ -23,7 +24,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: 'white',
-          borderBottom: `1px solid ${borderColor}`
+          borderBottom: border
         }
       }
     }
