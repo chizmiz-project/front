@@ -11,6 +11,9 @@ import { blueGrey } from '@mui/material/colors';
 const borderColor = blueGrey[50]
 
 const theme = createTheme({
+  typography: {
+    fontFamily: 'Vazirmatn'
+  },
   direction: 'rtl',
   shape: {
     borderRadius: '.5rem'
