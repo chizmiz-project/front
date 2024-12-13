@@ -61,7 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const drawerWidth = 240;
-const navItems = ['خانه', 'درباره ما', 'دیگر موارد'];
+const navItems = ['خانه', 'درباره ما'];
 
 function DrawerAppBar(props) {
 
@@ -86,6 +86,7 @@ function DrawerAppBar(props) {
             </ListItemButton>
           </ListItem>
         ))}
+          <Button variant='contained'>ورود/ثبت نام</Button>
       </List>
     </Box>
   );
@@ -96,7 +97,7 @@ function DrawerAppBar(props) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar component="nav">
-        <Toolbar>
+        <Toolbar >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -130,6 +131,8 @@ function DrawerAppBar(props) {
                 {item}
               </Button>
             ))}
+          <Button variant='contained'>ورود/ثبت نام</Button>
+
           </Box>
         </Toolbar>
       </AppBar>
