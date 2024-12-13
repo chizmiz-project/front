@@ -20,143 +20,132 @@ import { styled, alpha } from '@mui/material/styles';
 import { blueGrey } from '@mui/material/colors';
 
 const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: blueGrey[50],
-  '&:hover': {
-    backgroundColor: blueGrey[100],
-  },
-  marginLeft: 0,
-  width: '100%',
-  maxWidth: '500px'
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: blueGrey[50],
+    '&:hover': {
+        backgroundColor: blueGrey[100],
+    },
+    marginLeft: 0,
+    width: '100%',
+    maxWidth: '500px'
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-  color: blueGrey[500],
-  padding: theme.spacing(0, 1),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+    color: blueGrey[500],
+    padding: theme.spacing(0, 1),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: blueGrey[600],
-  width: '100%',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(0.5rem + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width')
-  },
+    color: blueGrey[600],
+    width: '100%',
+    '& .MuiInputBase-input': {
+        padding: theme.spacing(1, 1, 1, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(0.5rem + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width')
+    },
 }));
 
 const navItems = ['خانه', 'درباره ما'];
 
 function DrawerAppBar(props) {
 
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+    const { window } = props;
+    const [drawerState, setDrawerState] = React.useState(false);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
-  };
+    const handleDrawerToggle = () => {
+        setDrawerState((prevState) => !prevState);
+    };
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
-      <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-          <Button variant='contained'>ورود/ثبت نام</Button>
-      </List>
-    </Box>
-  );
+    const drawer = (
+        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+            <Typography variant="h6" sx={{ my: 2 }}>
+                MUI
+            </Typography>
+            <Divider />
+            <List>
+                {navItems.map((item) => (
+                    <ListItem key={item} disablePadding>
+                        <ListItemButton sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={item} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+                <Button variant='contained'>ورود/ثبت نام</Button>
+            </List>
+        </Box>
+    );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+    return (
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppBar component="nav">
+                <Toolbar >
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ display: { sm: 'none' } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Box display={'flex'} flexGrow={1} alignItems={'center'} padding={1}>
+                        <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ display: { xs: 'none', sm: 'block' } }}
+                        >
+                            CH
+                        </Typography>
+                        <Search sx={{ minWidth: '250px' }}>
+                            <SearchIconWrapper>
+                                <SearchIcon />
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                                placeholder="هر چیز که در جستن آنی آنی ..."
+                                inputProps={{ 'aria-label': 'search' }}
+                            />
+                        </Search>
+                    </Box>
+                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                        {navItems.map((item) => (
+                            <Button key={item} sx={{ color: '#fff' }}>
+                                {item}
+                            </Button>
+                        ))}
+                        <Button variant='contained'>ورود/ثبت نام</Button>
 
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar component="nav">
-        <Toolbar >
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-         <Box display={'flex'} flexGrow={1} alignItems={'center'} padding={1}>
-         <Typography
-            variant="h6"
-            component="div"
-            sx={{display: { xs: 'none', sm: 'block' } }}
-          >
-            CH
-          </Typography>
-          <Search sx={{minWidth: '250px'}}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="هر چیز که در جستن آنی آنی ..."
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-         </Box>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
-          <Button variant='contained'>ورود/ثبت نام</Button>
-
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <nav>
-      <SwipeableDrawer
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            onOpen={handleDrawerToggle}
-            container={container}
-            SlideProps={{
-                direction: 'left',
-            }}
-            ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}
-        >
-            {drawer}
-        </SwipeableDrawer>
-      </nav>
-      <Box component="main" sx={{ p: 3 }}>
-        <Toolbar />
-      </Box>
-    </Box>
-  );
+                    </Box>
+                </Toolbar>
+            </AppBar>
+            <nav>
+                <SwipeableDrawer
+                    open={drawerState}
+                    onClose={handleDrawerToggle}
+                    onOpen={handleDrawerToggle}
+                    SlideProps={{
+                        direction: 'left',
+                    }}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                >
+                    {drawer}
+                </SwipeableDrawer>
+            </nav>
+            <Box component="main" sx={{ p: 3 }}>
+                <Toolbar />
+            </Box>
+        </Box>
+    );
 }
-
-DrawerAppBar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
 export default DrawerAppBar;
