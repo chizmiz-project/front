@@ -3,23 +3,18 @@ import { Box, Grid2 } from "@mui/material";
 
 const sampleAd = {
     id: '1',
-    title: 'پژو 206 تیپ 5، مدل 1397',
-    price: 517000000,
+    title: 'پژو ۲۰۶ تیپ ۵ مدل ۱۳۹۷',
+    price: '۵۷۰,۰۰۰,۰۰۰',
     imageUrl: 'https://mdn.github.io/shared-assets/images/examples/balloon.jpg',
     createdAt: "۲ روز پیش",
     condition: 'used'
 };
 
 export default function Grid2Layout() {
-    return <Grid2 container spacing={2}>
-        <Grid2>
+    return <Grid2 container spacing={1.2}>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(element =>
             <AdCard ad={sampleAd}></AdCard>
-        </Grid2>
-        <Grid2>
-            <AdCard ad={sampleAd}></AdCard>
-        </Grid2>
-        <Grid2>
-            <AdCard ad={sampleAd}></AdCard>
-        </Grid2>
+        )
+        }
     </Grid2>
 }
