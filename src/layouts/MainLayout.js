@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import DrawerAppBar from './Appbar';
 
 export default function MainLayout(props) {
 
@@ -21,7 +22,9 @@ export default function MainLayout(props) {
     };
 
     return <div>
-        <SwipeableDrawer
+
+        <DrawerAppBar></DrawerAppBar>
+        {/* <SwipeableDrawer
             open={state}
             onClose={toggleDrawer}
             onOpen={toggleDrawer}
@@ -55,7 +58,7 @@ export default function MainLayout(props) {
                     }}
                 />
             </Toolbar>
-        </AppBar>
+        </AppBar> */}
 
         <Box>
             {props.children}
