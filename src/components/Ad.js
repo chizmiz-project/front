@@ -27,7 +27,7 @@ export function AdCard({ ad }) {
             </CardContent>
             <CardMedia
                 component="img"
-                image={ad.imageUrl}
+                image={ad.image}
                 alt={ad.title}
                 sx={{ maxWidth: '130px', aspectRatio: '1', objectFit: 'cover' }}
             />
