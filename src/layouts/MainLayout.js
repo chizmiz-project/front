@@ -12,6 +12,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import DrawerAppBar from './Appbar';
+import Container from '@mui/material/Container';
 
 export default function MainLayout(props) {
 
@@ -21,8 +22,7 @@ export default function MainLayout(props) {
         setState((state) => !state);
     };
 
-    return <div>
-
+    return <Container>
         <DrawerAppBar></DrawerAppBar>
         {/* <SwipeableDrawer
             open={state}
@@ -63,5 +63,6 @@ export default function MainLayout(props) {
         <Box>
             {props.children}
         </Box>
-    </div>
+        </Container>
+
 }
