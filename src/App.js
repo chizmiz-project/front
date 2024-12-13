@@ -8,6 +8,7 @@ import MainLayout from './layouts/MainLayout';
 import GridLayout from './layouts/GridLayout';
 import { blueGrey } from '@mui/material/colors';
 import CategoryGrid from './components/CategoryGrid'
+import ChatView from './layouts/ChatView';
 
 const borderColor = blueGrey[50]
 const border = `1px solid ${borderColor}`
@@ -71,10 +72,11 @@ function App() {
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
-        <MainLayout>
+        <ChatView></ChatView>
+        {/* <MainLayout>
           <CategoryGrid></CategoryGrid>
           <GridLayout></GridLayout>
-        </MainLayout>
+        </MainLayout> */}
     </ThemeProvider>
     </CacheProvider>
   );
