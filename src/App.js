@@ -10,14 +10,19 @@ import { blueGrey } from '@mui/material/colors';
 
 const borderColor = blueGrey[50]
 const border = `1px solid ${borderColor}`
+const borderRadius = '0.5rem'
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'Vazirmatn'
+    fontFamily: 'Vazirmatn',
+    h3: {
+      fontSize: '1rem',
+      fontWeight: 500
+    }
   },
   direction: 'rtl',
   shape: {
-    borderRadius: '.5rem'
+    borderRadius: borderRadius
   },
   components: {
     MuiAppBar: {
@@ -25,6 +30,22 @@ const theme = createTheme({
         root: {
           backgroundColor: 'white',
           borderBottom: border
+        }
+      }
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none',
+          border: border,
+          borderRadius: borderRadius,
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          padding: '.5rem'
         }
       }
     }
