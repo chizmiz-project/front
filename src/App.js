@@ -11,6 +11,7 @@ import { blueGrey } from '@mui/material/colors';
 const borderColor = blueGrey[50]
 const border = `1px solid ${borderColor}`
 const borderRadius = '0.5rem'
+const large_borderRadius = '0.8rem'
 
 const theme = createTheme({
   typography: {
@@ -38,9 +39,16 @@ const theme = createTheme({
         root: {
           boxShadow: 'none',
           border: border,
-          borderRadius: borderRadius,
+          borderRadius: large_borderRadius,
         },
       },
+    },
+    MuiCardMedia: {
+      styleOverrides: {
+        root: {
+          borderRadius: borderRadius
+        }
+      }
     },
     MuiCardContent: {
       styleOverrides: {
