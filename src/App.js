@@ -1,14 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
 import { createTheme } from '@mui/material/styles';
 import { CacheProvider, ThemeProvider } from '@emotion/react';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import createCache from '@emotion/cache';
-import { TextField } from '@mui/material';
+import MainLayout from './layouts/MainLayout';
+import GridLayout from './layouts/GridLayout';
+import { blueGrey } from '@mui/material/colors';
+
+const borderColor = blueGrey[50]
+const border = `1px solid ${borderColor}`
+const borderRadius = '0.5rem'
 
 const theme = createTheme({
+  typography: {
+    fontFamily: 'Vazirmatn',
+    h3: {
+      fontSize: '1rem',
+      fontWeight: 500
+    }
+  },
   direction: 'rtl',
+  shape: {
+    borderRadius: borderRadius
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'white',
+          borderBottom: border
+        }
+      }
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none',
+          border: border,
+          borderRadius: borderRadius,
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          padding: '.5rem'
+        }
+      }
+    }
+  }
 });
 
 const cacheRtl = createCache({
@@ -21,12 +62,9 @@ function App() {
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
-      <TextField
-        label="ملصق"
-        placeholder="العنصر النائب"
-        helperText="هذا نص مساعد"
-        variant="outlined"
-      />
+        <MainLayout>
+          <GridLayout></GridLayout>
+        </MainLayout>
     </ThemeProvider>
     </CacheProvider>
   );
