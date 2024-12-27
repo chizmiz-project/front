@@ -1,41 +1,28 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-export default function AdItem({ title, price, time, imageUrl }) {
+export default function AdItem({ ad }) {
+
   return (
-    <Paper 
-      elevation={0} 
-      style={{ 
-        padding: '16px',
-        display: 'flex',
-        gap: '16px',
-        backgroundColor: 'white',
-        borderRadius: '8px'
-      }}
-    >
-      <Box
-        component="img"
-        src={imageUrl}
-        alt={title}
-        style={{
-          width: '100px',
-          height: '100px',
-          borderRadius: '4px',
-          objectFit: 'cover',
-          backgroundColor: 'grey'
-        }}
+    <Card elevation={0} sx={{
+      maxHeight: '130px',
+      display: 'flex',
+      padding: '0.5rem',
+      justifyContent: 'space-between'
+  }}>
+      <CardContent>
+          <Typography variant="h3" component="h3" noWrap>
+              {ad.title}
+          </Typography>
+          <Typography mt={2}>{ad.price} تومان</Typography>
+          <Typography variant='caption' >{ad.createdAt}</Typography>
+      </CardContent>
+
+      <CardMedia
+          component="img"
+          image={ad.image}
+          alt={ad.title}
+          sx={{ width: '130px', aspectRatio: 1, objectFit: 'cover' }}
       />
-      <Box style={{ flex: 1 }}>
-        <Typography variant="subtitle1" gutterBottom>
-          {title}
-        </Typography>
-        <Typography variant="body1" style={{ color: 'black' }}>
-          {price} تومان
-        </Typography>
-        <Typography variant="body2" style={{ color: 'grey' }}>
-          {time} ساعت پیش در صادقیه
-        </Typography>
-      </Box>
-    </Paper>
-  );
+  </Card>)
 }
 
