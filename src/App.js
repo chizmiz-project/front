@@ -4,11 +4,11 @@ import { CacheProvider, ThemeProvider } from '@emotion/react';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import createCache from '@emotion/cache';
-import MainLayout from './layouts/MainLayout';
-import GridLayout from './layouts/GridLayout';
 import { blueGrey } from '@mui/material/colors';
-import CategoryGrid from './components/CategoryGrid'
-import ChatView from './layouts/ChatView';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import SettingsPage from './layouts/settingPage'
+// import RecentViews from './recent-views'
+
 
 const borderColor = blueGrey[50]
 const border = `1px solid ${borderColor}`
@@ -25,7 +25,8 @@ const theme = createTheme({
   },
   direction: 'rtl',
   shape: {
-    borderRadius: borderRadius
+    borderRadius: borderRadius,
+    border: border
   },
   components: {
     MuiAppBar: {
@@ -72,12 +73,16 @@ function App() {
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
-        <ChatView></ChatView>
-        {/* <MainLayout>
-          <CategoryGrid></CategoryGrid>
-          <GridLayout></GridLayout>
-        </MainLayout> */}
-    </ThemeProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/account/edit" element={<SettingsPage />} />
+            <Route path="/saved-ads" element={<SettingsPage />} />
+            <Route path="/" element={<SettingsPage/>} />
+            {/* <Route path="/recent-views" element={<RecentViews />} /> */}
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </CacheProvider>
   );
 }
