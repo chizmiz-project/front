@@ -16,6 +16,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) 
           onClick={onLogin} 
           variant="outlined" 
           fullWidth
+          size='large'
         >
           ورود به حساب کاربری
         </Button>
@@ -43,6 +44,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) 
       <Button 
         onClick={onLogout} 
         variant="outlined" 
+        size='large'
         fullWidth
       >
         خروج از حساب کاربری

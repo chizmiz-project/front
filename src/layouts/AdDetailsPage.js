@@ -38,7 +38,7 @@ export default function AdDetailsPage() {
     <Box style={{ minHeight: '100vh', backgroundColor: 'grey.50' }}>
       <AppBar variant="category" title="آگهی" />
       
-      <Container maxWidth="sm" style={{ paddingBottom: '16px' }}>
+      <Container style={{ paddingTop: '1rem', paddingBottom: '16px' }}>
         <ImageSlider images={mockAd.images} />
         
         <Box style={{ padding: '16px' }}>
@@ -75,6 +75,7 @@ export default function AdDetailsPage() {
           <Button
             variant="outlined"
             fullWidth
+            size='large'
             onClick={() => setIsReportDialogOpen(true)}
           >
             گزارش آگهی
