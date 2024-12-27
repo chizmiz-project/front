@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export function CategoryItem({ title, value }) {
   const navigate = useNavigate();
 
+  value = ''
   return (
     <Paper
       elevation={0}
