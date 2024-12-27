@@ -8,7 +8,7 @@ export function AppBar({ variant = "main", title }) {
   return (
     <MuiAppBar position="sticky" color="default" elevation={0}>
       <Toolbar sx={{ gap: 1 }}>
-      {variant === 'main' ? (
+      {variant === 'main' || variant === 'category' ? (
           <IconButton edge="start" onClick={() => navigate('/settings')}>
             <MoreVert />
           </IconButton>
