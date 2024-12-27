@@ -16,7 +16,7 @@ export default function SettingsPage() {
 
   return (
       <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-        <AppBar title="تنظیمات" />
+        <AppBar variant="simple" title="تنظیمات" />
         
         <UserAccountSection
           isLoggedIn={isLoggedIn}
