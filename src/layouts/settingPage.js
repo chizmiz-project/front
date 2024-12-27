@@ -28,7 +28,7 @@ export default function SettingsPage() {
           onLogout={handleLogout}
         />
 
-        <SettingsGroup title="تنظیمات بیشتر">
+        <SettingsGroup title="آگهی‌ها">
           <SettingsItem
             type="navigation"
             label="آگهی‌های ذخیره‌شده"
