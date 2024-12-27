@@ -1,6 +1,6 @@
 import { Box, Paper, Typography } from '@mui/material';
 
-function AdItem({ title, price, time, imageUrl }) {
+export default function AdItem({ title, price, time, imageUrl }) {
   return (
     <Paper 
       elevation={0} 
