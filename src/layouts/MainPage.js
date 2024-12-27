@@ -30,7 +30,7 @@ const ads = [
     price: '۵۷,۰۰۰,۰۰۰',
     time: '۳',
     imageUrl: '/placeholder.svg?height=100&width=100'
-  },
+  }
 ]
 
 export default function MainPage() {
