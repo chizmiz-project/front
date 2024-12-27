@@ -1,4 +1,5 @@
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export default function AdItem({ ad }) {
 
@@ -8,7 +9,9 @@ export default function AdItem({ ad }) {
       display: 'flex',
       padding: '0.5rem',
       justifyContent: 'space-between'
-  }}>
+  }}
+  component={Link} to="/ad/details"
+  >
       <CardContent>
           <Typography variant="h3" component="h3" noWrap>
               {ad.title}
