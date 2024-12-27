@@ -2,6 +2,7 @@ import { Box, Container, Grid } from '@mui/material'
 import { AppBar } from '../components/AppBar'
 import AdItem from '../components/advertisement/AdItem'
 import { CategoryItem } from '../components/CategoryItem'
+import ads from '../resources/ads.json'
 
 const categories = [
   { title: 'املاک', value: 'real-estate' },
@@ -12,26 +13,7 @@ const categories = [
   { title: 'املاک', value: 'real-estate' },
 ]
 
-const ads = [
-  {
-    title: 'پژو پارس ۹۸ عروسک',
-    price: '۵۷,۰۰۰,۰۰۰',
-    time: '۳',
-    imageUrl: '/placeholder.svg?height=100&width=100'
-  },
-  {
-    title: 'پژو پارس ۹۸ عروسک',
-    price: '۵۷,۰۰۰,۰۰۰',
-    time: '۳',
-    imageUrl: '/placeholder.svg?height=100&width=100'
-  },
-  {
-    title: 'پژو پارس ۹۸ عروسک',
-    price: '۵۷,۰۰۰,۰۰۰',
-    time: '۳',
-    imageUrl: '/placeholder.svg?height=100&width=100'
-  }
-]
+console.log(ads);
 
 export default function MainPage() {
   return (
@@ -47,9 +29,9 @@ export default function MainPage() {
           ))}
         </Grid>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
           {ads.map((ad, index) => (
-            <AdItem key={index} {...ad} />
+            <AdItem key={index} ad={ad} />
           ))}
         </Box>
       </Container>
