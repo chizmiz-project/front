@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Box } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import { UserAccountSection } from "../components/setting/userAccountSection"
 import { SettingsGroup } from "../components/setting/settingGroup"
 import { SettingsItem } from "../components/setting/settingItem"
@@ -15,9 +15,10 @@ export default function SettingsPage() {
   const handleLogout = () => setIsLoggedIn(false)
 
   return (
+
       <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
         <AppBar variant="simple" title="تنظیمات" />
-        
+        <Container sx={{ py: 2 }}>
         <UserAccountSection
           isLoggedIn={isLoggedIn}
           userData={{
@@ -65,6 +66,7 @@ export default function SettingsPage() {
             onCheckedChange={setNewPurchase}
           />
         </SettingsGroup>
+        </Container>
       </Box>
   )
 }
