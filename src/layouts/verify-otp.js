@@ -1,79 +1,87 @@
-// import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { TextField, Button, Typography, Box, Container } from '@mui/material';
-// import { authService } from '../services/api';
-// import { AppBar } from '../components/AppBar';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { TextField, Button, Typography, Box, Container } from '@mui/material';
+import ApiService from '../services/api';
+import { AppBar } from '../components/AppBar';
 
-// export default function VerifyOTPPage() {
-//   const navigate = useNavigate();
-//   const [otp, setOtp] = useState('');
-//   const [error, setError] = useState('');
+export default function VerifyOTPPage() {
+  const { state } = useLocation();
+  console.log(state)
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setError('');
+  const navigate = useNavigate();
+  const [otp, setOtp] = useState('');
+  const [error, setError] = useState('');
 
-//     try {
-//       await authService.verifyOTP(otp);
-//       navigate('/');  // Navigate to home after successful verification
-//     } catch (err) {
-//       setError('کد وارد شده صحیح نیست');
-//     }
-//   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
 
-//   const handleCancel = () => {
-//     navigate('/login');
-//   };
+    let data = {
+        "username": state.username,
+        "otp": otp
+    }
+    const response = await ApiService.post('/account/verify-otp/', data)
+    console.log(response)
+    if (response.isNotFound || response.isBadRequest)
+        setError('کد وارد شده صحیح نیست');
+    else {
+        navigate('/')
+    }
+  };
 
-//   return (
-//     <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
-//       <AppBar variant="main" />
+  const handleCancel = () => {
+    navigate('/login');
+  };
 
-//       <Container sx={{ py: 2 }}>
-//       <Box sx={{ textAlign: 'center', mb: 3 }}>
-//         <Typography variant="body1">
-//           کد ورود را وارد کنید
-//         </Typography>
-//         <Typography variant="body2" color="text.secondary">
-//           کد ارسال‌شده به ایمیلتان را وارد کنید
-//         </Typography>
-//       </Box>
+  return (
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
+      <AppBar variant="main" />
 
-//       <form onSubmit={handleSubmit}>
-//         <TextField
-//           fullWidth
-//           label="کد ورود"
-//           variant="outlined"
-//           value={otp}
-//           onChange={(e) => setOtp(e.target.value)}
-//           required
-//         />
+      <Container sx={{ py: 2 }}>
+      <Box sx={{ textAlign: 'center', mb: 3 }}>
+        <Typography variant="body1">
+          کد ورود را وارد کنید
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          کد ارسال‌شده به ایمیلتان را وارد کنید
+        </Typography>
+      </Box>
 
-//         {error && (
-//           <Typography color="error" sx={{ mt: 2 }}>
-//             {error}
-//           </Typography>
-//         )}
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="کد ورود"
+          variant="outlined"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          required
+        />
 
-//         <Button
-//           type="submit"
-//           fullWidth
-//           variant="contained"
-//           sx={{ mt: 3 }}
-//         >
-//           ورود
-//         </Button>
+        {error && (
+          <Typography color="error" sx={{ mt: 2 }}>
+            {error}
+          </Typography>
+        )}
 
-//         <Button
-//           fullWidth
-//           variant="text"
-//           onClick={handleCancel}
-//           sx={{ mt: 1 }}
-//         >
-//           انصراف
-//         </Button>
-//       </form>
-//       </Container>
-//     </Box>
-//   );
-// }
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3 }}
+        >
+          ورود
+        </Button>
+
+        <Button
+          fullWidth
+          variant="text"
+          onClick={handleCancel}
+          sx={{ mt: 1 }}
+        >
+          انصراف
+        </Button>
+      </form>
+      </Container>
+    </Box>
+  );
+}
