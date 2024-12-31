@@ -9,12 +9,14 @@ import Theme from './theme.js'
 import MainPage from './layouts/MainPage.js';
 import CategoryPage from './layouts/CategoryMainPage.js';
 import AdDetailsPage from './layouts/AdDetailsPage.js';
+import LoginPage from './layouts/Login.js';
+import SignupPage from './layouts/Signup.js';
+import VerifyOTPPage from './layouts/verify-otp.js';
 
 const cacheRtl = createCache({
   key: 'muirtl',
   stylisPlugins: [prefixer, rtlPlugin],
 });
-
 
 function App() {
   return (
@@ -25,8 +27,10 @@ function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/ad/details" element={<AdDetailsPage />} />
             <Route path="/category/" element={<CategoryPage />} />
-            <Route path="/" element={<MainPage/>} />
-            {/* <Route path="/recent-views" element={<RecentViews />} /> */}
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/verify-otp" element={<VerifyOTPPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
