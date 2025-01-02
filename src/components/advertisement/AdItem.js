@@ -1,8 +1,9 @@
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import timeAgo from '../../services/calender';
 
 export default function AdItem({ ad }) {
-
+    console.log(ad)
     return (
         <Card elevation={0} sx={{
             maxHeight: '130px',
@@ -16,7 +17,7 @@ export default function AdItem({ ad }) {
                     {ad.title}
                 </Typography>
                 <Typography mt={2}>{ad.price} تومان</Typography>
-                <Typography variant='caption' >{ad.createdAt}</Typography>
+                <Typography variant='caption' >{timeAgo(ad.created_at)}</Typography>
             </CardContent>
 
             <CardMedia
