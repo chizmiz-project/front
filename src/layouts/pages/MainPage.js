@@ -1,9 +1,9 @@
-import { Box, Container, Grid } from '@mui/material'
-import AdItem from '../components/advertisement/AdItem'
-import { CategoryItem } from '../components/CategoryItem'
+import { Box, Grid } from '@mui/material'
+import AdItem from '../../components/advertisement/AdItem'
+import { CategoryItem } from '../../components/CategoryItem'
 import { useEffect, useState } from 'react'
-import ApiService from '../services/api'
-import AppLayout from './AppLayout'
+import ApiService from '../../services/api'
+import AppLayout from '../AppLayout'
 
 const categories = [
   { title: 'املاک', value: 'real-estate' },

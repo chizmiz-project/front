@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { TextField, Button, Typography, Box, Container } from '@mui/material';
-import ApiService from '../services/api';
-import AppLayout from './AppLayout';
+import { TextField, Button, Typography, Box } from '@mui/material';
+import ApiService from '../../services/api';
+import AppLayout from '../AppLayout';
 
 export default function VerifyOTPPage() {
   const { state } = useLocation();

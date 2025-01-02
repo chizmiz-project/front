@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Typography, Button, List, ListItem, ListItemText, Divider } from '@mui/material';
-import { ImageSlider } from '../components/ImageSlider';
-import ReportDialog from '../components/ReportDialog';
-import ApiService from '../services/api';
-import timeAgo from '../services/calender';
-import AppLayout from './AppLayout';
+import { ImageSlider } from '../../components/ImageSlider';
+import ReportDialog from '../../components/ReportDialog';
+import ApiService from '../../services/api';
+import timeAgo from '../../services/calender';
+import AppLayout from '../AppLayout';
 
 export default function AdDetailsPage() {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);

@@ -6,8 +6,8 @@ import {
     Typography,
     Box,
 } from '@mui/material';
-import ApiService from '../services/api';
-import AppLayout from './AppLayout';
+import ApiService from '../../services/api';
+import AppLayout from '../AppLayout';
 
 export default function LoginPage() {
     const navigate = useNavigate();

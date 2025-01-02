@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   TextField,
   Button,
   Typography,
-  Box,
-  Container
+  Box
 } from '@mui/material';
-import ApiService, { fetchData } from '../services/api';
-import AppLayout from './AppLayout';
+import ApiService from '../../services/api';
+import AppLayout from '../AppLayout';
 
 export default function SignupPage() {
   const navigate = useNavigate();

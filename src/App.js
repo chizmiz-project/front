@@ -4,14 +4,14 @@ import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import createCache from '@emotion/cache';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import SettingsPage from './layouts/settingPage'
 import Theme from './theme.js'
-import MainPage from './layouts/MainPage.js';
-import CategoryPage from './layouts/CategoryMainPage.js';
-import AdDetailsPage from './layouts/AdDetailsPage.js';
-import LoginPage from './layouts/Login.js';
-import SignupPage from './layouts/Signup.js';
-import VerifyOTPPage from './layouts/verify-otp.js';
+import MainPage from './layouts/pages/MainPage.js';
+import CategoryPage from './layouts/pages/CategoryMainPage.js';
+import AdDetailsPage from './layouts/pages/AdDetailsPage.js';
+import LoginPage from './layouts/pages/Login.js';
+import SignupPage from './layouts/pages/Signup.js';
+import VerifyOTPPage from './layouts/pages/verify-otp.js';
+import SettingsPage from './layouts/pages/settingPage.js';
 
 const cacheRtl = createCache({
   key: 'muirtl',
@@ -26,7 +26,7 @@ function App() {
           <Routes>
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/ad/details/:id" element={<AdDetailsPage />} />
-            <Route path="/category/" element={<CategoryPage />} />
+            <Route path="/category/:id" element={<CategoryPage />} />
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />

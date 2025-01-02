@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { UserAccountSection } from "../components/setting/userAccountSection"
-import { SettingsGroup } from "../components/setting/settingGroup"
-import { SettingsItem } from "../components/setting/settingItem"
-import AppLayout from "./AppLayout"
+import { UserAccountSection } from "../../components/setting/userAccountSection"
+import { SettingsGroup } from "../../components/setting/settingGroup"
+import { SettingsItem } from "../../components/setting/settingItem"
+import AppLayout from "../AppLayout"
 
 export default function SettingsPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
