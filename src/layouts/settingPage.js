@@ -1,9 +1,8 @@
 import { useState } from "react"
-import { Box, Container } from '@mui/material'
 import { UserAccountSection } from "../components/setting/userAccountSection"
 import { SettingsGroup } from "../components/setting/settingGroup"
 import { SettingsItem } from "../components/setting/settingItem"
-import { AppBar } from "../components/AppBar"
+import AppLayout from "./AppLayout"
 
 export default function SettingsPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -15,59 +14,55 @@ export default function SettingsPage() {
   const handleLogout = () => setIsLoggedIn(false)
 
   return (
+    <AppLayout variant="simple" title="تنظیمات">
+      <UserAccountSection
+        isLoggedIn={isLoggedIn}
+        userData={{
+          name: "سجاد سلطانیان",
+          phone: "۹۸۵ ۷۷۲ ۷۸۲۷"
+        }}
+        onLogin={handleLogin}
+        onLogout={handleLogout}
+      />
 
-      <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-        <AppBar variant="simple" title="تنظیمات" />
-        <Container sx={{ py: 2 }}>
-        <UserAccountSection
-          isLoggedIn={isLoggedIn}
-          userData={{
-            name: "سجاد سلطانیان",
-            phone: "۹۸۵ ۷۷۲ ۷۸۲۷"
-          }}
-          onLogin={handleLogin}
-          onLogout={handleLogout}
+      <SettingsGroup title="آگهی‌ها">
+        <SettingsItem
+          type="navigation"
+          label="آگهی‌های ذخیره‌شده"
+          to="/saved-ads"
         />
-
-        <SettingsGroup title="آگهی‌ها">
-          <SettingsItem
-            type="navigation"
-            label="آگهی‌های ذخیره‌شده"
-            to="/saved-ads"
-          />
-          <SettingsItem
-            type="navigation"
-            label="آگهی‌های من"
-            to="/my-ads"
-          />
-          <SettingsItem
-            type="navigation"
-            label="بازدیدهای اخیر"
-            to="/recent-views"
-          />
-        </SettingsGroup>
-        <SettingsGroup title="خیلی بیشتر">
-          <SettingsItem
-            type="switch"
-            label="حالت شب"
-            checked={darkMode}
-            onCheckedChange={setDarkMode}
-          />
-          <SettingsItem
-            type="checkbox"
-            label="ری‌اکشن دادن"
-            checked={notifications}
-            onCheckedChange={setNotifications}
-          />
-          <SettingsItem
-            type="switch"
-            label="خریدار جدید"
-            checked={newPurchase}
-            onCheckedChange={setNewPurchase}
-          />
-        </SettingsGroup>
-        </Container>
-      </Box>
+        <SettingsItem
+          type="navigation"
+          label="آگهی‌های من"
+          to="/my-ads"
+        />
+        <SettingsItem
+          type="navigation"
+          label="بازدیدهای اخیر"
+          to="/recent-views"
+        />
+      </SettingsGroup>
+      <SettingsGroup title="خیلی بیشتر">
+        <SettingsItem
+          type="switch"
+          label="حالت شب"
+          checked={darkMode}
+          onCheckedChange={setDarkMode}
+        />
+        <SettingsItem
+          type="checkbox"
+          label="ری‌اکشن دادن"
+          checked={notifications}
+          onCheckedChange={setNotifications}
+        />
+        <SettingsItem
+          type="switch"
+          label="خریدار جدید"
+          checked={newPurchase}
+          onCheckedChange={setNewPurchase}
+        />
+      </SettingsGroup>
+    </AppLayout>
   )
 }
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { TextField, Button, Typography, Box, Container } from '@mui/material';
 import ApiService from '../services/api';
-import { AppBar } from '../components/AppBar';
+import AppLayout from './AppLayout';
 
 export default function VerifyOTPPage() {
   const { state } = useLocation();
@@ -17,15 +17,15 @@ export default function VerifyOTPPage() {
     setError('');
 
     let data = {
-        "username": state.username,
-        "otp": otp
+      "username": state.username,
+      "otp": otp
     }
     const response = await ApiService.post('/account/verify-otp/', data)
     console.log(response)
     if (response.isNotFound || response.isBadRequest)
-        setError('کد وارد شده صحیح نیست');
+      setError('کد وارد شده صحیح نیست');
     else {
-        navigate('/')
+      navigate('/')
     }
   };
 
@@ -34,10 +34,7 @@ export default function VerifyOTPPage() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
-      <AppBar variant="main" />
-
-      <Container sx={{ py: 2 }}>
+    <AppLayout variant='simple' title='اعتبار‌سنجی'>
       <Box sx={{ textAlign: 'center', mb: 3 }}>
         <Typography variant="body1">
           کد ورود را وارد کنید
@@ -81,7 +78,6 @@ export default function VerifyOTPPage() {
           انصراف
         </Button>
       </form>
-      </Container>
-    </Box>
+    </AppLayout>
   );
 }

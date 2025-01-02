@@ -8,7 +8,7 @@ import {
   Container
 } from '@mui/material';
 import ApiService, { fetchData } from '../services/api';
-import { AppBar } from '../components/AppBar';
+import AppLayout from './AppLayout';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -35,8 +35,14 @@ export default function SignupPage() {
     let data = {
       "username": formData.username,
       "email": formData.email,
-      "password": formData.password
+      "password": formData.password,
+      "account": {
+        "phone_number": formData.phone_number,
+        "bio": formData.bio,
+        "address": formData.address
+      }
     }
+
     const response = await ApiService.post('/account/signup/', data)
 
     if (response.isBadRequest)
@@ -59,89 +65,85 @@ export default function SignupPage() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
-      <AppBar variant="main" />
+    <AppLayout variant='simple' title='ثبت‌نام'>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="نام کاربری"
+          variant="outlined"
+          margin="normal"
+          value={formData.username}
+          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+        // required
+        />
 
-      <Container sx={{ py: 2 }}>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="نام کاربری"
-            variant="outlined"
-            margin="normal"
-            value={formData.username}
-            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-          // required
-          />
+        <TextField
+          fullWidth
+          label="ایمیل"
+          type="email"
+          variant="outlined"
+          margin="normal"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+        // required
+        />
 
-          <TextField
-            fullWidth
-            label="ایمیل"
-            type="email"
-            variant="outlined"
-            margin="normal"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          // required
-          />
+        <TextField
+          fullWidth
+          label="شماره تلفن"
+          variant="outlined"
+          margin="normal"
+          value={formData.phone_number}
+          onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
+        // required
+        />
 
-          <TextField
-            fullWidth
-            label="شماره تلفن"
-            variant="outlined"
-            margin="normal"
-            value={formData.phone_number}
-            onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
-          // required
-          />
+        <TextField
+          fullWidth
+          label="رمز عبور"
+          type="password"
+          variant="outlined"
+          margin="normal"
+          value={formData.password}
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+        // required
+        />
 
-          <TextField
-            fullWidth
-            label="رمز عبور"
-            type="password"
-            variant="outlined"
-            margin="normal"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-          // required
-          />
+        <TextField
+          fullWidth
+          label="تکرار رمز عبور"
+          type="password"
+          variant="outlined"
+          margin="normal"
+          value={formData.confirmPassword}
+          onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+        // required
+        />
 
-          <TextField
-            fullWidth
-            label="تکرار رمز عبور"
-            type="password"
-            variant="outlined"
-            margin="normal"
-            value={formData.confirmPassword}
-            onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-          // required
-          />
+        {error && (
+          <Typography color="error" sx={{ mt: 2 }}>
+            {error}
+          </Typography>
+        )}
 
-          {error && (
-            <Typography color="error" sx={{ mt: 2 }}>
-              {error}
-            </Typography>
-          )}
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          ثبت‌نام
+        </Button>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            ثبت‌نام
-          </Button>
-
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="body2">
-              حساب کاربری دارید؟{' '}
-              <Link to="/login" style={{ color: 'primary.main', textDecoration: 'none' }}>
-                وارد شوید
-              </Link>
-            </Typography>
-          </Box>
-        </form>
-      </Container>
-    </Box>
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography variant="body2">
+            حساب کاربری دارید؟{' '}
+            <Link to="/login" style={{ color: 'primary.main', textDecoration: 'none' }}>
+              وارد شوید
+            </Link>
+          </Typography>
+        </Box>
+      </form>
+    </AppLayout>
   );
 }

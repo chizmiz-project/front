@@ -5,10 +5,9 @@ import {
     Button,
     Typography,
     Box,
-    Container
 } from '@mui/material';
-import ApiService, { authService } from '../services/api';
-import { AppBar } from '../components/AppBar';
+import ApiService from '../services/api';
+import AppLayout from './AppLayout';
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -31,67 +30,63 @@ export default function LoginPage() {
         if (response.isSuccess) {
             navigate('/verify-otp', {
                 state: {
-                  username: formData.username,
-                  password: formData.password
+                    username: formData.username,
+                    password: formData.password
                 }
-              })
+            })
         } else {
             alert('login failed')
         }
     };
 
     return (
-        <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
-            <AppBar variant="main" />
+        <AppLayout variant='simple' title='ورود'>
+            <form onSubmit={handleSubmit}>
+                <TextField
+                    fullWidth
+                    label="نام کاربری"
+                    variant="outlined"
+                    margin="normal"
+                    value={formData.username}
+                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                    required
+                />
 
-            <Container sx={{ py: 2 }}>
-                <form onSubmit={handleSubmit}>
-                    <TextField
-                        fullWidth
-                        label="نام کاربری"
-                        variant="outlined"
-                        margin="normal"
-                        value={formData.username}
-                        onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                        required
-                    />
+                <TextField
+                    fullWidth
+                    label="رمز عبور"
+                    type="password"
+                    variant="outlined"
+                    margin="normal"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    required
+                />
 
-                    <TextField
-                        fullWidth
-                        label="رمز عبور"
-                        type="password"
-                        variant="outlined"
-                        margin="normal"
-                        value={formData.password}
-                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        required
-                    />
+                {error && (
+                    <Typography color="error" sx={{ mt: 2 }}>
+                        {error}
+                    </Typography>
+                )}
 
-                    {error && (
-                        <Typography color="error" sx={{ mt: 2 }}>
-                            {error}
-                        </Typography>
-                    )}
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                >
+                    ورود
+                </Button>
 
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                    >
-                        ورود
-                    </Button>
-
-                    <Box sx={{ textAlign: 'center' }}>
-                        <Typography variant="body2">
-                            حساب کاربری ندارید؟{' '}
-                            <Link to="/signup" style={{ color: 'primary.main', textDecoration: 'none' }}>
-                                ثبت‌نام کنید
-                            </Link>
-                        </Typography>
-                    </Box>
-                </form>
-            </Container>
-        </Box>
+                <Box sx={{ textAlign: 'center' }}>
+                    <Typography variant="body2">
+                        حساب کاربری ندارید؟{' '}
+                        <Link to="/signup" style={{ color: 'primary.main', textDecoration: 'none' }}>
+                            ثبت‌نام کنید
+                        </Link>
+                    </Typography>
+                </Box>
+            </form>
+        </AppLayout>
     );
 }
