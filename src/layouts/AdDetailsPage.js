@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Typography, Button, List, ListItem, ListItemText, Divider } from '@mui/material';
-import { AppBar } from '../components/AppBar';
 import { ImageSlider } from '../components/ImageSlider';
 import ReportDialog from '../components/ReportDialog';
 import ApiService from '../services/api';
@@ -49,7 +48,7 @@ export default function AdDetailsPage() {
   };
 
   return (
-    <AppLayout>
+    <AppLayout title={adDetails.title}>
       <Container style={{ paddingTop: '1rem', paddingBottom: '16px' }}>
         <ImageSlider images={adDetails.images} />
 

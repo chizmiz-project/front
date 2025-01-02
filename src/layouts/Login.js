@@ -40,7 +40,7 @@ export default function LoginPage() {
     };
 
     return (
-        <AppLayout variant='simple' title='ورود'>
+        <AppLayout title='ورود'>
             <form onSubmit={handleSubmit}>
                 <TextField
                     fullWidth

@@ -34,7 +34,7 @@ export default function VerifyOTPPage() {
   };
 
   return (
-    <AppLayout variant='simple' title='اعتبار‌سنجی'>
+    <AppLayout title='اعتبار‌سنجی'>
       <Box sx={{ textAlign: 'center', mb: 3 }}>
         <Typography variant="body1">
           کد ورود را وارد کنید

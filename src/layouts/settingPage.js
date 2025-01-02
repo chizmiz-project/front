@@ -14,7 +14,7 @@ export default function SettingsPage() {
   const handleLogout = () => setIsLoggedIn(false)
 
   return (
-    <AppLayout variant="simple" title="تنظیمات">
+    <AppLayout title="تنظیمات">
       <UserAccountSection
         isLoggedIn={isLoggedIn}
         userData={{

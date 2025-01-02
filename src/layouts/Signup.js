@@ -65,7 +65,7 @@ export default function SignupPage() {
   };
 
   return (
-    <AppLayout variant='simple' title='ثبت‌نام'>
+    <AppLayout title='ثبت‌نام'>
       <form onSubmit={handleSubmit}>
         <TextField
           fullWidth

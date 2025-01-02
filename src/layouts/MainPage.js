@@ -1,5 +1,4 @@
 import { Box, Container, Grid } from '@mui/material'
-import { AppBar } from '../components/AppBar'
 import AdItem from '../components/advertisement/AdItem'
 import { CategoryItem } from '../components/CategoryItem'
 import { useEffect, useState } from 'react'
@@ -34,7 +33,7 @@ export default function MainPage() {
   }, []);
 
   return (
-    <AppLayout>
+    <AppLayout variant='search' hasNavigate={false}>
       <Grid container spacing={2} sx={{ mb: 3 }}>
         {categories.map((category, index) => (
           <Grid item xs={4} key={index}>
