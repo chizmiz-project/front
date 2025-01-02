@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import timeAgo from '../../services/calender';
 
 export default function AdItem({ ad }) {
-    console.log(ad)
     return (
         <Card elevation={0} sx={{
             maxHeight: '130px',
