@@ -14,7 +14,6 @@ const categories = [
   { title: 'املاک', value: 'real-estate' },
 ]
 
-
 export default function MainPage() {
 
   const [ads, setAds] = useState([])
@@ -32,7 +31,6 @@ export default function MainPage() {
 
       fetchAds();
     }, []);
-
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
