@@ -2,7 +2,8 @@ import { Box, Container, Grid } from '@mui/material'
 import { AppBar } from '../components/AppBar'
 import AdItem from '../components/advertisement/AdItem'
 import { CategoryItem } from '../components/CategoryItem'
-import ads from '../resources/ads.json'
+import { useEffect, useState } from 'react'
+import ApiService from '../services/api'
 
 const categories = [
   { title: 'املاک', value: 'real-estate' },
@@ -13,9 +14,26 @@ const categories = [
   { title: 'املاک', value: 'real-estate' },
 ]
 
-console.log(ads);
 
 export default function MainPage() {
+
+  const [ads, setAds] = useState([])
+
+  useEffect(() => {
+      const fetchAds = async () => {
+              const response = await ApiService.get('/advertisement/');
+              if (response.isSuccess) {
+                  console.log(response.data);
+                  setAds(response.data);
+              } else {
+                  console.error('Fetch failed:', response);
+              }
+      };
+
+      fetchAds();
+    }, []);
+
+
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
       <AppBar variant="main" />

@@ -22,7 +22,7 @@ export default function AdItem({ ad }) {
 
             <CardMedia
                 component="img"
-                image={ad.image}
+                image={ad.main_picture}
                 alt={ad.title}
                 sx={{ width: '130px', aspectRatio: 1, objectFit: 'cover' }}
             />
