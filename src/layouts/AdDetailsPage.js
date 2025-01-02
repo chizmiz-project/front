@@ -5,8 +5,7 @@ import { AppBar } from '../components/AppBar';
 import { ImageSlider } from '../components/ImageSlider';
 import ReportDialog from '../components/ReportDialog';
 import ApiService from '../services/api';
-
-// Mock data - in a real app, this would come from an API
+import timeAgo from '../services/calender';
 
 export default function AdDetailsPage() {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
@@ -33,7 +32,7 @@ export default function AdDetailsPage() {
     adDetails = {
       id: id,
       title: ad.id,
-      time: ad.created_at,
+      time: timeAgo(ad.created_at),
       images: [
         ad.main_picture
       ],
