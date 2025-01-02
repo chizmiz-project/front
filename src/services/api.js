@@ -1,9 +1,11 @@
 const ApiService = (() => {
-  let baseUrl = 'http://localhost:8000/api';
+
+  let BASE_URL = 'http://localhost:8000/api';
+
   // Handle response and standardize the output 
   const handleResponse = async (response) => {
     const data = await response.json().catch(() => null);
-    // Safely parse JSON or fallback to null 
+
     return {
       status: response.status,
       isSuccess: response.ok,
@@ -14,16 +16,15 @@ const ApiService = (() => {
     };
   };
 
-
   // GET method
   const get = async (endpoint) => {
     try {
-      const response = await fetch(`${baseUrl}${endpoint}`,
+      const response = await fetch(`${BASE_URL}${endpoint}`,
         {
           method: 'GET',
-          headers: { 
+          headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
           }
         });
       return handleResponse(response);
@@ -37,14 +38,12 @@ const ApiService = (() => {
   // POST method 
   const post = async (endpoint, body) => {
     try {
-      console.log('url: ' + `${baseUrl}${endpoint}`)
-      console.log(await fetch(`${baseUrl}${endpoint}`))
-      const response = await fetch(`${baseUrl}${endpoint}`,
+      const response = await fetch(`${BASE_URL}${endpoint}`,
         {
           method: 'POST',
-          headers: { 
+          headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(body)
         }
@@ -59,12 +58,13 @@ const ApiService = (() => {
   // PUT method 
   const put = async (endpoint, body) => {
     try {
-      const response = await fetch(`${baseUrl}${endpoint}`,
+      const response = await fetch(`${BASE_URL}${endpoint}`,
         {
           method: 'PUT',
-          headers: { 
+          headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json', },
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify(body)
         });
 
@@ -78,12 +78,13 @@ const ApiService = (() => {
   // DELETE method 
   const del = async (endpoint) => {
     try {
-      const response = await fetch(`${baseUrl}${endpoint}`,
+      const response = await fetch(`${BASE_URL}${endpoint}`,
         {
           method: 'DELETE',
-          headers: { 
+          headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json' }
+            'Content-Type': 'application/json'
+          }
         });
       return handleResponse(response);
     } catch (error) {
