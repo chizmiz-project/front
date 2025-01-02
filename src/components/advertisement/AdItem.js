@@ -10,8 +10,7 @@ export default function AdItem({ ad }) {
             padding: '0.5rem',
             justifyContent: 'space-between'
         }}
-            component={Link} to="/ad/details"
-        >
+            component={Link} to={`/ad/details/${ad.id}`}>
             <CardContent>
                 <Typography variant="h3" component="h3" noWrap>
                     {ad.title}
