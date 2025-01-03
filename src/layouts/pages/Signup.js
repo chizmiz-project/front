@@ -12,6 +12,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
+import flattenErrors from '../../services/Utils';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -56,11 +57,10 @@ export default function SignupPage() {
   
       if (response.isBadRequest) {
         let errorMessages = '';
-        for (let key in response.data) {
-          const fieldErrors = response.data[key];
-          fieldErrors.forEach((error) => {
-            errorMessages += `${error} `;
-          });
+        let errorResponse = flattenErrors(response.data);
+        for (let key in errorResponse) {
+          const fieldError = errorResponse[key];
+          errorMessages += fieldError;
         }
         setError(errorMessages);
       }
@@ -83,7 +83,7 @@ export default function SignupPage() {
       }
   
     } catch (err) {
-      setError('An unexpected error occurred.');
+      setError('An unexpected error occurred.' + err.errorMessages);
       console.error(err);
     } finally {
       setLoading(false);
