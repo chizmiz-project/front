@@ -3,26 +3,21 @@ import { UserAccountSection } from "../../components/setting/userAccountSection"
 import { SettingsGroup } from "../../components/setting/settingGroup"
 import { SettingsItem } from "../../components/setting/settingItem"
 import AppLayout from "../AppLayout"
+import { useUser } from '../../context/UserContext';
 
 export default function SettingsPage() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const { user, logoutUser } = useUser();
   const [darkMode, setDarkMode] = useState(false)
   const [notifications, setNotifications] = useState(true)
   const [newPurchase, setNewPurchase] = useState(false)
 
-  const handleLogin = () => setIsLoggedIn(true)
-  const handleLogout = () => setIsLoggedIn(false)
-
   return (
     <AppLayout title="تنظیمات">
       <UserAccountSection
-        isLoggedIn={isLoggedIn}
-        userData={{
-          name: "سجاد سلطانیان",
-          phone: "۹۸۵ ۷۷۲ ۷۸۲۷"
-        }}
-        onLogin={handleLogin}
-        onLogout={handleLogout}
+        isLoggedIn={!!user}
+        userData={user}
+        onLogin={() => { }}
+        onLogout={logoutUser}
       />
 
       <SettingsGroup title="آگهی‌ها">
@@ -65,4 +60,3 @@ export default function SettingsPage() {
     </AppLayout>
   )
 }
-
