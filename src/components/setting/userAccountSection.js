@@ -14,7 +14,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
 
   const handleLogoutClick = async () => {
     try {
-      await ApiService.post('/logout');
+      await ApiService.post('/account/logout');
       clearUser();
       onLogout();
     } catch (error) {
