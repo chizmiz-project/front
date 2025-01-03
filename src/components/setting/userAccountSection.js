@@ -63,6 +63,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
         variant="outlined" 
         size="large"
         fullWidth
+        color='error'
       >
         خروج از حساب کاربری
       </Button>
