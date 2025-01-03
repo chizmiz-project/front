@@ -1,9 +1,26 @@
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from '@mui/icons-material';
 import { Button, Typography, Box, IconButton } from '@mui/material';
+import ApiService from '../../services/api';
+import { useUser } from '../../context/UserContext';
 
-export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) {
+export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
+  const { clearUser } = useUser();
   const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/signup');
+  };
+
+  const handleLogoutClick = async () => {
+    try {
+      await ApiService.post('/account/logout');
+      clearUser();
+      onLogout();
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   if (!isLoggedIn) {
     return (
@@ -13,10 +30,10 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) 
           فاقد حساب کاربری هستید. لطفا وارد شوید.
         </Typography>
         <Button 
-          onClick={onLogin} 
+          onClick={handleLoginClick} 
           variant="outlined" 
           fullWidth
-          size='large'
+          size="large"
         >
           ورود به حساب کاربری
         </Button>
@@ -27,24 +44,24 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) 
   return (
     <Box sx={{ p: 2 }}>
       <Typography variant="h6" gutterBottom>حساب من</Typography>
-      <Box sx={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        mb: 2 
+        mb: 2
       }}>
         <Box>
-          <Typography variant="subtitle1">{userData?.name}</Typography>
-          <Typography color="text.secondary">{userData?.phone}</Typography>
+          <Typography variant="subtitle1">{userData?.username}</Typography>
+          <Typography color="text.secondary">{userData?.phone_number}</Typography>
         </Box>
         <IconButton onClick={() => navigate('/account/edit')}>
           <ChevronLeft />
         </IconButton>
       </Box>
       <Button 
-        onClick={onLogout} 
+        onClick={handleLogoutClick}
         variant="outlined" 
-        size='large'
+        size="large"
         fullWidth
       >
         خروج از حساب کاربری
@@ -52,4 +69,3 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) 
     </Box>
   );
 }
-

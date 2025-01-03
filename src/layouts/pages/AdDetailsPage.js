@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Typography, Button, List, ListItem, ListItemText, Divider } from '@mui/material';
-import { AppBar } from '../components/AppBar';
-import { ImageSlider } from '../components/ImageSlider';
-import ReportDialog from '../components/ReportDialog';
-import ApiService from '../services/api';
-import timeAgo from '../services/calender';
+import { ImageSlider } from '../../components/ImageSlider';
+import ReportDialog from '../../components/ReportDialog';
+import ApiService from '../../services/api';
+import timeAgo from '../../services/calender';
+import AppLayout from '../AppLayout';
 
 export default function AdDetailsPage() {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
@@ -16,31 +16,31 @@ export default function AdDetailsPage() {
   const [ad, setAd] = useState({})
 
   useEffect(() => {
-      const fetchAd = async () => {
-              const response = await ApiService.get(`/advertisement/${id}`);
-              if (response.isSuccess) {
-                  console.log(response.data);
-                  setAd(response.data);
-              } else {
-                  console.error('Fetch failed:', response);
-              }
-      };
-
-      fetchAd();
-    }, []);
-
-    adDetails = {
-      id: id,
-      title: ad.id,
-      time: timeAgo(ad.created_at),
-      images: [
-        ad.main_picture
-      ],
-      details: [
-        { key: 'قیمت', value: ad.price },
-      ],
-      description: ad.description
+    const fetchAd = async () => {
+      const response = await ApiService.get(`/advertisement/${id}`);
+      if (response.isSuccess) {
+        console.log(response.data);
+        setAd(response.data);
+      } else {
+        console.error('Fetch failed:', response);
+      }
     };
+
+    fetchAd();
+  }, []);
+
+  adDetails = {
+    id: id,
+    title: ad.id,
+    time: timeAgo(ad.created_at),
+    images: [
+      ad.main_picture
+    ],
+    details: [
+      { key: 'قیمت', value: ad.price },
+    ],
+    description: ad.description
+  };
 
   const handleReport = (reason) => {
     console.log('Report submitted:', reason);
@@ -48,17 +48,15 @@ export default function AdDetailsPage() {
   };
 
   return (
-    <Box style={{ minHeight: '100vh', backgroundColor: 'grey.50' }}>
-      <AppBar variant="category" title="آگهی" />
-      
+    <AppLayout title={adDetails.title}>
       <Container style={{ paddingTop: '1rem', paddingBottom: '16px' }}>
         <ImageSlider images={adDetails.images} />
-        
+
         <Box style={{ padding: '16px' }}>
           <Typography variant="h6" gutterBottom>
             {adDetails.title}
           </Typography>
-          
+
           <Typography variant="body2" color="text.secondary" gutterBottom>
             {adDetails.time}
           </Typography>
@@ -68,7 +66,7 @@ export default function AdDetailsPage() {
               <Box key={index}>
                 {index > 0 && <Divider />}
                 <ListItem style={{ paddingLeft: 0, paddingRight: 0 }}>
-                  <ListItemText 
+                  <ListItemText
                     primary={detail.key}
                     secondary={detail.value}
                   />
@@ -80,7 +78,7 @@ export default function AdDetailsPage() {
           <Typography variant="h6" gutterBottom>
             توضیحات
           </Typography>
-          
+
           <Typography variant="body1" paragraph>
             {adDetails.description}
           </Typography>
@@ -101,7 +99,8 @@ export default function AdDetailsPage() {
         onClose={() => setIsReportDialogOpen(false)}
         onSubmit={handleReport}
       />
-    </Box>
+    </AppLayout>
+
   );
 }
 
