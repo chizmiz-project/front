@@ -6,7 +6,8 @@ import {
   Typography,
   Box,
   IconButton,
-  InputAdornment
+  InputAdornment,
+  CircularProgress
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
@@ -25,14 +26,17 @@ export default function SignupPage() {
   });
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);  
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);  // Loading state
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);  // Start loading
   
     if (formData.password !== formData.confirmPassword) {
       setError('رمز عبور و تکرار آن مطابقت ندارند');
+      setLoading(false);  // Stop loading if error occurs
       return;
     }
   
@@ -84,6 +88,8 @@ export default function SignupPage() {
       // Handle unexpected errors
       setError('An unexpected error occurred.');
       console.error(err);
+    } finally {
+      setLoading(false);  // Stop loading after the request is done
     }
   };
   
@@ -185,8 +191,13 @@ export default function SignupPage() {
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          disabled={loading}  // Disable button while loading
         >
-          ثبت‌نام
+          {loading ? (
+            <CircularProgress size={24} color="inherit" />  // Show spinner during loading
+          ) : (
+            'ثبت‌نام'
+          )}
         </Button>
 
         <Box sx={{ textAlign: 'center' }}>
