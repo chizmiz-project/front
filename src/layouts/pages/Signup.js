@@ -24,18 +24,18 @@ export default function SignupPage() {
     address: ''
   });
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);  // State for password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
+  const [showPassword, setShowPassword] = useState(false);  
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
+  
     if (formData.password !== formData.confirmPassword) {
       setError('رمز عبور و تکرار آن مطابقت ندارند');
       return;
     }
-
+  
     let data = {
       "username": formData.username,
       "email": formData.email,
@@ -45,29 +45,48 @@ export default function SignupPage() {
         "bio": formData.bio,
         "address": formData.address
       }
+    };
+  
+    try {
+      const response = await ApiService.post('/account/signup/', data);
+  
+      if (response.isBadRequest) {
+        // Handle backend validation errors
+        let errorMessages = '';
+        for (let key in response.data) {
+          const fieldErrors = response.data[key];
+          fieldErrors.forEach((error) => {
+            errorMessages += `${error} `;
+          });
+        }
+        setError(errorMessages.trim());
+      }
+  
+      if (response.isSuccess) {
+        // Handle successful signup and login flow
+        let loginData = {
+          'username': formData.username,
+          'password': formData.password
+        };
+  
+        const loginResponse = await ApiService.post('/account/login/', loginData);
+        alert('sucess signup -> login');
+        navigate('/verify-otp', {
+          state: {
+            username: formData.username,
+            password: formData.password
+          }
+        });
+        console.log(loginResponse);
+      }
+  
+    } catch (err) {
+      // Handle unexpected errors
+      setError('An unexpected error occurred.');
+      console.error(err);
     }
-
-    const response = await ApiService.post('/account/signup/', data)
-
-    if (response.isBadRequest)
-      setError("داده‌های ارسالی معتبر نیست: " + response.data)
-
-    if (response.isSuccess)
-      data = {
-        'username': formData.username,
-        'password': formData.password
-      }
-    const loginResponse = await ApiService.post('/account/login/', data)
-    alert('sucess signup -> login')
-    navigate('/verify-otp', {
-      state: {
-        username: formData.username,
-        password: formData.password
-      }
-    })
-    console.log(response)
   };
-
+  
   return (
     <AppLayout title='ثبت‌نام'>
       <form onSubmit={handleSubmit}>
@@ -101,8 +120,26 @@ export default function SignupPage() {
 
         <TextField
           fullWidth
+          label="آدرس"
+          variant="outlined"
+          margin="normal"
+          value={formData.address}
+          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+        />
+
+        <TextField
+          fullWidth
+          label="بیوگرافی"
+          variant="outlined"
+          margin="normal"
+          value={formData.bio}
+          onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+        />
+
+        <TextField
+          fullWidth
           label="رمز عبور"
-          type={showPassword ? 'text' : 'password'}  // Toggle between text and password
+          type={showPassword ? 'text' : 'password'}
           variant="outlined"
           margin="normal"
           value={formData.password}
@@ -121,7 +158,7 @@ export default function SignupPage() {
         <TextField
           fullWidth
           label="تکرار رمز عبور"
-          type={showConfirmPassword ? 'text' : 'password'}  // Toggle between text and password
+          type={showConfirmPassword ? 'text' : 'password'}
           variant="outlined"
           margin="normal"
           value={formData.confirmPassword}
