@@ -1,31 +1,46 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { TextField, Button, Typography, Box, Container } from '@mui/material';
-import ApiService from '../services/api';
-import { AppBar } from '../components/AppBar';
+import { TextField, Button, Typography, Box, CircularProgress } from '@mui/material';
+import ApiService from '../../services/api';
+import AppLayout from '../AppLayout';
+import { useUser } from '../../context/UserContext';
 
 export default function VerifyOTPPage() {
   const { state } = useLocation();
-  console.log(state)
+  const { updateUser } = useUser();
 
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     let data = {
-        "username": state.username,
-        "otp": otp
-    }
-    const response = await ApiService.post('/account/verify-otp/', data)
-    console.log(response)
-    if (response.isNotFound || response.isBadRequest)
+      "username": state.username,
+      "otp": otp
+    };
+
+    try {
+      const response = await ApiService.post('/account/verify-otp/', data);
+      console.log(response);
+      if (response.isNotFound || response.isBadRequest)
         setError('کد وارد شده صحیح نیست');
-    else {
-        navigate('/')
+      else {
+        updateUser({
+          username: state.username,
+          phone_number: response.data.phone_number,
+        });
+
+        navigate('/');
+      }
+    } catch (error) {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,10 +49,7 @@ export default function VerifyOTPPage() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
-      <AppBar variant="main" />
-
-      <Container sx={{ py: 2 }}>
+    <AppLayout title='اعتبار‌سنجی'>
       <Box sx={{ textAlign: 'center', mb: 3 }}>
         <Typography variant="body1">
           کد ورود را وارد کنید
@@ -68,8 +80,13 @@ export default function VerifyOTPPage() {
           fullWidth
           variant="contained"
           sx={{ mt: 3 }}
+          disabled={loading}
         >
-          ورود
+          {loading ? (
+            <CircularProgress size={24} sx={{ color: 'white' }} />
+          ) : (
+            'ورود'
+          )}
         </Button>
 
         <Button
@@ -81,7 +98,6 @@ export default function VerifyOTPPage() {
           انصراف
         </Button>
       </form>
-      </Container>
-    </Box>
+    </AppLayout>
   );
 }
