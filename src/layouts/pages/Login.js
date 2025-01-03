@@ -36,8 +36,8 @@ export default function LoginPage() {
                     state: {
                         username: formData.username,
                         password: formData.password
-                    }
-                });
+                      }
+                    });
             } else {
                 alert('login failed');
             }

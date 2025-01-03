@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from '@mui/icons-material';
 import { Button, Typography, Box, IconButton } from '@mui/material';
@@ -6,7 +5,6 @@ import ApiService from '../../services/api';
 import { useUser } from '../../context/UserContext';
 
 export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
-  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
   const { clearUser } = useUser();
   const navigate = useNavigate();
 
@@ -17,7 +15,6 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
   const handleLogoutClick = async () => {
     try {
       await ApiService.post('/logout');
-      setLoggedIn(false);
       clearUser();
       onLogout();
     } catch (error) {
@@ -25,7 +22,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
     }
   };
 
-  if (!loggedIn) {
+  if (!isLoggedIn) {
     return (
       <Box sx={{ p: 2 }}>
         <Typography variant="h6" gutterBottom>حساب من</Typography>
@@ -54,8 +51,8 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
         mb: 2
       }}>
         <Box>
-          <Typography variant="subtitle1">{userData?.name}</Typography>
-          <Typography color="text.secondary">{userData?.phone}</Typography>
+          <Typography variant="subtitle1">{userData?.username}</Typography>
+          <Typography color="text.secondary">{userData?.phone_number}</Typography>
         </Box>
         <IconButton onClick={() => navigate('/account/edit')}>
           <ChevronLeft />

@@ -12,7 +12,6 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
-import { useUser } from '../../context/UserContext';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -29,7 +28,6 @@ export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);  
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { updateUser } = useUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,14 +72,6 @@ export default function SignupPage() {
         };
   
         const loginResponse = await ApiService.post('/account/login/', loginData);
-
-        updateUser({
-          username: formData.username,
-          email: formData.email,
-          phone_number: formData.phone_number,
-          bio: formData.bio,
-          address: formData.address
-        });
 
         navigate('/verify-otp', {
           state: {
