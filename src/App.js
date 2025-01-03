@@ -25,7 +25,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/ad/details" element={<AdDetailsPage />} />
+            <Route path="/ad/details/:id" element={<AdDetailsPage />} />
             <Route path="/category/" element={<CategoryPage />} />
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
