@@ -1,16 +1,16 @@
 import React from "react";
-import { Box, Typography, List, Divider } from '@mui/material';
+import { Box, Typography, List, Divider, Paper } from '@mui/material';
 
 export function SettingsGroup({ title, children }) {
   return (
-    <Box sx={{ py: 2 }}>
-      <Typography variant="h6" sx={{ px: 2, mb: 1 }}>
+    <Box my={2}>
+      <Typography display={'none'} mb={1} variant="caption" >
         {title}
       </Typography>
-      <List>
-        {React.Children.map(children, (child, index) => (
+      <List component={Paper} elevation={false}>
+        {children.map((child, index) => (
           <>
-            {index > 0 && <Divider />}
+            {index > 0 && <Divider  />}
             {child}
           </>
         ))}
