@@ -31,7 +31,7 @@ export default function VerifyOTPPage() {
         setError('کد وارد شده صحیح نیست');
       else {
         updateUser({
-          username: response.data.username,
+          username: state.username,
           phone_number: response.data.phone_number,
         });
 

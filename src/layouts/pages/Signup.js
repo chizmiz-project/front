@@ -62,7 +62,7 @@ export default function SignupPage() {
             errorMessages += `${error} `;
           });
         }
-        setError(errorMessages.trim());
+        setError(errorMessages);
       }
   
       if (response.isSuccess) {

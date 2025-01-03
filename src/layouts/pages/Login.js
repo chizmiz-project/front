@@ -35,14 +35,30 @@ export default function LoginPage() {
                 navigate('/verify-otp', {
                     state: {
                         username: formData.username,
-                        password: formData.password
-                      }
-                    });
+                        password: formData.password,
+                    },
+                });
             } else {
-                alert('login failed');
+                let errorMessages = '';
+                for (let key in response.data) {
+                    const fieldErrors = response.data[key];
+                    if (Array.isArray(fieldErrors)) {
+                        fieldErrors.forEach((error) => {
+                            errorMessages += `${error} `;
+                        });
+                    } else if (typeof fieldErrors === 'string') {
+                        errorMessages += `${fieldErrors} `;
+                    }
+                }
+                setError(errorMessages.trim());
             }
         } catch (error) {
-            setError('An error occurred. Please try again.');
+            if (error.response) {
+                const errorMessage = error.response.data?.error || 'خطایی رخ داده است. لطفا بعدا تلاش کنید.';
+                setError(errorMessage);
+            } else {
+                setError('خطایی رخ داده است. لطفا بعدا تلاش کنید.');
+            }
         } finally {
             setLoading(false);
         }
