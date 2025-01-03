@@ -4,8 +4,11 @@ import {
   TextField,
   Button,
   Typography,
-  Box
+  Box,
+  IconButton,
+  InputAdornment
 } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
 
@@ -21,6 +24,8 @@ export default function SignupPage() {
     address: ''
   });
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);  // State for password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +78,6 @@ export default function SignupPage() {
           margin="normal"
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-        // required
         />
 
         <TextField
@@ -84,7 +88,6 @@ export default function SignupPage() {
           margin="normal"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-        // required
         />
 
         <TextField
@@ -94,29 +97,44 @@ export default function SignupPage() {
           margin="normal"
           value={formData.phone_number}
           onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
-        // required
         />
 
         <TextField
           fullWidth
           label="رمز عبور"
-          type="password"
+          type={showPassword ? 'text' : 'password'}  // Toggle between text and password
           variant="outlined"
           margin="normal"
           value={formData.password}
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-        // required
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            )
+          }}
         />
 
         <TextField
           fullWidth
           label="تکرار رمز عبور"
-          type="password"
+          type={showConfirmPassword ? 'text' : 'password'}  // Toggle between text and password
           variant="outlined"
           margin="normal"
           value={formData.confirmPassword}
           onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-        // required
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                  {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            )
+          }}
         />
 
         {error && (

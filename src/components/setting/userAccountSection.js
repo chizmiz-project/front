@@ -2,8 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from '@mui/icons-material';
 import { Button, Typography, Box, IconButton } from '@mui/material';
 
-export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) {
+export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
   const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/signup'); // Redirect to signup page
+  };
 
   if (!isLoggedIn) {
     return (
@@ -13,10 +17,10 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) 
           فاقد حساب کاربری هستید. لطفا وارد شوید.
         </Typography>
         <Button 
-          onClick={onLogin} 
+          onClick={handleLoginClick} 
           variant="outlined" 
           fullWidth
-          size='large'
+          size="large"
         >
           ورود به حساب کاربری
         </Button>
@@ -27,11 +31,11 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) 
   return (
     <Box sx={{ p: 2 }}>
       <Typography variant="h6" gutterBottom>حساب من</Typography>
-      <Box sx={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        mb: 2 
+        mb: 2
       }}>
         <Box>
           <Typography variant="subtitle1">{userData?.name}</Typography>
@@ -44,7 +48,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) 
       <Button 
         onClick={onLogout} 
         variant="outlined" 
-        size='large'
+        size="large"
         fullWidth
       >
         خروج از حساب کاربری
@@ -52,4 +56,3 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout, onLogin }) 
     </Box>
   );
 }
-
