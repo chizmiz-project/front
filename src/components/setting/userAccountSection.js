@@ -1,15 +1,31 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from '@mui/icons-material';
 import { Button, Typography, Box, IconButton } from '@mui/material';
+import ApiService from '../../services/api';
+import { useUser } from '../../context/UserContext';
 
 export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
+  const { clearUser } = useUser();
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    navigate('/signup'); // Redirect to signup page
+    navigate('/signup');
   };
 
-  if (!isLoggedIn) {
+  const handleLogoutClick = async () => {
+    try {
+      await ApiService.post('/logout');
+      setLoggedIn(false);
+      clearUser();
+      onLogout();
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
+  if (!loggedIn) {
     return (
       <Box sx={{ p: 2 }}>
         <Typography variant="h6" gutterBottom>حساب من</Typography>
@@ -46,7 +62,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
         </IconButton>
       </Box>
       <Button 
-        onClick={onLogout} 
+        onClick={handleLogoutClick}
         variant="outlined" 
         size="large"
         fullWidth

@@ -12,6 +12,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
+import { useUser } from '../../context/UserContext';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -27,16 +28,17 @@ export default function SignupPage() {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);  
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [loading, setLoading] = useState(false);  // Loading state
+  const [loading, setLoading] = useState(false);
+  const { updateUser } = useUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setLoading(true);  // Start loading
+    setLoading(true);
   
     if (formData.password !== formData.confirmPassword) {
       setError('رمز عبور و تکرار آن مطابقت ندارند');
-      setLoading(false);  // Stop loading if error occurs
+      setLoading(false);
       return;
     }
   
@@ -55,7 +57,6 @@ export default function SignupPage() {
       const response = await ApiService.post('/account/signup/', data);
   
       if (response.isBadRequest) {
-        // Handle backend validation errors
         let errorMessages = '';
         for (let key in response.data) {
           const fieldErrors = response.data[key];
@@ -67,14 +68,21 @@ export default function SignupPage() {
       }
   
       if (response.isSuccess) {
-        // Handle successful signup and login flow
         let loginData = {
           'username': formData.username,
           'password': formData.password
         };
   
         const loginResponse = await ApiService.post('/account/login/', loginData);
-        alert('sucess signup -> login');
+
+        updateUser({
+          username: formData.username,
+          email: formData.email,
+          phone_number: formData.phone_number,
+          bio: formData.bio,
+          address: formData.address
+        });
+
         navigate('/verify-otp', {
           state: {
             username: formData.username,
@@ -85,11 +93,10 @@ export default function SignupPage() {
       }
   
     } catch (err) {
-      // Handle unexpected errors
       setError('An unexpected error occurred.');
       console.error(err);
     } finally {
-      setLoading(false);  // Stop loading after the request is done
+      setLoading(false);
     }
   };
   
@@ -191,10 +198,10 @@ export default function SignupPage() {
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
-          disabled={loading}  // Disable button while loading
+          disabled={loading}
         >
           {loading ? (
-            <CircularProgress size={24} color="inherit" />  // Show spinner during loading
+            <CircularProgress size={24} color="inherit" />
           ) : (
             'ثبت‌نام'
           )}

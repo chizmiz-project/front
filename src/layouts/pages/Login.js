@@ -5,6 +5,7 @@ import {
     Button,
     Typography,
     Box,
+    CircularProgress
 } from '@mui/material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
@@ -16,26 +17,34 @@ export default function LoginPage() {
         password: ''
     });
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setLoading(true);
 
         let data = {
             'username': formData.username,
             'password': formData.password
-        }
+        };
 
-        const response = await ApiService.post('/account/login/', data);
-        if (response.isSuccess) {
-            navigate('/verify-otp', {
-                state: {
-                    username: formData.username,
-                    password: formData.password
-                }
-            })
-        } else {
-            alert('login failed')
+        try {
+            const response = await ApiService.post('/account/login/', data);
+            if (response.isSuccess) {
+                navigate('/verify-otp', {
+                    state: {
+                        username: formData.username,
+                        password: formData.password
+                    }
+                });
+            } else {
+                alert('login failed');
+            }
+        } catch (error) {
+            setError('An error occurred. Please try again.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -73,9 +82,27 @@ export default function LoginPage() {
                     type="submit"
                     fullWidth
                     variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
+                    sx={{
+                        mt: 3,
+                        mb: 2,
+                        position: 'relative',
+                        minHeight: '48px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    disabled={loading}
                 >
-                    ورود
+                    {loading ? (
+                        <CircularProgress
+                            size={24}
+                            sx={{
+                                color: 'white',
+                            }}
+                        />
+                    ) : (
+                        'ورود'
+                    )}
                 </Button>
 
                 <Box sx={{ textAlign: 'center' }}>
