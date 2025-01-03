@@ -41,8 +41,8 @@ export function AppBar({ variant = "title", title, hasNavigate = true }) {
     : null;
     
   const navigation = hasNavigate ? (
-    <IconButton edge="end" onClick={() => navigate(-1)}>
-      <ArrowBack />
+    <IconButton sx={{ marginLeft: 'auto'}} edge="start" onClick={() => navigate(-1)}>
+      <ArrowBack/>
     </IconButton>
   ) : null;
 
