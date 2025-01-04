@@ -55,8 +55,8 @@ export default function CreateAdPage() {
         />
 
         <CustomTextField
-          title="عنوان فیلد"
-          description="توضیحات بیشتر درباره فیلدی که قرار است پر شود"
+          title="عنوان آگهی"
+          description="عنوان آگهی تاثیر به سزایی در جذب کردن مخاطبان به آگهی شما دارد"
           placeholder="متن را وارد کنید"
           value={formData.title}
           onChange={title => setFormData({ ...formData, title })}
@@ -64,7 +64,7 @@ export default function CreateAdPage() {
 
         <CustomTextField
           title="توضیحات"
-          description="توضیحات بیشتر درباره فیلدی که قرار است پر شود"
+          description="با ارائه توضیحات کامل شانس فروش شما بالاتر می‌رود"
           placeholder="متن را وارد کنید"
           multiline
           value={formData.description}
