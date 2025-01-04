@@ -17,9 +17,10 @@ const ApiService = (() => {
   };
 
   // GET method
-  const get = async (endpoint) => {
+  const get = async (endpoint, options = {}) => {
     try {
-      const response = await fetch(`${BASE_URL}${endpoint}`,
+      const urlParams = new URLSearchParams(options);
+      const response = await fetch(`${BASE_URL}${endpoint}?${urlParams.toString()}`,
         {
           method: 'GET',
           headers: {
