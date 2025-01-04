@@ -30,6 +30,8 @@ export default function VerifyOTPPage() {
       if (response.isNotFound || response.isBadRequest)
         setError('کد وارد شده صحیح نیست');
       else {
+        const response2 = await ApiService.get('/account/me/');
+        console.log(response2.data)
         updateUser({
           username: state.username,
           phone_number: response.data.phone_number,
