@@ -12,7 +12,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
-import flattenErrors from '../../services/Utils';
+import {flattenErrors} from '../../services/Utils';
 import { CustomTextField } from '../../components/CustomTextField';
 
 export default function SignupPage() {

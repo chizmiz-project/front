@@ -1,5 +1,3 @@
-import { FlashOnTwoTone } from "@mui/icons-material";
-
 function flattenErrors(obj, parentKey = '', result = {}) {
     for (const key in obj) {
         const newKey = parentKey ? `${parentKey}.${key}` : key; // Concatenate keys for nested structure
@@ -18,4 +16,28 @@ function flattenErrors(obj, parentKey = '', result = {}) {
     return result;
 }
 
-export default flattenErrors;
+const toPersianDigits = (number) => {
+    const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    return String(number)
+        .split('')
+        .map(digit => persianDigits[parseInt(digit, 10)] || digit)
+        .join('');
+};
+
+function formatPrice(price) {
+    const number = parseFloat(price);
+
+    if (Number.isInteger(number)) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } else {
+        return number.toFixed(2).replace(/\.00$/, '').replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+}
+
+function getFormattedPrice(price) {
+    const formattedPrice = formatPrice(price); // Format the price with commas
+    return toPersianDigits(formattedPrice); // Convert digits to Persian
+}
+
+// Export all functions as named exports
+export { getFormattedPrice, toPersianDigits, flattenErrors };
