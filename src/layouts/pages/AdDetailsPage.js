@@ -86,7 +86,6 @@ export default function AdDetailsPage() {
           <Button
             variant="outlined"
             fullWidth
-            size='large'
             onClick={() => setIsReportDialogOpen(true)}
           >
             گزارش آگهی
