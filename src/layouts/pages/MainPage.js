@@ -26,7 +26,9 @@ export default function MainPage() {
     const fetchAds = async () => {
       setIsLoading(true)
       try {
-        const response = await ApiService.get('/advertisement/');
+        const response = await ApiService.get('/advertisement/', {
+          search: searchQuery
+        });
         if (response.isSuccess) {
           setAds(response.data);
         } else {
