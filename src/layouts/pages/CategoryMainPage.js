@@ -11,7 +11,9 @@ export default function CategoryPage() {
 
   useEffect(() => {
     const fetchAds = async () => {
-      const response = await ApiService.get(`/advertisement/`);
+      const response = await ApiService.get(`/advertisement/`, {
+        category: id
+      });
       if (response.isSuccess) {
         console.log(response.data);
         setAds(response.data);

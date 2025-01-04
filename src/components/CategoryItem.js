@@ -2,10 +2,9 @@ import { Box, Paper, Typography } from '@mui/material';
 import { Home } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
-export function CategoryItem({ title, value }) {
+export function CategoryItem({ category }) {
   const navigate = useNavigate();
 
-  value = ''
   return (
     <Paper
       elevation={0}
@@ -18,10 +17,10 @@ export function CategoryItem({ title, value }) {
         backgroundColor: 'rgba(158, 158, 158, 0.1)',
         cursor: 'pointer'
       }}
-      onClick={() => navigate(`/category/${value}`)}
+      onClick={() => navigate(`/category/${category.id}`)}
     >
       <Home />
-      <Typography variant="body2">{title}</Typography>
+      <Typography variant="body2">{category.title}</Typography>
     </Paper>
   );
 }

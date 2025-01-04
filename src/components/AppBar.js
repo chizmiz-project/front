@@ -2,8 +2,12 @@ import { Search, ArrowBack, MoreVert } from '@mui/icons-material';
 import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export function AppBar({ variant = "title", title, hasNavigate = true }) {
+export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
   const navigate = useNavigate();
+
+  const handleSearchChange = (event) => {
+    onSearchChange?.(event.target.value);
+  }
 
   const setting = variant === 'search' ? (
     <IconButton edge="start" onClick={() => navigate('/settings')}>
@@ -16,6 +20,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true }) {
       <TextField
         placeholder="جستجو کنید"
         fullWidth
+        onChange={handleSearchChange}
         slotProps={{
           input: {
             startAdornment: (
@@ -26,7 +31,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true }) {
           },
         }} />
     </Box>;
-    
+
   const header = variant === 'title' ?
     <Box sx={{
       position: 'absolute',
@@ -39,7 +44,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true }) {
     </Box>
 
     : null;
-    
+
   const navigation = hasNavigate ? (
     <IconButton edge="end" onClick={() => navigate(-1)}>
       <ArrowBack />
