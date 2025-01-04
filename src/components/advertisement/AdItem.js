@@ -5,6 +5,7 @@ import timeAgo from '../../services/calender';
 export default function AdItem({ ad }) {
     return (
         <Card elevation={0} sx={{
+            textDecoration: 'none',
             maxHeight: '130px',
             display: 'flex',
             padding: '0.5rem',
@@ -12,11 +13,11 @@ export default function AdItem({ ad }) {
         }}
             component={Link} to={`/ad/details/${ad.id}`}>
             <CardContent>
-                <Typography variant="h3" component="h3" noWrap>
+                <Typography variant="h1" maxWidth={'200px'} noWrap>
                     {ad.title}
                 </Typography>
-                <Typography mt={2}>{ad.price} تومان</Typography>
-                <Typography variant='caption' >{timeAgo(ad.created_at)}</Typography>
+                <Typography variant='subtitle2' mt={2}>{ad.price} تومان</Typography>
+                <Typography marginTop={'auto'} variant='subtitle1' >{timeAgo(ad.created_at)}</Typography>
             </CardContent>
 
             <CardMedia
