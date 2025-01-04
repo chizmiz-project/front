@@ -1,6 +1,7 @@
 import { Search, ArrowBack, MoreVert } from '@mui/icons-material';
 import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { labelSecondary } from '../theme';
 
 export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
   const navigate = useNavigate();
@@ -23,9 +24,12 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
         onChange={handleSearchChange}
         slotProps={{
           input: {
+            sx: {
+              maxHeight: '45px'
+            },
             startAdornment: (
               <InputAdornment position="start">
-                <Search />
+                <Search/>
               </InputAdornment>
             ),
           },
@@ -52,7 +56,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
   ) : null;
 
   return (
-    <MuiAppBar position="sticky" color="default" elevation={0}>
+    <MuiAppBar position="sticky" elevation={0}>
       <Toolbar sx={{ gap: 1 }}>
         {setting}
         {searchInput}

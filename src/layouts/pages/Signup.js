@@ -13,6 +13,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
 import flattenErrors from '../../services/Utils';
+import { CustomTextField } from '../../components/CustomTextField';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -93,10 +94,16 @@ export default function SignupPage() {
   return (
     <AppLayout title='ثبت‌نام'>
       <form onSubmit={handleSubmit}>
+      <CustomTextField
+          placeholder="متن را وارد کنید"
+          value={formData.title}
+          onChange={title => setFormData({ ...formData, title })}
+        />
+
         <TextField
           fullWidth
           label="نام کاربری"
-          variant="outlined"
+          placeholder='testing'
           margin="normal"
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}

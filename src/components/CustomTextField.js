@@ -1,4 +1,4 @@
-import { Box, TextField as MuiTextField, Typography } from "@mui/material"
+import { Box, TextField, Typography } from "@mui/material"
 
 export function CustomTextField({
   title,
@@ -6,24 +6,26 @@ export function CustomTextField({
   placeholder,
   multiline = false,
   value,
+  label,
   onChange
 }) {
   return (
     <Box sx={{ mb: 3 }}>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="h2" gutterBottom>
         {title}
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+      <Typography variant="subtitle1">
         {description}
       </Typography>
-      <MuiTextField
+      <TextField
+        
+        label={label}
         fullWidth
         placeholder={placeholder}
         multiline={multiline}
         rows={multiline ? 4 : 1}
         value={value}
         onChange={e => onChange(e.target.value)}
-        variant="outlined"
       />
     </Box>
   )

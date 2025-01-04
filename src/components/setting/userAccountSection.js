@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from '@mui/icons-material';
-import { Button, Typography, Box, IconButton } from '@mui/material';
+import { Button, Typography, Box, IconButton, Paper } from '@mui/material';
 import ApiService from '../../services/api';
 import { useUser } from '../../context/UserContext';
 
@@ -24,26 +24,20 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
 
   if (!isLoggedIn) {
     return (
-      <Box sx={{ p: 2 }}>
-        <Typography variant="h6" gutterBottom>حساب من</Typography>
-        <Typography color="text.secondary" sx={{ mb: 2 }}>
-          فاقد حساب کاربری هستید. لطفا وارد شوید.
-        </Typography>
         <Button 
           onClick={handleLoginClick} 
-          variant="outlined" 
+          variant="contained" 
           fullWidth
           size="large"
         >
           ورود به حساب کاربری
         </Button>
-      </Box>
     );
   }
 
   return (
     <Box sx={{ p: 2 }}>
-      <Typography variant="h6" gutterBottom>حساب من</Typography>
+      <Typography display='none' variant="h6" gutterBottom>حساب من</Typography>
       <Box sx={{
         display: 'flex',
         justifyContent: 'space-between',
