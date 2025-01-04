@@ -33,6 +33,8 @@ export default function ProfileEditPage() {
   useEffect(() => {
     setUserDetails(
       {
+        first_name: 'ali',
+        last_name: 'bonaftizadeh',
         username: 'sample user',
         email: 'sample email',
         password: '******',
@@ -78,16 +80,16 @@ export default function ProfileEditPage() {
       <form onSubmit={handleSubmit}>
         <Typography variant='body'>نام کاربری</Typography>
         <TextField
-          sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
 
-          disabled
+          sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
           fullWidth
           variant="outlined"
           margin="normal"
           value={userDetails.username}
+          onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
         />
 
-        <Typography variant='body'>نام کاربری</Typography>
+        <Typography variant='body'>نام</Typography>
         <TextField
           sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
 
@@ -96,10 +98,32 @@ export default function ProfileEditPage() {
           type="email"
           variant="outlined"
           margin="normal"
+          value={userDetails.first_name}
+        />
+
+        <Typography variant='body'>نام خانوادگی</Typography>
+        <TextField
+          sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
+
+          disabled
+          fullWidth
+          variant="outlined"
+          margin="normal"
+          value={userDetails.account.last_name}
+        />
+
+        <Typography variant='body'>آدرس ایمیل</Typography>
+        <TextField
+          sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
+
+          disabled
+          fullWidth
+          variant="outlined"
+          margin="normal"
           value={userDetails.email}
         />
 
-        <Typography variant='body'>نام کاربری</Typography>
+        <Typography variant='body'>شماره موبایل</Typography>
         <TextField
           sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
 
@@ -110,26 +134,30 @@ export default function ProfileEditPage() {
           value={userDetails.account.phone_number}
         />
 
-        <Typography variant='body'>نام کاربری</Typography>
-        <TextField
-          sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
-          fullWidth
-          variant="outlined"
-          margin="normal"
-          value={userDetails.account.address}
-          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-        />
-
-        <Typography variant='body'>نام کاربری</Typography>
+        <Typography variant='body'>بیوگرافی</Typography>
         <TextField
           helperText='یه توضیح خوب از خودت می‌تونه به بهتر دیده شدنت کمک کنه :)'
+
           sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
+
+          disabled
           fullWidth
           variant="outlined"
           margin="normal"
           value={userDetails.account.bio}
-          onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
         />
+
+        <Typography variant='body'>آدرس</Typography>
+        <TextField
+          sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
+
+          disabled
+          fullWidth
+          variant="outlined"
+          margin="normal"
+          value={userDetails.account.address}
+        />
+
 
         {error && (
           <Typography color="error" sx={{ mt: 2 }}>
