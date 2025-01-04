@@ -19,6 +19,7 @@ const categories = [
 
 export default function CreateAdPage() {
   const navigate = useNavigate()
+  const [isUploading, setIsUploading] = useState(false)
   const [formData, setFormData] = useState({
     categoryId: "",
     title: "",
@@ -29,18 +30,19 @@ export default function CreateAdPage() {
 
   const handleSubmit = async e => {
     e.preventDefault()
+    setIsUploading(true)
+
     const data = {
       categoryId: formData.categoryId,
       title: formData.title,
       description: formData.description,
       price: formData.price,
-      image: formData.image || undefined
+      main_picture: formData.image || undefined,
     }
-
     console.log(data)
-    const response = await ApiService.post('/advertisement/', data);
-    if (response.isSuccess)
-      navigate('/')
+    const response = await ApiService.createAd(data);
+    console.log(response.data)
+    setIsUploading(false)
   }
 
   return (
@@ -78,6 +80,7 @@ export default function CreateAdPage() {
 
         <ImageUploader
           onImageSelect={image => setFormData({ ...formData, image })}
+          isUploading = {isUploading}
         />
 
         <Button type="submit" fullWidth variant="contained" size="large">
