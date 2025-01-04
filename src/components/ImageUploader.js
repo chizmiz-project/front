@@ -1,8 +1,14 @@
 import { useState } from "react"
-import { Box, Typography, IconButton, Stack } from "@mui/material"
+import {
+  Box,
+  Typography,
+  IconButton,
+  Stack,
+  CircularProgress
+} from "@mui/material"
 import { Camera, Close, AddPhotoAlternate } from "@mui/icons-material"
 
-export function ImageUploader({ onImageSelect }) {
+export function ImageUploader({ onImageSelect, isUploading = false }) {
   const [preview, setPreview] = useState(null)
   const [isDragging, setIsDragging] = useState(false)
 
@@ -70,53 +76,68 @@ export function ImageUploader({ onImageSelect }) {
             height: "auto",
             maxHeight: 300,
             objectFit: "cover",
-            display: "block"
+            display: "block",
+            filter: isUploading ? "blur(2px)" : "none",
+            transition: "filter 0.2s"
           }}
         />
-        <Stack
-          direction="row"
-          spacing={1}
-          sx={{
-            position: "absolute",
-            top: 8,
-            right: 8
-          }}
-        >
-          <IconButton
-            component="label"
-            size="small"
-            aria-label="تغییر تصویر"
+        {isUploading ? (
+          <Box
             sx={{
-              bgcolor: "background.paper",
-              "&:hover": {
-                bgcolor: "background.paper"
-              },
-              boxShadow: 1
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)"
             }}
           >
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileSelect}
-              style={{ display: "none" }}
-            />
-            <AddPhotoAlternate />
-          </IconButton>
-          <IconButton
-            onClick={handleRemove}
-            size="small"
-            aria-label="حذف تصویر"
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Stack
+            direction="row"
+            spacing={1}
             sx={{
-              bgcolor: "background.paper",
-              "&:hover": {
-                bgcolor: "background.paper"
-              },
-              boxShadow: 1
+              position: "absolute",
+              top: 8,
+              right: 8
             }}
           >
-            <Close />
-          </IconButton>
-        </Stack>
+            <IconButton
+              component="label"
+              size="small"
+              aria-label="تغییر تصویر"
+              sx={{
+                bgcolor: "background.paper",
+                "&:hover": {
+                  bgcolor: "background.paper"
+                },
+                boxShadow: 1
+              }}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileSelect}
+                style={{ display: "none" }}
+              />
+              <AddPhotoAlternate />
+            </IconButton>
+            <IconButton
+              onClick={handleRemove}
+              size="small"
+              aria-label="حذف تصویر"
+              sx={{
+                bgcolor: "background.paper",
+                "&:hover": {
+                  bgcolor: "background.paper"
+                },
+                boxShadow: 1
+              }}
+            >
+              <Close />
+            </IconButton>
+          </Stack>
+        )}
       </Box>
     )
   }
@@ -137,14 +158,15 @@ export function ImageUploader({ onImageSelect }) {
         border: "2px dashed",
         borderColor: isDragging ? "primary.main" : "grey.300",
         borderRadius: 2,
-        cursor: "pointer",
+        cursor: isUploading ? "default" : "pointer",
         mb: 3,
         transition: "all 0.2s ease",
         bgcolor: isDragging ? "action.hover" : "transparent",
         "&:hover": {
-          borderColor: "primary.main",
-          bgcolor: "action.hover"
-        }
+          borderColor: isUploading ? "grey.300" : "primary.main",
+          bgcolor: isUploading ? "transparent" : "action.hover"
+        },
+        pointerEvents: isUploading ? "none" : "auto"
       }}
     >
       <input
@@ -152,16 +174,23 @@ export function ImageUploader({ onImageSelect }) {
         accept="image/*"
         onChange={handleFileSelect}
         style={{ display: "none" }}
+        disabled={isUploading}
       />
-      <Camera
-        sx={{
-          fontSize: 40,
-          color: isDragging ? "primary.main" : "text.secondary"
-        }}
-      />
-      <Typography color={isDragging ? "primary" : "text.secondary"}>
-        تصویر را اینجا رها کنید یا کلیک کنید
-      </Typography>
+      {isUploading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <Camera
+            sx={{
+              fontSize: 40,
+              color: isDragging ? "primary.main" : "text.secondary"
+            }}
+          />
+          <Typography color={isDragging ? "primary" : "text.secondary"}>
+            تصویر را اینجا رها کنید یا کلیک کنید
+          </Typography>
+        </>
+      )}
     </Box>
   )
 }
