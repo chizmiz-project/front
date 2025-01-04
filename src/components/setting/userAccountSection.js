@@ -9,7 +9,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    navigate('/signup');
+    navigate('/login');
   };
 
   const handleLogoutClick = async () => {
@@ -54,7 +54,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
           <Typography variant="subtitle1">{userData?.username}</Typography>
           <Typography color="text.secondary">{userData?.phone_number}</Typography>
         </Box>
-        <IconButton onClick={() => navigate('/account/edit')}>
+        <IconButton onClick={() => navigate('/profile/edit')}>
           <ChevronLeft />
         </IconButton>
       </Box>
