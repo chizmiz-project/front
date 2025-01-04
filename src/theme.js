@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export const light_mode = true;
+export const light_mode = false;
 export const borderColor = light_mode ? 'red' : 'green'
 export const backgroundColorTop = light_mode ? 'white' : '#1C1C1E'
 export const backgroundColor = light_mode ? '#F2F2F7' : '#000000'
@@ -17,7 +17,6 @@ export const fillColorPrimary = light_mode ? '#7878802e' : '#7878804f'
 export const fillColorSecondary = light_mode ? '#78788021' : '#78788045'
 export const fillColorTertiary = light_mode ? '#7676801c' : '#76768036'
 
-const border = `1px solid ${borderColor}`
 const borderRadius = '0.5rem'
 const large_borderRadius = '0.8rem'
 
