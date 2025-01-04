@@ -13,6 +13,7 @@ import SignupPage from './layouts/pages/Signup.js';
 import VerifyOTPPage from './layouts/pages/verify-otp.js';
 import SettingsPage from './layouts/pages/settingPage.js';
 import { UserProvider } from './context/UserContext';
+import ProfileEditPage from './layouts/pages/ProfileEditPage.js';
 
 const cacheRtl = createCache({
   key: 'muirtl',
@@ -33,6 +34,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
               <Route path="/verify-otp" element={<VerifyOTPPage />} />
+              <Route path="/profile/edit" element={<ProfileEditPage />} />
             </Routes>
           </BrowserRouter>
         </ThemeProvider>
