@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export const light_mode = false;
+export const light_mode = true;
 export const borderColor = light_mode ? 'red' : 'green'
 export const backgroundColorTop = light_mode ? 'white' : '#1C1C1E'
 export const backgroundColor = light_mode ? '#F2F2F7' : '#000000'
@@ -28,6 +28,11 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Vazirmatn',
+    h1: {
+      fontSize: '1.1rem',
+      fontWeight: '600',
+      color: labelPrimary
+    },
     h2: {
       fontSize: '1rem',
       fontWeight: '600',
@@ -36,6 +41,11 @@ const theme = createTheme({
     subtitle1: {
       color: labelSecondary,
       fontSize: '0.95rem',
+      marginBottom: 5
+    },
+    subtitle2: {
+      color: labelPrimary,
+      fontWeight: '400',
       marginBottom: 5
     }
   },
@@ -134,13 +144,15 @@ const theme = createTheme({
         }
       }
     },
-    // MuiCardContent: {
-    //   styleOverrides: {
-    //     root: {
-    //       padding: '.5rem'
-    //     }
-    //   }
-    // }
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '.5rem'
+        }
+      }
+    }
   }
 });
 
