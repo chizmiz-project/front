@@ -6,6 +6,8 @@ import ReportDialog from '../../components/ReportDialog';
 import ApiService from '../../services/api';
 import timeAgo from '../../services/calender';
 import AppLayout from '../AppLayout';
+import { getFormattedPrice } from '../../services/Utils';
+
 
 export default function AdDetailsPage() {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
@@ -34,10 +36,12 @@ export default function AdDetailsPage() {
     title: ad.id,
     time: timeAgo(ad.created_at),
     images: [
+      'https://static.vecteezy.com/system/resources/previews/053/092/596/non_2x/pixel-art-camper-van-game-asset-design-vector.jpg',
+      'https://static.vecteezy.com/system/resources/previews/053/092/587/non_2x/pixel-art-delivery-truck-game-asset-design-vector.jpg',
       ad.main_picture
     ],
     details: [
-      { key: 'قیمت', value: ad.price },
+      { key: 'قیمت', value: getFormattedPrice(ad.price) },
     ],
     description: ad.description
   };
@@ -49,50 +53,50 @@ export default function AdDetailsPage() {
 
   return (
     <AppLayout title={adDetails.title}>
-      <Container style={{ paddingTop: '1rem', paddingBottom: '16px' }}>
-        <ImageSlider images={adDetails.images} />
+      <Box>
+      <ImageSlider images={adDetails.images} />
 
-        <Box style={{ padding: '16px' }}>
-          <Typography variant="h6" gutterBottom>
-            {adDetails.title}
-          </Typography>
+      <Box p={2}>
+        <Typography variant="h1" gutterBottom>
+          {adDetails.title}
+        </Typography>
 
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            {adDetails.time}
-          </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          {adDetails.time}
+        </Typography>
 
-          <List style={{ marginBottom: '16px' }}>
-            {adDetails.details.map((detail, index) => (
-              <Box key={index}>
-                {index > 0 && <Divider />}
-                <ListItem style={{ paddingLeft: 0, paddingRight: 0 }}>
-                  <ListItemText
-                    primary={detail.key}
-                    secondary={detail.value}
-                  />
-                </ListItem>
-              </Box>
-            ))}
-          </List>
+        <List style={{ marginBottom: '16px' }}>
+          {adDetails.details.map((detail, index) => (
+            <Box key={index}>
+              {index > 0 && <Divider />}
+              <ListItem secondaryAction={
+                <Typography variant='subtitle1'>{detail.value}</Typography>
+              }
+                style={{ paddingLeft: 0, paddingRight: 0 }}>
+                <ListItemText primary={detail.key} />
+              </ListItem>
+            </Box>
+          ))}
+        </List>
 
-          <Typography variant="h6" gutterBottom>
-            توضیحات
-          </Typography>
+        <Typography variant="h2" gutterBottom>
+          توضیحات
+        </Typography>
 
-          <Typography variant="body1" paragraph>
-            {adDetails.description}
-          </Typography>
+        <Typography variant="body1" paragraph>
+          {adDetails.description}
+        </Typography>
 
-          <Button
-            variant="outlined"
-            fullWidth
-            onClick={() => setIsReportDialogOpen(true)}
-          >
-            گزارش آگهی
-          </Button>
-        </Box>
-      </Container>
-
+      </Box>
+      </Box>
+      <Button
+        variant="outlined"
+        size='large'
+        fullWidth
+        onClick={() => setIsReportDialogOpen(true)}
+      >
+        گزارش آگهی
+      </Button>
       <ReportDialog
         open={isReportDialogOpen}
         onClose={() => setIsReportDialogOpen(false)}

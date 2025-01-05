@@ -94,16 +94,9 @@ export default function SignupPage() {
   return (
     <AppLayout title='ثبت‌نام'>
       <form onSubmit={handleSubmit}>
-      <CustomTextField
-          placeholder="متن را وارد کنید"
-          value={formData.title}
-          onChange={title => setFormData({ ...formData, title })}
-        />
-
         <TextField
           fullWidth
           label="نام کاربری"
-          placeholder='testing'
           margin="normal"
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
@@ -196,6 +189,7 @@ export default function SignupPage() {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
           disabled={loading}
+          size='large'
         >
           {loading ? (
             <CircularProgress size={24} color="inherit" />

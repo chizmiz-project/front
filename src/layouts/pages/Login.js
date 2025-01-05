@@ -97,6 +97,7 @@ export default function LoginPage() {
                 <Button
                     type="submit"
                     fullWidth
+                    size='large'
                     variant="contained"
                     sx={{
                         mt: 3,

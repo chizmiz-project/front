@@ -94,6 +94,7 @@ export default function VerifyOTPPage() {
         <Button
           fullWidth
           variant="text"
+          size='large'
           onClick={handleCancel}
           sx={{ mt: 1 }}
         >

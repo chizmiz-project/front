@@ -1,7 +1,6 @@
 import { Search, ArrowBack, MoreVert } from '@mui/icons-material';
 import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { labelSecondary } from '../theme';
 
 export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
       right: '50%',
       transform: 'translateX(50%)'
     }}>
-      <Typography variant="h6" component="h1">
+      <Typography variant="h1" component="h1">
         {title}
       </Typography>
     </Box>

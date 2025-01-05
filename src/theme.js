@@ -47,6 +47,9 @@ const theme = createTheme({
       color: labelPrimary,
       fontWeight: '400',
       marginBottom: 5
+    },
+    body1: {
+      color: textColor
     }
   },
   direction: 'rtl',
@@ -98,6 +101,15 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           height: '42px',
+        }
+      }
+    },
+    MuiListItemText:{
+      styleOverrides: {
+        secondary: {
+          color: textColor
+        },
+        root: {
           color: textColor
         }
       }

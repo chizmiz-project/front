@@ -4,6 +4,7 @@ import { SettingsGroup } from "../../components/setting/settingGroup"
 import { SettingsItem } from "../../components/setting/settingItem"
 import AppLayout from "../AppLayout"
 import { useUser } from '../../context/UserContext';
+import { Box } from "@mui/material"
 
 export default function SettingsPage() {
   const { user, logoutUser } = useUser();
@@ -13,6 +14,7 @@ export default function SettingsPage() {
 
   return (
     <AppLayout title="تنظیمات">
+      <Box>
       <UserAccountSection
         isLoggedIn={!!user}
         userData={user}
@@ -57,6 +59,7 @@ export default function SettingsPage() {
           onCheckedChange={setNewPurchase}
         />
       </SettingsGroup>
+      </Box>
     </AppLayout>
   )
 }

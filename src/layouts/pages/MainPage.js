@@ -47,6 +47,7 @@ export default function MainPage() {
 
   return (
     <AppLayout variant='search' hasNavigate={false} onSearchChange={setSearchQuery}>
+      <Box>
       <Grid container spacing={2} sx={{ mb: 3 }}>
         {categories.map(category => (
           <Grid item xs={4} key={category.id}>
@@ -60,7 +61,7 @@ export default function MainPage() {
           <CircularProgress />
         </Box>
       ) : ads.length > 0 ? (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
           {ads.map((ad, index) => (
             <AdItem key={index} ad={ad} />
           ))}
@@ -68,6 +69,7 @@ export default function MainPage() {
       ) : searchQuery ? (
         <EmptyState />
       ) : null}
+      </Box>
     </AppLayout>
 
   )
