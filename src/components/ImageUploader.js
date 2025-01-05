@@ -6,7 +6,7 @@ import {
   Stack,
   CircularProgress
 } from "@mui/material"
-import { Camera, Close, AddPhotoAlternate } from "@mui/icons-material"
+import { Close, AddPhotoAlternate, AddAPhoto } from "@mui/icons-material"
 
 export function ImageUploader({ onImageSelect, isUploading = false }) {
   const [preview, setPreview] = useState(null)
@@ -180,7 +180,7 @@ export function ImageUploader({ onImageSelect, isUploading = false }) {
         <CircularProgress />
       ) : (
         <>
-          <Camera
+          <AddAPhoto
             sx={{
               fontSize: 40,
               color: isDragging ? "primary.main" : "text.secondary"

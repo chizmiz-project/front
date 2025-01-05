@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export const light_mode = true;
+export const light_mode = false;
 export const borderColor = light_mode ? 'red' : 'green'
 export const backgroundColorTop = light_mode ? 'white' : '#1C1C1E'
 export const backgroundColor = light_mode ? '#F2F2F7' : '#000000'
@@ -49,6 +49,9 @@ const theme = createTheme({
       marginBottom: 5
     },
     body1: {
+      color: textColor
+    },
+    body2: {
       color: textColor
     }
   },
@@ -117,6 +120,7 @@ const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
+          cursor: 'pointer',
           borderRadius: borderRadius,
           boxShadow: 'none',
           backgroundColor: backgroundColorTop,

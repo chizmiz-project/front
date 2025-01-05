@@ -1,4 +1,4 @@
-import { Search, ArrowBack, MoreVert } from '@mui/icons-material';
+import { Search, ArrowBack, MoreVert, ChevronLeft } from '@mui/icons-material';
 import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,7 +50,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
 
   const navigation = hasNavigate ? (
     <IconButton sx={{ marginLeft: 'auto'}} edge="start" onClick={() => navigate(-1)}>
-      <ArrowBack/>
+      <ChevronLeft/>
     </IconButton>
   ) : null;
 

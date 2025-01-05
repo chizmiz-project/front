@@ -33,7 +33,6 @@
 - edit content
 - edit ad photos
 
-
 ## All Ads
 - pagination is not supported
 **Note**: the ads which you have created should be excluded when fetching all ads
