@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Button, TextField } from "@mui/material"
 import ApiService from "../../services/api"
@@ -20,6 +20,7 @@ const categories = [
 export default function CreateAdPage() {
   const navigate = useNavigate()
   const [isUploading, setIsUploading] = useState(false)
+  const [categories, setCategories] = useState([])
   const [formData, setFormData] = useState({
     categoryId: "",
     title: "",
@@ -27,6 +28,18 @@ export default function CreateAdPage() {
     image: null,
     price: ""
   })
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await ApiService.get('/category/')
+      console.log(response)
+      if (response.isSuccess)
+        setCategories(response.data)
+      console.log(response.data)
+    }
+
+    fetchCategories();
+  }, [])
 
   const handleSubmit = async e => {
     e.preventDefault()

@@ -9,6 +9,7 @@ export const TextFieldColor = light_mode ? '#7676802b' : 'blue'
 export const dividerColor = light_mode ? '#C6C6C8' : '#38383A'
 export const textColor = light_mode ? 'black' : 'white'
 
+export const primaryColor = '#007AFF'
 export const labelPrimary = light_mode ? '#000000' : '#FFFFFF'
 export const labelSecondary = light_mode ? '#3C3C43AD' : '#EBEBF5AD'
 export const labelTertiary = light_mode ? '#3C3C4347' : '#EBEBF552'
@@ -18,12 +19,11 @@ export const fillColorSecondary = light_mode ? '#78788021' : '#78788045'
 export const fillColorTertiary = light_mode ? '#7676801c' : '#76768036'
 
 const borderRadius = '0.5rem'
-const large_borderRadius = '0.8rem'
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#007AFF'
+      main: primaryColor
     }
   },
   typography: {
