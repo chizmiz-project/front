@@ -7,8 +7,8 @@ import ApiService from '../../services/api';
 import timeAgo from '../../services/calender';
 import AppLayout from '../AppLayout';
 import { getFormattedPrice } from '../../services/Utils';
-import { CustomListGroup } from '../../components/setting/CutomListGroup';
-import { CutomListItem } from '../../components/setting/CutomListItem';
+import { CustomListGroup } from '../../components/list/CutomListGroup';
+import { CutomListItem } from '../../components/list/CutomListItem';
 
 
 export default function AdDetailsPage() {
