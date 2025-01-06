@@ -7,6 +7,8 @@ import ApiService from '../../services/api';
 import timeAgo from '../../services/calender';
 import AppLayout from '../AppLayout';
 import { getFormattedPrice } from '../../services/Utils';
+import { SettingsGroup } from '../../components/setting/settingGroup';
+import { SettingsItem } from '../../components/setting/settingItem';
 
 
 export default function AdDetailsPage() {
@@ -54,40 +56,36 @@ export default function AdDetailsPage() {
   return (
     <AppLayout title={adDetails.title}>
       <Box>
-      <ImageSlider images={adDetails.images} />
+        <ImageSlider images={adDetails.images} />
 
-      <Box p={2}>
-        <Typography variant="h1" gutterBottom>
-          {adDetails.title}
-        </Typography>
+        <Box p={2}>
+          <Typography variant="h1" gutterBottom>
+            {adDetails.title}
+          </Typography>
 
-        <Typography variant="subtitle1" gutterBottom>
-          {adDetails.time}
-        </Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            {adDetails.time}
+          </Typography>
 
-        <List style={{ marginBottom: '16px' }}>
-          {adDetails.details.map((detail, index) => (
-            <Box key={index}>
-              {index > 0 && <Divider />}
-              <ListItem secondaryAction={
-                <Typography variant='subtitle1'>{detail.value}</Typography>
-              }
-                style={{ paddingLeft: 0, paddingRight: 0 }}>
-                <ListItemText primary={detail.key} />
-              </ListItem>
-            </Box>
-          ))}
-        </List>
+          <SettingsGroup>
+            {adDetails.details.map((detail) => 
+              <SettingsItem
+                type='key-value'
+                label={detail.key}
+                value={detail.value}
+              />
+            )}
+          </SettingsGroup>
 
-        <Typography variant="h2" gutterBottom>
-          توضیحات
-        </Typography>
+          <Typography variant="h2" gutterBottom>
+            توضیحات
+          </Typography>
 
-        <Typography variant="body1" paragraph>
-          {adDetails.description}
-        </Typography>
+          <Typography variant="body1" paragraph>
+            {adDetails.description}
+          </Typography>
 
-      </Box>
+        </Box>
       </Box>
       <Button
         variant="outlined"

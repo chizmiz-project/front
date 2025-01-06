@@ -7,6 +7,8 @@ export const backgroundColor = light_mode ? '#F2F2F7' : '#000000'
 export const labelColor = light_mode ? '#3C3C43' : '#EBEBF5'
 export const TextFieldColor = light_mode ? '#7676802b' : 'blue'
 export const dividerColor = light_mode ? '#C6C6C8' : '#38383A'
+export const dividerColorTransparent = light_mode ? '#3C3C431C' : '#5454587a'
+
 export const textColor = light_mode ? 'black' : 'white'
 
 export const primaryColor = '#007AFF'
@@ -107,7 +109,7 @@ const theme = createTheme({
     MuiListItem: {
       styleOverrides: {
         root: {
-          height: '42px',
+          height: '46px',
         }
       }
     },
@@ -135,7 +137,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           marginLeft: '1rem',
-          borderColor: dividerColor
+          borderColor: dividerColorTransparent
         }
       }
     },

@@ -9,8 +9,6 @@ import { Box } from "@mui/material"
 export default function SettingsPage() {
   const { user, logoutUser } = useUser();
   const [darkMode, setDarkMode] = useState(false)
-  const [notifications, setNotifications] = useState(true)
-  const [newPurchase, setNewPurchase] = useState(false)
 
   return (
     <AppLayout title="تنظیمات">
@@ -22,7 +20,7 @@ export default function SettingsPage() {
         onLogout={logoutUser}
       />
 
-      <SettingsGroup title="آگهی‌ها">
+      <SettingsGroup>
         <SettingsItem
           type="navigation"
           label="آگهی‌های ذخیره‌شده"
@@ -39,26 +37,17 @@ export default function SettingsPage() {
           to="/recent-views"
         />
       </SettingsGroup>
-      <SettingsGroup title="خیلی بیشتر">
-        <SettingsItem
+
+      <SettingsGroup children={
+        [
+          <SettingsItem
           type="switch"
           label="حالت شب"
           checked={darkMode}
           onCheckedChange={setDarkMode}
         />
-        <SettingsItem
-          type="checkbox"
-          label="ری‌اکشن دادن"
-          checked={notifications}
-          onCheckedChange={setNotifications}
-        />
-        <SettingsItem
-          type="switch"
-          label="خریدار جدید"
-          checked={newPurchase}
-          onCheckedChange={setNewPurchase}
-        />
-      </SettingsGroup>
+        ]
+      }/>
       </Box>
     </AppLayout>
   )
