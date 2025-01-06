@@ -1,11 +1,11 @@
 import { Box, CircularProgress, Collapse, Grid2 } from '@mui/material'
-import AdItem from '../../components/advertisement/AdItem'
 import { CategoryItem } from '../../components/CategoryItem'
 import { useEffect, useState } from 'react'
 import ApiService from '../../services/api'
 import AppLayout from '../AppLayout'
 import { useDebounce } from '../../components/useDebounce'
 import EmptyState from '../../components/EmptyState'
+import AdGrid from '../../components/advertisement/AdGrid'
 
 export default function MainPage() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -62,13 +62,8 @@ export default function MainPage() {
           </Box>
         ) : null}
 
-        <Grid2 container spacing={2}>
-          {ads.map((ad, index) => (
-              <Grid2 size={{ xs: 12, md: 6, xl: 4 }} item key={index}>
-                <AdItem ad={ad} />
-              </Grid2>
-          ))}
-        </Grid2>
+        <AdGrid ads={ads}/>
+
         {ads.length === 0 && searchQuery && <EmptyState />}
 
       </Box>

@@ -1,9 +1,8 @@
-import { Box } from '@mui/material'
-import AdItem from '../../components/advertisement/AdItem'
 import AppLayout from '../AppLayout'
 import { useEffect, useState } from 'react';
 import ApiService from '../../services/api';
 import { useParams } from 'react-router-dom';
+import AdGrid from '../../components/advertisement/AdGrid';
 
 export default function CategoryPage() {
   const { id } = useParams();
@@ -27,11 +26,7 @@ export default function CategoryPage() {
 
   return (
     <AppLayout variant='search'>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-        {ads.map((ad, index) => (
-          <AdItem key={index} ad={ad} />
-        ))}
-      </Box>
+        <AdGrid ads={ads}/>
     </AppLayout>
   )
 }

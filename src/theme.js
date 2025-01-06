@@ -38,6 +38,10 @@ const theme = createTheme({
       fontWeight: '600',
       color: labelPrimary
     },
+    h6: {
+      fontWeight: '400',
+      color: labelSecondary
+    },
     subtitle1: {
       color: labelSecondary,
       fontSize: '0.95rem',
