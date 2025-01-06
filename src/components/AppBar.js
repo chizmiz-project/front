@@ -90,7 +90,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
 
   return (
     <MuiAppBar position="sticky" elevation={0}>
-      <Toolbar>
+      <Toolbar sx={{ paddingY: { xs: .5}}}>
         <Container sx={{ gap: 1, py: .5, display: 'flex', alignItems: 'center', flexDirection: 'row', p: 0 }}>
           {setting}
           {searchInput}

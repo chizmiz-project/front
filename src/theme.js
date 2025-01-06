@@ -33,7 +33,8 @@ const theme = createTheme({
     h1: {
       fontSize: '1.1rem',
       fontWeight: '600',
-      color: labelPrimary
+      color: labelPrimary,
+      lineHeight: '1.7rem'
     },
     h2: {
       fontSize: '1rem',

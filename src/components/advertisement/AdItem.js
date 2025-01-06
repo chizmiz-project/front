@@ -14,7 +14,7 @@ export default function AdItem({ ad }) {
         }}
             component={Link} to={`/ad/details/${ad.id}`}>
             <CardContent>
-                <Typography variant="h1" maxWidth={'180px'} noWrap>
+                <Typography variant="h1">
                     {ad.title}
                 </Typography>
                 <Typography variant='subtitle2' mt={2}>{getFormattedPrice(ad.price)} تومان</Typography>
