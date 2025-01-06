@@ -1,9 +1,12 @@
-import { Search, ArrowBack, MoreVert, ChevronLeft } from '@mui/icons-material';
-import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment } from '@mui/material';
+import { Search, MoreVert, ChevronLeft } from '@mui/icons-material';
+import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
 export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
   const navigate = useNavigate();
+  const { user } = useUser();
+  const isLoggedIn = !!user;
 
   const handleSearchChange = (event) => {
     onSearchChange?.(event.target.value);
@@ -24,11 +27,14 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
         slotProps={{
           input: {
             sx: {
-              maxHeight: '45px'
+              maxHeight: '45px',
+              maxWidth: {
+                md: '500px'
+              }
             },
             startAdornment: (
               <InputAdornment position="start">
-                <Search/>
+                <Search />
               </InputAdornment>
             ),
           },
@@ -49,18 +55,49 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
     : null;
 
   const navigation = hasNavigate ? (
-    <IconButton sx={{ marginLeft: 'auto'}} onClick={() => navigate(-1)}>
-      <ChevronLeft/>
+    <IconButton sx={{ marginLeft: 'auto' }} onClick={() => navigate(-1)}>
+      <ChevronLeft />
     </IconButton>
   ) : null;
 
+  const desktopPlugins = variant !== 'title' ?
+    <Box alignItems={'center'} gap={2} sx={{ display: { md: 'flex', sm: 'none', xs: 'none' } }}>
+      {
+        isLoggedIn ?
+          <>
+            <Typography variant='body2' onClick={() => navigate('/temp')} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
+              آگهی‌های من
+            </Typography>
+            <Typography variant='body2' onClick={() => navigate('/temp')} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
+              ذخیره‌شده‌ها
+            </Typography>
+            <Button variant='contained' onClick={() => navigate('/temp')}>
+              ثبت آگهی
+            </Button>
+          </>
+          :
+          <>
+          <Button variant='contained' onClick={() => navigate('/login')}>
+            ورود
+          </Button>
+          <Button variant='outlined' onClick={() => navigate('/signup')}>
+            ثبت‌نام
+          </Button>
+          </>
+          
+      }
+    </Box> : null;
+
   return (
     <MuiAppBar position="sticky" elevation={0}>
-      <Toolbar sx={{ gap: 1, py: .5 }}>
-        {setting}
-        {searchInput}
-        {header}
-        {navigation}
+      <Toolbar>
+        <Container sx={{ gap: 1, py: .5, display: 'flex', alignItems: 'center', flexDirection: 'row', p: 0 }}>
+          {setting}
+          {searchInput}
+          {header}
+          {desktopPlugins}
+          {navigation}
+        </Container>
       </Toolbar>
     </MuiAppBar>
   );

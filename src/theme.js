@@ -66,7 +66,8 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          boxShadow: 'none'
+          boxShadow: 'none',
+          textWrap: 'nowrap'
         }
       }
     },
