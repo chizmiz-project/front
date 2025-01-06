@@ -1,11 +1,11 @@
 import { Box, CircularProgress, Collapse, Grid2 } from '@mui/material'
-import { CategoryItem } from '../../components/CategoryItem'
 import { useEffect, useState } from 'react'
 import ApiService from '../../services/api'
 import AppLayout from '../AppLayout'
 import { useDebounce } from '../../components/useDebounce'
 import EmptyState from '../../components/EmptyState'
 import AdGrid from '../../components/advertisement/AdGrid'
+import { CategoryItem } from '../../components/category/CategoryItem'
 
 export default function MainPage() {
   const [searchQuery, setSearchQuery] = useState('')
