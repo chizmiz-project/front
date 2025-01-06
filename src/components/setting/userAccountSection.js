@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from '@mui/icons-material';
 import { Button, Typography, Box, IconButton } from '@mui/material';
 import ApiService from '../../services/api';
+import { useUser } from '../../context/UserContext';
 
 const toPersianDigits = (number) => {
   const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -11,7 +12,8 @@ const toPersianDigits = (number) => {
       .join('');
 };
 
-export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
+export function UserAccountSection({ isLoggedIn, userData }) {
+  const { clearUser } = useUser();
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -21,7 +23,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
   const handleLogoutClick = async () => {
     try {
       await ApiService.post('/account/logout/');
-      onLogout();
+      clearUser();
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -56,8 +58,8 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
         mb: 2
       }}>
         <Box>
-          <Typography variant="subtitle1">{userData?.first_name + " " + userData?.last_name}</Typography>
-          <Typography color="text.secondary">{toPersianDigits(userData?.account.phone_number)}</Typography>
+        <Typography variant="subtitle1">{userData?.username}</Typography>
+        <Typography color="text.secondary">{toPersianDigits(userData?.phone_number)}</Typography>
         </Box>
         <IconButton onClick={() => navigate('/profile/edit')}>
           <ChevronLeft />
