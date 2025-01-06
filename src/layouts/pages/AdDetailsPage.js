@@ -7,8 +7,8 @@ import ApiService from '../../services/api';
 import timeAgo from '../../services/calender';
 import AppLayout from '../AppLayout';
 import { getFormattedPrice } from '../../services/Utils';
-import { SettingsGroup } from '../../components/setting/settingGroup';
-import { SettingsItem } from '../../components/setting/settingItem';
+import { CustomListGroup } from '../../components/setting/settingGroup';
+import { CutomListItem } from '../../components/setting/settingItem';
 
 
 export default function AdDetailsPage() {
@@ -67,15 +67,15 @@ export default function AdDetailsPage() {
             {adDetails.time}
           </Typography>
 
-          <SettingsGroup>
+          <CustomListGroup>
             {adDetails.details.map((detail) => 
-              <SettingsItem
+              <CutomListItem
                 type='key-value'
                 label={detail.key}
                 value={detail.value}
               />
             )}
-          </SettingsGroup>
+          </CustomListGroup>
 
           <Typography variant="h2" gutterBottom>
             توضیحات

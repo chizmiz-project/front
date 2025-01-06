@@ -2,7 +2,7 @@ import { ChevronLeft } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { ListItem, ListItemText, Switch, Checkbox, IconButton, Typography } from '@mui/material';
 
-export function SettingsItem(props) {
+export function CutomListItem(props) {
     const navigate = useNavigate();
     const { label, type, value } = props;
 

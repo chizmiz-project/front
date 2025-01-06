@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { UserAccountSection } from "../../components/setting/userAccountSection"
-import { SettingsGroup } from "../../components/setting/settingGroup"
-import { SettingsItem } from "../../components/setting/settingItem"
+import { CustomListGroup } from "../../components/setting/settingGroup"
+import { CutomListItem } from "../../components/setting/settingItem"
 import AppLayout from "../AppLayout"
 import { useUser } from '../../context/UserContext';
 import { Box } from "@mui/material"
@@ -20,27 +20,27 @@ export default function SettingsPage() {
         onLogout={logoutUser}
       />
 
-      <SettingsGroup>
-        <SettingsItem
+      <CustomListGroup>
+        <CutomListItem
           type="navigation"
           label="آگهی‌های ذخیره‌شده"
           to="/saved-ads"
         />
-        <SettingsItem
+        <CutomListItem
           type="navigation"
           label="آگهی‌های من"
           to="/my-ads"
         />
-        <SettingsItem
+        <CutomListItem
           type="navigation"
           label="بازدیدهای اخیر"
           to="/recent-views"
         />
-      </SettingsGroup>
+      </CustomListGroup>
 
-      <SettingsGroup children={
+      <CustomListGroup children={
         [
-          <SettingsItem
+          <CutomListItem
           type="switch"
           label="حالت شب"
           checked={darkMode}

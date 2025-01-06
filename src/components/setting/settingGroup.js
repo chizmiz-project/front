@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, List, Divider, Paper } from '@mui/material';
 
-export function SettingsGroup({ children }) {
+export function CustomListGroup({ children }) {
   return (
     <Box my={2}>
       <List component={Paper}>
