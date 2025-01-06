@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
-import { primaryColor } from '../../theme';
 
 export default function LoginPage() {
     const navigate = useNavigate();

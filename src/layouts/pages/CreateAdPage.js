@@ -1,24 +1,12 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { Button, TextField } from "@mui/material"
+import { Button } from "@mui/material"
 import ApiService from "../../services/api"
 import AppLayout from "../AppLayout"
 import { ImageUploader } from "../../components/ImageUploader"
 import { CategorySelector } from "../../components/category/CategorySelector"
 import { CustomTextField } from "../../components/CustomTextField"
 
-const categories = [
-  { id: "1", title: "املاک" },
-  { id: "2", title: "املاک" },
-  { id: "3", title: "املاک" },
-  { id: "4", title: "املاک" },
-  { id: "5", title: "املاک" },
-  { id: "6", title: "املاک" },
-  { id: "7", title: "املاک" }
-]
-
 export default function CreateAdPage() {
-  const navigate = useNavigate()
   const [isUploading, setIsUploading] = useState(false)
   const [categories, setCategories] = useState([])
   const [formData, setFormData] = useState({

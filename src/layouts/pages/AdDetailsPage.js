@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Container, Typography, Button, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { ImageSlider } from '../../components/ImageSlider';
 import ReportDialog from '../../components/ReportDialog';
 import ApiService from '../../services/api';
@@ -13,11 +13,8 @@ import { CutomListItem } from '../../components/list/CutomListItem';
 
 export default function AdDetailsPage() {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
-  const { id } = useParams();
-
-  let adDetails;
-
   const [ad, setAd] = useState({})
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchAd = async () => {
@@ -33,9 +30,9 @@ export default function AdDetailsPage() {
     fetchAd();
   }, []);
 
-  adDetails = {
+  let adDetails = {
     id: id,
-    title: ad.id,
+    title: ad.title,
     time: timeAgo(ad.created_at),
     images: [
       'https://static.vecteezy.com/system/resources/previews/053/092/596/non_2x/pixel-art-camper-van-game-asset-design-vector.jpg',
@@ -57,7 +54,6 @@ export default function AdDetailsPage() {
     <AppLayout title={adDetails.title}>
       <Box>
         <ImageSlider images={adDetails.images} />
-
         <Box p={2}>
           <Typography variant="h1" gutterBottom>
             {adDetails.title}
@@ -81,7 +77,7 @@ export default function AdDetailsPage() {
             توضیحات
           </Typography>
 
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1">
             {adDetails.description}
           </Typography>
 
@@ -95,6 +91,7 @@ export default function AdDetailsPage() {
       >
         گزارش آگهی
       </Button>
+
       <ReportDialog
         open={isReportDialogOpen}
         onClose={() => setIsReportDialogOpen(false)}

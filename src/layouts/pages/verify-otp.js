@@ -52,15 +52,6 @@ export default function VerifyOTPPage() {
 
   return (
     <AppLayout title='اعتبار‌سنجی'>
-      <Box sx={{ textAlign: 'center', mb: 3 }}>
-        <Typography variant="body1">
-          کد ورود را وارد کنید
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          کد ارسال‌شده به ایمیلتان را وارد کنید
-        </Typography>
-      </Box>
-
       <form onSubmit={handleSubmit}>
         <TextField
           fullWidth
@@ -80,6 +71,7 @@ export default function VerifyOTPPage() {
         <Button
           type="submit"
           fullWidth
+          size='large'
           variant="contained"
           sx={{ mt: 3 }}
           disabled={loading}

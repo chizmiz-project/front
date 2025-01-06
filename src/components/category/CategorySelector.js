@@ -1,29 +1,23 @@
-import { Grid, Paper, Typography } from "@mui/material"
+import { Grid2, Paper, Typography } from "@mui/material"
 import { primaryColor } from "../../theme"
 
 export function CategorySelector({ categories, selectedCategory, onSelect }) {
   return (
-    <Grid container spacing={1} sx={{ mb: 3 }}>
+<Grid2 container spacing={2} mb={2}>
       {categories.map(category => (
-        <Grid item xs={4} xl={2} key={category.id}>
+        <Grid2 item size={{ xs: 4, md: 3, lg: 2 }} key={category.id}>
           <Paper
-            elevation={0}
-            sx={{
-              p: 2,
-              display: "flex",
-              gap: 1,
-              boxSizing: 'border-box',
+            sx={{ p: 2, 
+              textAlign: 'center', 
               border: category.id === selectedCategory ? 2 : 0,
               borderColor: primaryColor
             }}
             onClick={() => onSelect(category.id)}
           >
-            <Typography width={'100%'} variant="body2" align="center">
-              {category.title}
-            </Typography>
+            <Typography width={'100%'} variant="body2">{category.title}</Typography>
           </Paper>
-        </Grid>
+        </Grid2>
       ))}
-    </Grid>
+    </Grid2>
   )
 }

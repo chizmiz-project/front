@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Collapse, Grid2 } from '@mui/material'
+import { Box, CircularProgress, Grid2 } from '@mui/material'
 import { useEffect, useState } from 'react'
 import ApiService from '../../services/api'
 import AppLayout from '../AppLayout'
