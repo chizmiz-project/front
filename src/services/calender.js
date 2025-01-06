@@ -1,10 +1,4 @@
-const toPersianDigits = (number) => {
-    const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-    return String(number)
-        .split('')
-        .map(digit => persianDigits[parseInt(digit, 10)] || digit)
-        .join('');
-};
+import {toPersianDigits} from './Utils'
 
 function timeAgo(dateString) {
     const now = new Date();

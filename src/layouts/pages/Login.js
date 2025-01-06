@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
     TextField,
     Button,
     Typography,
     Box,
-    CircularProgress
+    CircularProgress,
+    Link
 } from '@mui/material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
@@ -65,7 +66,7 @@ export default function LoginPage() {
     };
 
     return (
-        <AppLayout title='ورود'>
+        <AppLayout title='ورود به حساب کاربری'>
             <form onSubmit={handleSubmit}>
                 <TextField
                     fullWidth
@@ -94,40 +95,34 @@ export default function LoginPage() {
                     </Typography>
                 )}
 
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{
-                        mt: 3,
-                        mb: 2,
-                        position: 'relative',
-                        minHeight: '48px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                    disabled={loading}
-                >
-                    {loading ? (
-                        <CircularProgress
-                            size={24}
-                            sx={{
-                                color: 'white',
-                            }}
-                        />
-                    ) : (
-                        'ورود'
-                    )}
-                </Button>
+                <Box mt={2} display={'flex'} gap={1.5} flexDirection={'column'} sx={{ textAlign: 'center' }}>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        size='large'
+                        variant="contained"
+                        disabled={loading}
+                    >
+                        {false ? (
+                            <CircularProgress
+                                size={25}
+                                sx={{
+                                    color: 'white',
+                                }}
+                            />
+                        ) : (
+                            'ورود'
+                        )}
+                    </Button>
 
-                <Box sx={{ textAlign: 'center' }}>
-                    <Typography variant="body2">
-                        حساب کاربری ندارید؟{' '}
-                        <Link to="/signup" style={{ color: 'primary.main', textDecoration: 'none' }}>
+                    <Box display={'flex'} justifyContent={'center'} gap={1}>
+                        <Typography variant="body1">
+                            حساب کاربری ندارید؟
+                        </Typography>
+                        <Link href="/signup" underline='none'>
                             ثبت‌نام کنید
                         </Link>
-                    </Typography>
+                    </Box>
                 </Box>
             </form>
         </AppLayout>

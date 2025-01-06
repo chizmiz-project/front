@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   TextField,
   Button,
@@ -7,12 +7,13 @@ import {
   Box,
   IconButton,
   InputAdornment,
-  CircularProgress
+  CircularProgress,
+  Link
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
-import flattenErrors from '../../services/Utils';
+import { flattenErrors } from '../../services/Utils';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -118,7 +119,6 @@ export default function SignupPage() {
         <TextField
           fullWidth
           label="نام کاربری"
-          variant="outlined"
           margin="normal"
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
@@ -211,21 +211,22 @@ export default function SignupPage() {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
           disabled={loading}
+          size='large'
         >
           {loading ? (
-            <CircularProgress size={24} color="inherit" />
+            <CircularProgress size={24} color="white" />
           ) : (
             'ثبت‌نام'
           )}
         </Button>
 
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="body2">
-            حساب کاربری دارید؟{' '}
-            <Link to="/login" style={{ color: 'primary.main', textDecoration: 'none' }}>
-              وارد شوید
-            </Link>
+        <Box display={'flex'} justifyContent={'center'} gap={1}>
+          <Typography variant="body1">
+            حساب کاربری دارید؟
           </Typography>
+          <Link href="/login" underline='none'>
+            وارد شوید
+          </Link>
         </Box>
       </form>
     </AppLayout>

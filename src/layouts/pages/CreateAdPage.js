@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import ApiService from "../../services/api";
 import AppLayout from "../AppLayout";
 import { ImageUploader } from "../../components/ImageUploader";
-import { CategorySelector } from "../../components/CategorySelector";
 import { CustomTextField } from "../../components/CustomTextField";
 import { CustomNumericField } from "../../components/CustomNumericField";
+import CategorySelector from '../../components/category/CategorySelector';
 
 export default function CreateAdPage() {
+  const [categories, setCategories] = useState([])
   const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,7 +19,6 @@ export default function CreateAdPage() {
     image: null,
     price: "",
   });
-  const [categories, setCategories] = useState([]);
 
   // Fetch categories on component mount
   useEffect(() => {
@@ -79,8 +79,8 @@ export default function CreateAdPage() {
 
         <CustomTextField
           title="عنوان آگهی"
-          description="عنوان آگهی تاثیر به سزایی در جذب کردن مخاطبان به آگهی شما دارد"
-          placeholder="متن را وارد کنید"
+          description="در عنوان آگهی به موارد مهم و چشم‌گیر اشاره کنید."
+          placeholder="عنوان را وارد کنید"
           value={formData.title}
           onChange={(title) =>
             setFormData({ ...formData, title })
@@ -89,7 +89,7 @@ export default function CreateAdPage() {
 
         <CustomTextField
           title="توضیحات"
-          description="با ارائه توضیحات کامل شانس فروش شما بالاتر می‌رود"
+          description="جزییات و نکات جالب توجه آگهی‌ خود را کامل و دقیق بنویسید. همچنین حتما به ساعات پاسخ‌گویی خود اشاره کنید."
           placeholder="متن را وارد کنید"
           multiline
           value={formData.description}
@@ -100,7 +100,7 @@ export default function CreateAdPage() {
 
         <CustomNumericField
           title="قیمت"
-          placeholder="قیمت را وارد کنید"
+          placeholder="قیمت را به عدد وارد کنید"
           value={formData.price}
           onChange={(price) =>
             setFormData({ ...formData, price })

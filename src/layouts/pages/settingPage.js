@@ -1,18 +1,18 @@
 import { useState } from "react"
-import { UserAccountSection } from "../../components/setting/userAccountSection"
-import { SettingsGroup } from "../../components/setting/settingGroup"
-import { SettingsItem } from "../../components/setting/settingItem"
+import { UserAccountSection } from "../../components/list/userAccountSection"
+import { CustomListGroup } from "../../components/list/CutomListGroup"
+import { CutomListItem } from "../../components/list/CutomListItem"
 import AppLayout from "../AppLayout"
 import { useUser } from '../../context/UserContext';
+import { Box } from "@mui/material"
 
 export default function SettingsPage() {
   const { user, logoutUser } = useUser();
   const [darkMode, setDarkMode] = useState(false)
-  const [notifications, setNotifications] = useState(true)
-  const [newPurchase, setNewPurchase] = useState(false)
 
   return (
     <AppLayout title="تنظیمات">
+      <Box>
       <UserAccountSection
         isLoggedIn={!!user}
         userData={user}
@@ -20,44 +20,35 @@ export default function SettingsPage() {
         onLogout={logoutUser}
       />
 
-      <SettingsGroup title="آگهی‌ها">
-        <SettingsItem
+      <CustomListGroup>
+        <CutomListItem
           type="navigation"
           label="آگهی‌های ذخیره‌شده"
           to="/saved-ads"
         />
-        <SettingsItem
+        <CutomListItem
           type="navigation"
           label="آگهی‌های من"
           to="/my-ads"
         />
-        <SettingsItem
+        <CutomListItem
           type="navigation"
           label="بازدیدهای اخیر"
           to="/recent-views"
         />
-      </SettingsGroup>
-      
-      <SettingsGroup title="خیلی بیشتر">
-        <SettingsItem
+      </CustomListGroup>
+
+      <CustomListGroup children={
+        [
+          <CutomListItem
           type="switch"
           label="حالت شب"
           checked={darkMode}
           onCheckedChange={setDarkMode}
         />
-        <SettingsItem
-          type="checkbox"
-          label="ری‌اکشن دادن"
-          checked={notifications}
-          onCheckedChange={setNotifications}
-        />
-        <SettingsItem
-          type="switch"
-          label="خریدار جدید"
-          checked={newPurchase}
-          onCheckedChange={setNewPurchase}
-        />
-      </SettingsGroup>
+        ]
+      }/>
+      </Box>
     </AppLayout>
   )
 }

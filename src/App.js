@@ -35,8 +35,8 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
               <Route path="/verify-otp" element={<VerifyOTPPage />} />
-              <Route path="/profile/edit" element={<ProfileEditPage />} />
               <Route path="/add" element={<CreateAdPage />} />
+              <Route path="/profile/edit" element={<ProfileEditPage />} />
             </Routes>
           </BrowserRouter>
         </ThemeProvider>

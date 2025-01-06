@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Container, Typography, Button, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { ImageSlider } from '../../components/ImageSlider';
 import ReportDialog from '../../components/ReportDialog';
 import ApiService from '../../services/api';
 import timeAgo from '../../services/calender';
 import AppLayout from '../AppLayout';
+import { getFormattedPrice } from '../../services/Utils';
+import { CustomListGroup } from '../../components/list/CutomListGroup';
+import { CutomListItem } from '../../components/list/CutomListItem';
+
 
 export default function AdDetailsPage() {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
-  const { id } = useParams();
-
-  let adDetails;
-
   const [ad, setAd] = useState({})
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchAd = async () => {
@@ -29,15 +30,17 @@ export default function AdDetailsPage() {
     fetchAd();
   }, []);
 
-  adDetails = {
+  let adDetails = {
     id: id,
-    title: ad.id,
+    title: ad.title,
     time: timeAgo(ad.created_at),
     images: [
+      'https://static.vecteezy.com/system/resources/previews/053/092/596/non_2x/pixel-art-camper-van-game-asset-design-vector.jpg',
+      'https://static.vecteezy.com/system/resources/previews/053/092/587/non_2x/pixel-art-delivery-truck-game-asset-design-vector.jpg',
       ad.main_picture
     ],
     details: [
-      { key: 'قیمت', value: ad.price },
+      { key: 'قیمت', value: getFormattedPrice(ad.price) },
     ],
     description: ad.description
   };
@@ -49,49 +52,45 @@ export default function AdDetailsPage() {
 
   return (
     <AppLayout title={adDetails.title}>
-      <Container style={{ paddingTop: '1rem', paddingBottom: '16px' }}>
+      <Box>
         <ImageSlider images={adDetails.images} />
-
-        <Box style={{ padding: '16px' }}>
-          <Typography variant="h6" gutterBottom>
+        <Box p={2}>
+          <Typography variant="h1" gutterBottom>
             {adDetails.title}
           </Typography>
 
-          <Typography variant="body2" color="text.secondary" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom>
             {adDetails.time}
           </Typography>
 
-          <List style={{ marginBottom: '16px' }}>
-            {adDetails.details.map((detail, index) => (
-              <Box key={index}>
-                {index > 0 && <Divider />}
-                <ListItem style={{ paddingLeft: 0, paddingRight: 0 }}>
-                  <ListItemText
-                    primary={detail.key}
-                    secondary={detail.value}
-                  />
-                </ListItem>
-              </Box>
-            ))}
-          </List>
+          <CustomListGroup>
+            {adDetails.details.map((detail) => 
+              <CutomListItem
+                type='key-value'
+                label={detail.key}
+                value={detail.value}
+              />
+            )}
+          </CustomListGroup>
 
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h2" gutterBottom>
             توضیحات
           </Typography>
 
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1">
             {adDetails.description}
           </Typography>
 
-          <Button
-            variant="outlined"
-            fullWidth
-            onClick={() => setIsReportDialogOpen(true)}
-          >
-            گزارش آگهی
-          </Button>
         </Box>
-      </Container>
+      </Box>
+      <Button
+        variant="outlined"
+        size='large'
+        fullWidth
+        onClick={() => setIsReportDialogOpen(true)}
+      >
+        گزارش آگهی
+      </Button>
 
       <ReportDialog
         open={isReportDialogOpen}
