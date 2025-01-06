@@ -18,7 +18,6 @@ export function CustomTextField({
         {description}
       </Typography>
       <TextField
-        
         label={label}
         fullWidth
         placeholder={placeholder}
