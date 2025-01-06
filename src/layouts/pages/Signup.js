@@ -23,10 +23,12 @@ export default function SignupPage() {
     confirmPassword: '',
     phone_number: '',
     bio: '',
-    address: ''
+    address: '',
+    first_name: '',
+    last_name: '',
   });
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);  
+  const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -34,27 +36,29 @@ export default function SignupPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
-  
+
     if (formData.password !== formData.confirmPassword) {
       setError('رمز عبور و تکرار آن مطابقت ندارند');
       setLoading(false);
       return;
     }
-  
+
     let data = {
       "username": formData.username,
       "email": formData.email,
       "password": formData.password,
+      "first_name": formData.first_name,
+      "last_name": formData.last_name,
       "account": {
         "phone_number": formData.phone_number,
         "bio": formData.bio,
         "address": formData.address
       }
     };
-  
+
     try {
       const response = await ApiService.post('/account/signup/', data);
-  
+
       if (response.isBadRequest) {
         let errorMessages = '';
         let errorResponse = flattenErrors(response.data);
@@ -64,13 +68,13 @@ export default function SignupPage() {
         }
         setError(errorMessages);
       }
-  
+
       if (response.isSuccess) {
         let loginData = {
           'username': formData.username,
           'password': formData.password
         };
-  
+
         const loginResponse = await ApiService.post('/account/login/', loginData);
 
         navigate('/verify-otp', {
@@ -81,7 +85,7 @@ export default function SignupPage() {
         });
         console.log(loginResponse);
       }
-  
+
     } catch (err) {
       setError('An unexpected error occurred.' + err.errorMessages);
       console.error(err);
@@ -89,10 +93,28 @@ export default function SignupPage() {
       setLoading(false);
     }
   };
-  
+
   return (
     <AppLayout title='ثبت‌نام'>
       <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="نام"
+          variant="outlined"
+          margin="normal"
+          value={formData.first_name}
+          onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+        />
+
+        <TextField
+          fullWidth
+          label="نام خانوادگی"
+          variant="outlined"
+          margin="normal"
+          value={formData.last_name}
+          onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+        />
+
         <TextField
           fullWidth
           label="نام کاربری"

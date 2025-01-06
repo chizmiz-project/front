@@ -3,11 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { TextField, Button, Typography, Box, CircularProgress } from '@mui/material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
-import { useUser } from '../../context/UserContext';
 
 export default function VerifyOTPPage() {
   const { state } = useLocation();
-  const { updateUser } = useUser();
 
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
@@ -26,15 +24,10 @@ export default function VerifyOTPPage() {
 
     try {
       const response = await ApiService.post('/account/verify-otp/', data);
-      console.log(response);
+
       if (response.isNotFound || response.isBadRequest)
         setError('کد وارد شده صحیح نیست');
       else {
-        updateUser({
-          username: state.username,
-          phone_number: response.data.phone_number,
-        });
-
         navigate('/');
       }
     } catch (error) {

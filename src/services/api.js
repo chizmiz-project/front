@@ -1,8 +1,12 @@
-const ApiService = (() => {
+import Cookies from 'js-cookie';
 
+const ApiService = (() => {
   let BASE_URL = 'http://localhost:8000/api';
 
-  // Handle response and standardize the output 
+  const getCsrfToken = () => {
+    return Cookies.get('csrftoken'); // Get the CSRF token from the cookie
+  };
+
   const handleResponse = async (response) => {
     const data = await response.json().catch(() => null);
 
@@ -12,7 +16,7 @@ const ApiService = (() => {
       isBadRequest: response.status === 400,
       isNotFound: response.status === 404,
       isServerError: response.status >= 500 && response.status < 600,
-      data
+      data,
     };
   };
 
@@ -20,14 +24,14 @@ const ApiService = (() => {
   const get = async (endpoint, options = {}) => {
     try {
       const urlParams = new URLSearchParams(options);
-      const response = await fetch(`${BASE_URL}${endpoint}?${urlParams.toString()}`,
-        {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          }
-        });
+      const response = await fetch(`${BASE_URL}${endpoint}?${urlParams.toString()}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Include credentials (cookies) in the request
+      });
       return handleResponse(response);
     } catch (error) {
       console.error('GET request error:', error);
@@ -35,20 +39,19 @@ const ApiService = (() => {
     }
   };
 
-
-  // POST method 
+  // POST method
   const post = async (endpoint, body) => {
     try {
-      const response = await fetch(`${BASE_URL}${endpoint}`,
-        {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body)
-        }
-      );
+      const response = await fetch(`${BASE_URL}${endpoint}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCsrfToken(),
+        },
+        credentials: 'include',
+        body: JSON.stringify(body),
+      });
       return handleResponse(response);
     } catch (error) {
       console.error('POST request error:', error);
@@ -56,18 +59,19 @@ const ApiService = (() => {
     }
   };
 
-  // PUT method 
+  // PUT method
   const put = async (endpoint, body) => {
     try {
-      const response = await fetch(`${BASE_URL}${endpoint}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body)
-        });
+      const response = await fetch(`${BASE_URL}${endpoint}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCsrfToken(),
+        },
+        credentials: 'include',
+        body: JSON.stringify(body),
+      });
 
       return handleResponse(response);
     } catch (error) {
@@ -76,24 +80,26 @@ const ApiService = (() => {
     }
   };
 
-  // DELETE method 
+  // DELETE method
   const del = async (endpoint) => {
     try {
-      const response = await fetch(`${BASE_URL}${endpoint}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        });
+      const response = await fetch(`${BASE_URL}${endpoint}`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCsrfToken(),
+        },
+        credentials: 'include',
+      });
       return handleResponse(response);
     } catch (error) {
       console.error('DELETE request error:', error);
       throw error;
     }
   };
+
   return { get, post, put, delete: del };
 })();
 
-export default ApiService; 
+export default ApiService;
