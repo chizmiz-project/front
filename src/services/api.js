@@ -1,15 +1,12 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const ApiService = (() => {
-  let BASE_URL = 'http://localhost:8000/api';
+  const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8000/api";
 
-  const getCsrfToken = () => {
-    return Cookies.get('csrftoken'); // Get the CSRF token from the cookie
-  };
+  const getCsrfToken = () => Cookies.get("csrftoken");
 
   const handleResponse = async (response) => {
     const data = await response.json().catch(() => null);
-
     return {
       status: response.status,
       isSuccess: response.ok,
@@ -20,86 +17,111 @@ const ApiService = (() => {
     };
   };
 
-  // GET method
+  const handleError = (error) => {
+    console.error("API Request Error:", error);
+    throw new Error("Network error or server is unreachable.");
+  };
+
   const get = async (endpoint, options = {}) => {
     try {
       const urlParams = new URLSearchParams(options);
-      const response = await fetch(`${BASE_URL}${endpoint}?${urlParams.toString()}`, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Include credentials (cookies) in the request
-      });
+      const response = await fetch(
+        `${BASE_URL}${endpoint}?${urlParams.toString()}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       return handleResponse(response);
     } catch (error) {
-      console.error('GET request error:', error);
-      throw error;
+      handleError(error);
     }
   };
 
-  // POST method
   const post = async (endpoint, body) => {
     try {
       const response = await fetch(`${BASE_URL}${endpoint}`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCsrfToken(),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-CSRFToken": getCsrfToken(),
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify(body),
       });
       return handleResponse(response);
     } catch (error) {
-      console.error('POST request error:', error);
-      throw error;
+      handleError(error);
     }
   };
 
-  // PUT method
+  const createAd = async (endpoint, data) => {
+    try {
+      const formData = new FormData();
+      
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      formData.append("price", data.price);
+      formData.append("category", data.categoryId);
+      formData.append("main_picture", data.main_picture);
+  
+      const csrfToken = getCsrfToken();
+  
+      const response = await fetch(`${BASE_URL}${endpoint}`, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrfToken,
+        },
+        credentials: "include",
+        body: formData,
+      });
+      return handleResponse(response);
+    } catch (error) {
+      handleError(error);
+    }
+  };  
+
   const put = async (endpoint, body) => {
     try {
       const response = await fetch(`${BASE_URL}${endpoint}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCsrfToken(),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-CSRFToken": getCsrfToken(),
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify(body),
       });
-
       return handleResponse(response);
     } catch (error) {
-      console.error('PUT request error:', error);
-      throw error;
+      handleError(error);
     }
   };
 
-  // DELETE method
   const del = async (endpoint) => {
     try {
       const response = await fetch(`${BASE_URL}${endpoint}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCsrfToken(),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-CSRFToken": getCsrfToken(),
         },
-        credentials: 'include',
+        credentials: "include",
       });
       return handleResponse(response);
     } catch (error) {
-      console.error('DELETE request error:', error);
-      throw error;
+      handleError(error);
     }
   };
 
-  return { get, post, put, delete: del };
+  return { get, post, put, delete: del, createAd };
 })();
 
 export default ApiService;
