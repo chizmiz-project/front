@@ -1,5 +1,5 @@
 import { Grid, Paper, Typography } from "@mui/material"
-import { primaryColor } from "../theme"
+import { primaryColor } from "../../theme"
 
 export function CategorySelector({ categories, selectedCategory, onSelect }) {
   return (

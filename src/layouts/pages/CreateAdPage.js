@@ -4,7 +4,7 @@ import { Button, TextField } from "@mui/material"
 import ApiService from "../../services/api"
 import AppLayout from "../AppLayout"
 import { ImageUploader } from "../../components/ImageUploader"
-import { CategorySelector } from "../../components/CategorySelector"
+import { CategorySelector } from "../../components/category/CategorySelector"
 import { CustomTextField } from "../../components/CustomTextField"
 
 const categories = [
