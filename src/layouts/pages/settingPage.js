@@ -1,44 +1,23 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { UserAccountSection } from "../../components/setting/userAccountSection"
 import { SettingsGroup } from "../../components/setting/settingGroup"
 import { SettingsItem } from "../../components/setting/settingItem"
 import AppLayout from "../AppLayout"
-import ApiService from '../../services/api'
+import { useUser } from '../../context/UserContext';
 
 export default function SettingsPage() {
+  const { user, logoutUser } = useUser();
   const [darkMode, setDarkMode] = useState(false)
   const [notifications, setNotifications] = useState(true)
   const [newPurchase, setNewPurchase] = useState(false)
-  const [user, setUser] = useState(null)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await ApiService.get('/account/me/')
-        if (response?.data) {
-          setUser(response.data)
-          setIsLoggedIn(true)
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-        setIsLoggedIn(false)
-      }
-    }
-
-    fetchUserData()
-  }, [])
 
   return (
     <AppLayout title="تنظیمات">
       <UserAccountSection
-        isLoggedIn={isLoggedIn}
+        isLoggedIn={!!user}
         userData={user}
-        onLogout={handleLogout}
+        onLogin={() => { }}
+        onLogout={logoutUser}
       />
 
       <SettingsGroup title="آگهی‌ها">

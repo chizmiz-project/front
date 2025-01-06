@@ -13,6 +13,7 @@ import SignupPage from './layouts/pages/Signup.js';
 import VerifyOTPPage from './layouts/pages/verify-otp.js';
 import SettingsPage from './layouts/pages/settingPage.js';
 import ProfileEditPage from './layouts/pages/ProfileEditPage.js';
+import { UserProvider } from './context/UserContext';
 
 const cacheRtl = createCache({
   key: 'muirtl',
@@ -21,22 +22,24 @@ const cacheRtl = createCache({
 
 function App() {
   return (
-    <CacheProvider value={cacheRtl}>
-      <ThemeProvider theme={Theme}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/ad/details/:id" element={<AdDetailsPage />} />
-            <Route path="/category/:id" element={<CategoryPage />} />
-            <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/verify-otp" element={<VerifyOTPPage />} />
-            <Route path="/profile/edit" element={<ProfileEditPage />} />
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
-    </CacheProvider>
+    <UserProvider>
+      <CacheProvider value={cacheRtl}>
+        <ThemeProvider theme={Theme}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/ad/details/:id" element={<AdDetailsPage />} />
+              <Route path="/category/:id" element={<CategoryPage />} />
+              <Route path="/" element={<MainPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/verify-otp" element={<VerifyOTPPage />} />
+              <Route path="/profile/edit" element={<ProfileEditPage />} />
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </CacheProvider>
+    </UserProvider>
   );
 }
 
