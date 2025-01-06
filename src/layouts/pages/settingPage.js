@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { UserAccountSection } from "../../components/setting/userAccountSection"
-import { CustomListGroup } from "../../components/setting/settingGroup"
-import { CutomListItem } from "../../components/setting/settingItem"
+import { CustomListGroup } from "../../components/setting/CutomListGroup"
+import { CutomListItem } from "../../components/setting/CutomListItem"
 import AppLayout from "../AppLayout"
 import { useUser } from '../../context/UserContext';
 import { Box } from "@mui/material"

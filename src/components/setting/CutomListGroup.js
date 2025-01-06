@@ -15,4 +15,3 @@ export function CustomListGroup({ children }) {
     </Box>
   );
 }
-
