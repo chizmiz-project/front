@@ -123,6 +123,13 @@ const theme = createTheme({
         }
       }
     },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          color: primaryColor
+        }
+      }
+    },
     MuiPaper: {
       styleOverrides: {
         root: {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   TextField,
   Button,
@@ -7,12 +7,13 @@ import {
   Box,
   IconButton,
   InputAdornment,
-  CircularProgress
+  CircularProgress,
+  Link
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
-import {flattenErrors} from '../../services/Utils';
+import { flattenErrors } from '../../services/Utils';
 import { CustomTextField } from '../../components/CustomTextField';
 
 export default function SignupPage() {
@@ -27,7 +28,7 @@ export default function SignupPage() {
     address: ''
   });
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);  
+  const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -35,13 +36,13 @@ export default function SignupPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
-  
+
     if (formData.password !== formData.confirmPassword) {
       setError('رمز عبور و تکرار آن مطابقت ندارند');
       setLoading(false);
       return;
     }
-  
+
     let data = {
       "username": formData.username,
       "email": formData.email,
@@ -52,10 +53,10 @@ export default function SignupPage() {
         "address": formData.address
       }
     };
-  
+
     try {
       const response = await ApiService.post('/account/signup/', data);
-  
+
       if (response.isBadRequest) {
         let errorMessages = '';
         let errorResponse = flattenErrors(response.data);
@@ -65,13 +66,13 @@ export default function SignupPage() {
         }
         setError(errorMessages);
       }
-  
+
       if (response.isSuccess) {
         let loginData = {
           'username': formData.username,
           'password': formData.password
         };
-  
+
         const loginResponse = await ApiService.post('/account/login/', loginData);
 
         navigate('/verify-otp', {
@@ -82,7 +83,7 @@ export default function SignupPage() {
         });
         console.log(loginResponse);
       }
-  
+
     } catch (err) {
       setError('An unexpected error occurred.' + err.errorMessages);
       console.error(err);
@@ -90,7 +91,7 @@ export default function SignupPage() {
       setLoading(false);
     }
   };
-  
+
   return (
     <AppLayout title='ثبت‌نام'>
       <form onSubmit={handleSubmit}>
@@ -198,13 +199,13 @@ export default function SignupPage() {
           )}
         </Button>
 
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="body2">
-            حساب کاربری دارید؟{' '}
-            <Link to="/login" style={{ color: 'primary.main', textDecoration: 'none' }}>
-              وارد شوید
-            </Link>
+        <Box display={'flex'} justifyContent={'center'} gap={1}>
+          <Typography variant="body1">
+            حساب کاربری دارید؟
           </Typography>
+          <Link href="/signup" underline='none'>
+            وارد شوید
+          </Link>
         </Box>
       </form>
     </AppLayout>
