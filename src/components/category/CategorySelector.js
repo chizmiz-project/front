@@ -1,7 +1,7 @@
 import { Grid2, Paper, Typography } from "@mui/material"
 import { primaryColor } from "../../theme"
 
-export function CategorySelector({ categories, selectedCategory, onSelect }) {
+export default function CategorySelector({ categories, selectedCategory, onSelect }) {
   return (
 <Grid2 container spacing={2} mb={2}>
       {categories.map(category => (

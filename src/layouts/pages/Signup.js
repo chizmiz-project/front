@@ -214,7 +214,7 @@ export default function SignupPage() {
           size='large'
         >
           {loading ? (
-            <CircularProgress size={24} color="inherit" />
+            <CircularProgress size={24} color="white" />
           ) : (
             'ثبت‌نام'
           )}

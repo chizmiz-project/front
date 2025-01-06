@@ -13,6 +13,8 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
     navigate('/login');
   };
 
+  console.log(userData)
+
   const handleLogoutClick = async () => {
     try {
       await ApiService.post('/account/logout/');

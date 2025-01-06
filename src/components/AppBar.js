@@ -71,7 +71,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
             <Typography variant='body2' onClick={() => navigate('/temp')} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
               ذخیره‌شده‌ها
             </Typography>
-            <Button variant='contained' onClick={() => navigate('/temp')}>
+            <Button variant='contained' onClick={() => navigate('/add')}>
               ثبت آگهی
             </Button>
           </>

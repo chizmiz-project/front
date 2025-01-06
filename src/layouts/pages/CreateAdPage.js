@@ -1,22 +1,14 @@
 import { useEffect, useState } from "react"
-import { Button } from "@mui/material"
-import ApiService from "../../services/api"
-import AppLayout from "../AppLayout"
-import { ImageUploader } from "../../components/ImageUploader"
-import { CategorySelector } from "../../components/category/CategorySelector"
-import { CustomTextField } from "../../components/CustomTextField"
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import ApiService from "../../services/api";
 import AppLayout from "../AppLayout";
 import { ImageUploader } from "../../components/ImageUploader";
-import { CategorySelector } from "../../components/CategorySelector";
 import { CustomTextField } from "../../components/CustomTextField";
 import { CustomNumericField } from "../../components/CustomNumericField";
+import CategorySelector from '../../components/category/CategorySelector';
 
 export default function CreateAdPage() {
-  const [isUploading, setIsUploading] = useState(false)
   const [categories, setCategories] = useState([])
   const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState(false);
@@ -27,7 +19,6 @@ export default function CreateAdPage() {
     image: null,
     price: "",
   });
-  const [categories, setCategories] = useState([]);
 
   // Fetch categories on component mount
   useEffect(() => {
