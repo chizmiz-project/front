@@ -37,6 +37,7 @@ export default function SettingsPage() {
           to="/recent-views"
         />
       </SettingsGroup>
+      
       <SettingsGroup title="خیلی بیشتر">
         <SettingsItem
           type="switch"
