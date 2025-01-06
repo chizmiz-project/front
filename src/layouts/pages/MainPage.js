@@ -11,6 +11,7 @@ export default function MainPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [ads, setAds] = useState([])
   const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const debouncedSearch = useDebounce(searchQuery, 300)
   

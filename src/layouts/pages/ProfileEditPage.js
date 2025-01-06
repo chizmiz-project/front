@@ -13,6 +13,10 @@ export default function ProfileEditPage() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    first_name: '',
+    last_name: '',
     phone_number: '',
     bio: '',
     address: ''
@@ -20,7 +24,8 @@ export default function ProfileEditPage() {
   const [userDetails, setUserDetails] = useState({
     username: '',
     email: '',
-    password: '',
+    first_name: '',
+    last_name: '',
     account: {
       phone_number: '',
       bio: '',
@@ -31,104 +36,126 @@ export default function ProfileEditPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setUserDetails(
-      {
-        username: 'sample user',
-        email: 'sample email',
-        password: '******',
-        account: {
-          phone_number: '0935774784',
-          bio: 'a test bio',
-          address: 'tehran hastim :)'
+    const fetchUserDetails = async () => {
+      try {
+        const response = await ApiService.get('/account/me/');
+        if (response.isSuccess) {
+          const data = response.data;
+          setUserDetails(data);
+          setFormData({
+            bio: data.account.bio || '',
+            address: data.account.address || ''
+          });
+        } else if (response.isError) {
+          setError('Failed to fetch user details.');
         }
+      } catch (error) {
+        setError('An error occurred while fetching user details.');
       }
-    )
-  }, [])
+    };
+
+    fetchUserDetails();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    let data = {
-      "bio": formData.bio,
-      "address": formData.address
-    }
+    const data = {
+      bio: formData.bio,
+      address: formData.address
+    };
 
-    const response = await ApiService.post('/account/update/', data);
-
-    if (response.isSuccess)
-      alert('successfully updated');
-
-    if (response.isBadRequest) {
-      let errorMessages = '';
-      for (let key in response.data) {
-        const fieldError = response.data[key];
-        errorMessages += fieldError;
+    try {
+      const response = await ApiService.put('/account/update/', data);
+      if (response.isSuccess) {
+        alert('Profile updated successfully');
+      } else if (response.isBadRequest) {
+        let errorMessages = '';
+        for (let key in response.data) {
+          errorMessages += response.data[key] + ' ';
+        }
+        setError(errorMessages.trim());
       }
-      setError(errorMessages);
+    } catch (error) {
+      setError('An error occurred while updating your profile.');
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
-
   };
 
   return (
-    <AppLayout title='حساب کاربری'>
+    <AppLayout title="حساب کاربری">
       <form onSubmit={handleSubmit}>
-        <Typography variant='body'>نام کاربری</Typography>
+        <Typography variant="body">نام</Typography>
         <TextField
           sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
+          fullWidth
+          variant="outlined"
+          margin="normal"
+          value={userDetails.first_name}
+          onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+        />
 
-          disabled
+        <Typography variant="body">نام خانوادگی</Typography>
+        <TextField
+          sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
+          fullWidth
+          variant="outlined"
+          margin="normal"
+          value={userDetails.last_name}
+          onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+        />
+
+        <Typography variant="body">نام کاربری</Typography>
+        <TextField
+          sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
           fullWidth
           variant="outlined"
           margin="normal"
           value={userDetails.username}
+          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
         />
 
-        <Typography variant='body'>نام کاربری</Typography>
+        <Typography variant="body">آدرس ایمیل</Typography>
         <TextField
           sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
-
-          disabled
           fullWidth
-          type="email"
           variant="outlined"
           margin="normal"
           value={userDetails.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         />
 
-        <Typography variant='body'>نام کاربری</Typography>
+        <Typography variant="body">شماره موبایل</Typography>
         <TextField
           sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
-
-          disabled
           fullWidth
           variant="outlined"
           margin="normal"
           value={userDetails.account.phone_number}
+          onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
         />
 
-        <Typography variant='body'>نام کاربری</Typography>
+        <Typography variant="body">بیوگرافی</Typography>
         <TextField
           sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
           fullWidth
           variant="outlined"
           margin="normal"
-          value={userDetails.account.address}
-          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-        />
-
-        <Typography variant='body'>نام کاربری</Typography>
-        <TextField
-          helperText='یه توضیح خوب از خودت می‌تونه به بهتر دیده شدنت کمک کنه :)'
-          sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
-          fullWidth
-          variant="outlined"
-          margin="normal"
-          value={userDetails.account.bio}
+          value={formData.bio}
           onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+        />
+
+        <Typography variant="body">آدرس</Typography>
+        <TextField
+          sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
+          fullWidth
+          variant="outlined"
+          margin="normal"
+          value={formData.address}
+          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
         />
 
         {error && (
@@ -144,11 +171,7 @@ export default function ProfileEditPage() {
           sx={{ mt: 3, mb: 2 }}
           disabled={loading}
         >
-          {loading ? (
-            <CircularProgress size={24} color="inherit" />
-          ) : (
-            'ویرایش'
-          )}
+          {loading ? <CircularProgress size={24} color="inherit" /> : 'ویرایش'}
         </Button>
       </form>
     </AppLayout>

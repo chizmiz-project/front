@@ -9,21 +9,21 @@ import {
 import { Close, AddPhotoAlternate, AddAPhoto } from "@mui/icons-material"
 import { backgroundColor, backgroundColorTop, dividerColor, labelColor, labelPrimary, labelSecondary, primaryColor, textColor } from "../theme"
 
-export function ImageUploader({ onImageSelect, isUploading = false }) {
-  const [preview, setPreview] = useState(null)
-  const [isDragging, setIsDragging] = useState(false)
+export function ImageUploader({onImageSelect, isUploading = false}) {
+    const [preview, setPreview] = useState(null);
+    const [isDragging, setIsDragging] = useState(false);
 
-  const handleFileSelect = event => {
-    const file = event.target.files?.[0]
-    handleFile(file)
-  }
+    const handleFileSelect = (event) => {
+        const file = event.target.files?.[0];
+        handleFile(file);
+    };
 
-  const handleFile = file => {
-    if (file) {
-      if (!file.type.startsWith("image/")) {
-        alert("لطفا فقط فایل تصویری آپلود کنید")
-        return
-      }
+    const handleFile = (file) => {
+        if (file) {
+            if (!file.type.startsWith("image/")) {
+                alert("لطفا فقط فایل تصویری آپلود کنید");
+                return;
+            }
 
       const reader = new FileReader()
       reader.onloadend = () => {

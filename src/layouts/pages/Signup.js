@@ -24,7 +24,9 @@ export default function SignupPage() {
     confirmPassword: '',
     phone_number: '',
     bio: '',
-    address: ''
+    address: '',
+    first_name: '',
+    last_name: '',
   });
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -46,6 +48,8 @@ export default function SignupPage() {
       "username": formData.username,
       "email": formData.email,
       "password": formData.password,
+      "first_name": formData.first_name,
+      "last_name": formData.last_name,
       "account": {
         "phone_number": formData.phone_number,
         "bio": formData.bio,
@@ -94,6 +98,24 @@ export default function SignupPage() {
   return (
     <AppLayout title='ثبت‌نام'>
       <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="نام"
+          variant="outlined"
+          margin="normal"
+          value={formData.first_name}
+          onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+        />
+
+        <TextField
+          fullWidth
+          label="نام خانوادگی"
+          variant="outlined"
+          margin="normal"
+          value={formData.last_name}
+          onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+        />
+
         <TextField
           fullWidth
           label="نام کاربری"
