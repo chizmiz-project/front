@@ -1,4 +1,4 @@
-import { Box, CircularProgress, debounce, Grid } from '@mui/material'
+import { Box, CircularProgress, Collapse, Grid2 } from '@mui/material'
 import AdItem from '../../components/advertisement/AdItem'
 import { CategoryItem } from '../../components/CategoryItem'
 import { useEffect, useState } from 'react'
@@ -13,7 +13,7 @@ export default function MainPage() {
   const [categories, setCategories] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const debouncedSearch = useDebounce(searchQuery, 300)
-
+  
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await ApiService.get('/category/')
@@ -48,30 +48,31 @@ export default function MainPage() {
   return (
     <AppLayout variant='search' hasNavigate={false} onSearchChange={setSearchQuery}>
       <Box>
-      <Grid container spacing={2} sx={{ mb: 3 }}>
-        {categories.map(category => (
-          <Grid item xs={4} key={category.id}>
-            <CategoryItem category={category} />
-          </Grid>
-        ))}
-      </Grid>
-
-      {isLoading ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
-          <CircularProgress />
-        </Box>
-      ) : ads.length > 0 ? (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-          {ads.map((ad, index) => (
-            <AdItem key={index} ad={ad} />
+        <Grid2 container spacing={2} mb={2}>
+          {categories.map(category => (
+            <Grid2 item size={{ xs: 4, md: 3, lg: 2 }} key={category.id}>
+              <CategoryItem category={category} />
+            </Grid2>
           ))}
-        </Box>
-      ) : searchQuery ? (
-        <EmptyState />
-      ) : null}
+        </Grid2>
+
+        {isLoading ? (
+          <Box display='flex' justifyContent={'center'} py={4}>
+            <CircularProgress />
+          </Box>
+        ) : null}
+
+        <Grid2 container spacing={2}>
+          {ads.map((ad, index) => (
+              <Grid2 size={{ xs: 12, md: 6, xl: 4 }} item key={index}>
+                <AdItem ad={ad} />
+              </Grid2>
+          ))}
+        </Grid2>
+        {ads.length === 0 && searchQuery && <EmptyState />}
+
       </Box>
     </AppLayout>
-
   )
 }
 

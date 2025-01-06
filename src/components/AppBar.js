@@ -10,7 +10,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
   }
 
   const setting = variant === 'search' ? (
-    <IconButton edge="start" onClick={() => navigate('/settings')}>
+    <IconButton onClick={() => navigate('/settings')}>
       <MoreVert />
     </IconButton>
   ) : null;
@@ -49,14 +49,14 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
     : null;
 
   const navigation = hasNavigate ? (
-    <IconButton sx={{ marginLeft: 'auto'}} edge="start" onClick={() => navigate(-1)}>
+    <IconButton sx={{ marginLeft: 'auto'}} onClick={() => navigate(-1)}>
       <ChevronLeft/>
     </IconButton>
   ) : null;
 
   return (
     <MuiAppBar position="sticky" elevation={0}>
-      <Toolbar sx={{ gap: 1 }}>
+      <Toolbar sx={{ gap: 1, py: .5 }}>
         {setting}
         {searchInput}
         {header}
