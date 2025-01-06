@@ -203,7 +203,7 @@ export default function SignupPage() {
           <Typography variant="body1">
             حساب کاربری دارید؟
           </Typography>
-          <Link href="/signup" underline='none'>
+          <Link href="/login" underline='none'>
             وارد شوید
           </Link>
         </Box>
