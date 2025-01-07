@@ -15,6 +15,7 @@ import SettingsPage from './layouts/pages/settingPage.js';
 import ProfileEditPage from './layouts/pages/ProfileEditPage.js';
 import CreateAdPage from './layouts/pages/CreateAdPage.js';
 import { UserProvider } from './context/UserContext';
+import { SnackbarProvider } from './context/SnackbarProvider.js';
 
 const cacheRtl = createCache({
   key: 'muirtl',
@@ -26,19 +27,21 @@ function App() {
     <UserProvider>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={Theme}>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/settings" element={<SettingsPage />} />
-              <Route path="/ad/details/:id" element={<AdDetailsPage />} />
-              <Route path="/category/:id" element={<CategoryPage />} />
-              <Route path="/" element={<MainPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/verify-otp" element={<VerifyOTPPage />} />
-              <Route path="/add" element={<CreateAdPage />} />
-              <Route path="/profile/edit" element={<ProfileEditPage />} />
-            </Routes>
-          </BrowserRouter>
+          <SnackbarProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/ad/details/:id" element={<AdDetailsPage />} />
+                <Route path="/category/:id" element={<CategoryPage />} />
+                <Route path="/" element={<MainPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/verify-otp" element={<VerifyOTPPage />} />
+                <Route path="/add" element={<CreateAdPage />} />
+                <Route path="/profile/edit" element={<ProfileEditPage />} />
+              </Routes>
+            </BrowserRouter>
+          </SnackbarProvider>
         </ThemeProvider>
       </CacheProvider>
     </UserProvider>
