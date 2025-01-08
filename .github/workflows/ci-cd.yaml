@@ -50,4 +50,5 @@ jobs:
           docker run -d \
             --name frontend-container \
             -p 3000:3000 \
+            -e REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} \
             ghcr.io/${{ github.repository }}/frontend:latest
