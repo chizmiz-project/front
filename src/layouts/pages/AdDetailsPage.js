@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Grid2 } from '@mui/material';
 import { ImageSlider } from '../../components/ImageSlider';
 import ReportDialog from '../../components/ReportDialog';
 import ApiService from '../../services/api';
@@ -52,37 +52,41 @@ export default function AdDetailsPage() {
 
   return (
     <AppLayout title={adDetails.title}>
-      <Box>
-        <ImageSlider images={adDetails.images} />
-        <Box p={2}>
-          <Typography variant="h1" gutterBottom>
-            {adDetails.title}
-          </Typography>
 
-          <Typography variant="subtitle1" gutterBottom>
-            {adDetails.time}
-          </Typography>
+      <Grid2 direction={'row-reverse'} container spacing={1}>
+        <Grid2 item size={{ xs: 12, md: 6}}>
+          <ImageSlider images={adDetails.images} />
+        </Grid2>
+        <Grid2 item size={{ xs: 12, md: 6}}>
+          <Box p={2}>
+            <Typography variant="h1" gutterBottom>
+              {adDetails.title}
+            </Typography>
 
-          <CustomListGroup>
-            {adDetails.details.map((detail) => 
-              <CutomListItem
-                type='key-value'
-                label={detail.key}
-                value={detail.value}
-              />
-            )}
-          </CustomListGroup>
+            <Typography variant="subtitle1" gutterBottom>
+              {adDetails.time}
+            </Typography>
 
-          <Typography variant="h2" gutterBottom>
-            توضیحات
-          </Typography>
+            <CustomListGroup>
+              {adDetails.details.map((detail) =>
+                <CutomListItem
+                  type='key-value'
+                  label={detail.key}
+                  value={detail.value}
+                />
+              )}
+            </CustomListGroup>
 
-          <Typography variant="body1">
-            {adDetails.description}
-          </Typography>
+            <Typography variant="h2" gutterBottom>
+              توضیحات
+            </Typography>
 
-        </Box>
-      </Box>
+            <Typography variant="body1">
+              {adDetails.description}
+            </Typography>
+          </Box>
+        </Grid2>
+      </Grid2>
       <Button
         variant="outlined"
         size='large'

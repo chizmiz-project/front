@@ -95,9 +95,7 @@ export default function SignupPage() {
             password: formData.password
           }
         });
-        console.log(loginResponse);
       }
-
     } catch (err) {
       setError('An unexpected error occurred.' + err.errorMessages);
       console.error(err);
@@ -116,6 +114,7 @@ export default function SignupPage() {
           margin="normal"
           value={formData.first_name}
           onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+          required
         />
 
         <TextField
