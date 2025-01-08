@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import ApiService from "../../services/api";
 import AppLayout from "../AppLayout";
 import { ImageUploader } from "../../components/ImageUploader";
 import { CustomTextField } from "../../components/CustomTextField";
 import { CustomNumericField } from "../../components/CustomNumericField";
 import CategorySelector from '../../components/category/CategorySelector';
+import { useSnackbar } from "../../context/SnackbarProvider";
+import { errorColor } from "../../theme";
 
 export default function CreateAdPage() {
   const [categories, setCategories] = useState([])
   const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState(false);
+  const { openSnackbar } = useSnackbar();
+  const [titleErrorText, setTitleErrorText] = useState('');
+  const [descriptionErrorText, setDescriptionErrorText] = useState('');
+  const [priceErrorText, setPriceErrorText] = useState('');
+
   const [formData, setFormData] = useState({
     categoryId: "",
     title: "",
@@ -20,7 +27,6 @@ export default function CreateAdPage() {
     price: "",
   });
 
-  // Fetch categories on component mount
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -53,10 +59,22 @@ export default function CreateAdPage() {
     try {
       const response = await ApiService.createAd("/advertisement/", data);
       if (response.isSuccess) {
-        alert("آگهی شما با موفقیت ثبت شد");
+        openSnackbar('آگهی با موفقیت ساخته شد', 'success')
         navigate("/");
       } else {
-        alert("خطا در ثبت آگهی: " + response.data?.message || "Unknown error");
+        if (response.isBadRequest) {
+          for (let key in response.data) {
+            if (key == 'title')
+              setTitleErrorText(response.data[key].join("\r\n"));
+            if (key == 'description')
+              setDescriptionErrorText(response.data[key].join("\r\n"));
+            if (key == 'price')
+              setPriceErrorText(response.data[key].join("\r\n"));
+            if (key == 'main_picture')
+              alert('image');
+          }
+        }
+        openSnackbar('خطا در ثبت آگهی', 'error')
       }
     } catch (error) {
       console.error("Error creating ad:", error);
@@ -69,11 +87,13 @@ export default function CreateAdPage() {
   return (
     <AppLayout title="ساخت آگهی">
       <form onSubmit={handleSubmit}>
+
         <CategorySelector
           categories={categories}
           selectedCategory={formData.categoryId}
-          onSelect={(categoryId) =>
+          onSelect={(categoryId) => {
             setFormData({ ...formData, categoryId })
+          }
           }
         />
 
@@ -82,8 +102,12 @@ export default function CreateAdPage() {
           description="در عنوان آگهی به موارد مهم و چشم‌گیر اشاره کنید."
           placeholder="عنوان را وارد کنید"
           value={formData.title}
-          onChange={(title) =>
+          helperText={titleErrorText}
+          error={titleErrorText !== ''}
+          onChange={(title) => {
             setFormData({ ...formData, title })
+            setTitleErrorText('')
+          }
           }
         />
 
@@ -92,9 +116,13 @@ export default function CreateAdPage() {
           description="جزییات و نکات جالب توجه آگهی‌ خود را کامل و دقیق بنویسید. همچنین حتما به ساعات پاسخ‌گویی خود اشاره کنید."
           placeholder="متن را وارد کنید"
           multiline
+          helperText={descriptionErrorText}
+          error={descriptionErrorText !== ''}
           value={formData.description}
-          onChange={(description) =>
+          onChange={(description) => {
             setFormData({ ...formData, description })
+            setDescriptionErrorText('');
+          }
           }
         />
 
@@ -102,9 +130,13 @@ export default function CreateAdPage() {
           title="قیمت"
           placeholder="قیمت را به عدد وارد کنید"
           value={formData.price}
-          onChange={(price) =>
+          helperText={priceErrorText}
+          error={priceErrorText !== ''}
+          onChange={(price) => {
             setFormData({ ...formData, price })
+            setPriceErrorText('')
           }
+        }
         />
 
         <ImageUploader
