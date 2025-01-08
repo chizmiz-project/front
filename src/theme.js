@@ -11,7 +11,7 @@ export const dividerColorTransparent = light_mode ? '#3C3C431C' : '#5454587a'
 
 export const textColor = light_mode ? 'black' : 'white'
 
-export const successColor = '#e74c3c';
+export const successColor = '#2ecc71';
 export const errorColor = '#e74c3c';
 export const warningColor = '#f39c12';
 export const infoColor = '#3498db';

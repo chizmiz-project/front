@@ -13,6 +13,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
+import { flattenErrors } from '../../services/Utils';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ export default function SignupPage() {
   const [confirmPasswordErrorText, setConfirmPasswordErrorText] = useState('');
   const [usernameErrorText, setUsernameErrorText] = useState('');
   const [emailErrorText, setEmailErrorText] = useState('');
+  const [phoneErrorText, setPhoneErrorText] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,11 +68,16 @@ export default function SignupPage() {
       console.log(response);
 
       if (response.isBadRequest) {
-        for (let key in response.data) {
+        let errors = flattenErrors(response.data);
+        for (let key in errors) {
           if (key == 'password') 
-            setPasswordErrorText(response.data[key].join("\r\n"));
+            setPasswordErrorText(error[key].join("\r\n"));
           if (key == 'username')
-            setUsernameErrorText(response.data[key].join("\r\n"));
+            setUsernameErrorText(error[key].join("\r\n"));
+          if (key == 'email')
+            setEmailErrorText(error[key].join("\r\n"));
+          if (key == 'account.phone_number')
+            setPhoneErrorText(error[key].join("\r\n"));
         }
       }
 
@@ -154,9 +161,15 @@ export default function SignupPage() {
           fullWidth
           label="شماره تلفن"
           variant="outlined"
+          helperText={phoneErrorText}
+          error={phoneErrorText !== ''}
           margin="normal"
           value={formData.phone_number}
-          onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
+          onChange={(e) => {
+            setFormData({ ...formData, phone_number: e.target.value })
+            setPhoneErrorText('');
+          }
+          }
         />
 
         <TextField

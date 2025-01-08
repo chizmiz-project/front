@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
+import { useSnackbar } from '../../context/SnackbarProvider';
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -19,12 +20,12 @@ export default function LoginPage() {
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const { openSnackbar } = useSnackbar();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setLoading(true);
-
         let data = {
             'username': formData.username,
             'password': formData.password
@@ -33,6 +34,7 @@ export default function LoginPage() {
         try {
             const response = await ApiService.post('/account/login/', data);
             if (response.isSuccess) {
+                openSnackbar('ایمیلی حاوی کد ورود برای شما ارسال شد', 'info')
                 navigate('/verify-otp', {
                     state: {
                         username: formData.username,
@@ -40,18 +42,7 @@ export default function LoginPage() {
                     },
                 });
             } else {
-                let errorMessages = '';
-                for (let key in response.data) {
-                    const fieldErrors = response.data[key];
-                    if (Array.isArray(fieldErrors)) {
-                        fieldErrors.forEach((error) => {
-                            errorMessages += `${error} `;
-                        });
-                    } else if (typeof fieldErrors === 'string') {
-                        errorMessages += `${fieldErrors} `;
-                    }
-                }
-                setError(errorMessages.trim());
+                openSnackbar(response.data['error'], 'error');
             }
         } catch (error) {
             if (error.response) {
@@ -89,12 +80,6 @@ export default function LoginPage() {
                     required
                 />
 
-                {error && (
-                    <Typography color="error" sx={{ mt: 2 }}>
-                        {error}
-                    </Typography>
-                )}
-
                 <Box mt={2} display={'flex'} gap={1.5} flexDirection={'column'} sx={{ textAlign: 'center' }}>
                     <Button
                         type="submit"
@@ -103,7 +88,7 @@ export default function LoginPage() {
                         variant="contained"
                         disabled={loading}
                     >
-                        {false ? (
+                        {loading ? (
                             <CircularProgress
                                 size={25}
                                 sx={{
