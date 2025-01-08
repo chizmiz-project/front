@@ -46,7 +46,7 @@ export function UserAccountSection({ isLoggedIn, userData, onLogout }) {
         mb: 1
       }}>
         <Box>
-          <Typography variant="h1">{userData?.username}</Typography>
+          <Typography variant="h1">{`${userData?.first_name} ${userData?.last_name}`}</Typography>
           <Typography variant='subtitle1'>{toPersianDigits(userData?.phone_number)}</Typography>
         </Box>
         <IconButton onClick={() => navigate('/profile/edit')}>

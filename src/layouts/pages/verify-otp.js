@@ -30,11 +30,14 @@ export default function VerifyOTPPage() {
       const response = await ApiService.post('/account/verify-otp/', data);
 
       if (response.isSuccess) {
+        console.log(response.data);
         updateUser({
           username: state.username,
           phone_number: response.data.phone_number,
+          first_name: response.data.first_name,
+          last_name: response.data.last_name
         });
-        openSnackbar('با موفقیت وارد شدید', 'success')
+        openSnackbar(response.data.message, 'success')
         navigate('/');
       } else {
         setError(true)
