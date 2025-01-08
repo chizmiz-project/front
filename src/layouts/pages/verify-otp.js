@@ -4,6 +4,7 @@ import { TextField, Button, Typography, Box, CircularProgress } from '@mui/mater
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
 import { useUser } from '../../context/UserContext';
+import { useSnackbar } from '../../context/SnackbarProvider';
 
 export default function VerifyOTPPage() {
   const { state } = useLocation();
@@ -11,12 +12,13 @@ export default function VerifyOTPPage() {
 
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const {openSnackbar} = useSnackbar();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError(false);
     setLoading(true);
 
     let data = {
@@ -27,15 +29,20 @@ export default function VerifyOTPPage() {
     try {
       const response = await ApiService.post('/account/verify-otp/', data);
 
-      if (response.isNotFound || response.isBadRequest)
-        setError('کد وارد شده صحیح نیست');
-      else {
+      if (response.isSuccess) {
+        console.log(response.data);
         updateUser({
           username: state.username,
           phone_number: response.data.phone_number,
+          first_name: response.data.first_name,
+          last_name: response.data.last_name
         });
-
+        openSnackbar(response.data.message, 'success')
         navigate('/');
+      } else {
+        setError(true)
+        openSnackbar('کد وارد شده معتبر نیست.', 'error');
+        setOtp('');
       }
     } catch (error) {
       setError('An error occurred. Please try again.');
@@ -55,8 +62,12 @@ export default function VerifyOTPPage() {
           fullWidth
           label="کد ورود"
           variant="outlined"
+          error={error}
           value={otp}
-          onChange={(e) => setOtp(e.target.value)}
+          onChange={(e) => {
+            setOtp(e.target.value);
+            setError('');
+          }}
           required
         />
 

@@ -8,7 +8,7 @@ import {
   IconButton,
   InputAdornment,
   CircularProgress,
-  Link
+  Link,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
@@ -33,14 +33,19 @@ export default function SignupPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [passwordErrorText, setPasswordErrorText] = useState('');
+  const [confirmPasswordErrorText, setConfirmPasswordErrorText] = useState('');
+  const [usernameErrorText, setUsernameErrorText] = useState('');
+  const [emailErrorText, setEmailErrorText] = useState('');
+  const [phoneErrorText, setPhoneErrorText] = useState('');
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     if (formData.password !== formData.confirmPassword) {
-      setError('رمز عبور و تکرار آن مطابقت ندارند');
-      setLoading(false);
+      setConfirmPasswordErrorText('رمز عبور و تکرار آن تطابق نداند.')
       return;
     }
 
@@ -59,15 +64,21 @@ export default function SignupPage() {
 
     try {
       const response = await ApiService.post('/account/signup/', data);
+      
+      console.log(response);
 
       if (response.isBadRequest) {
-        let errorMessages = '';
-        let errorResponse = flattenErrors(response.data);
-        for (let key in errorResponse) {
-          const fieldError = errorResponse[key];
-          errorMessages += fieldError;
+        let errors = flattenErrors(response.data);
+        for (let key in errors) {
+          if (key == 'password') 
+            setPasswordErrorText(error[key].join("\r\n"));
+          if (key == 'username')
+            setUsernameErrorText(error[key].join("\r\n"));
+          if (key == 'email')
+            setEmailErrorText(error[key].join("\r\n"));
+          if (key == 'account.phone_number')
+            setPhoneErrorText(error[key].join("\r\n"));
         }
-        setError(errorMessages);
       }
 
       if (response.isSuccess) {
@@ -84,9 +95,7 @@ export default function SignupPage() {
             password: formData.password
           }
         });
-        console.log(loginResponse);
       }
-
     } catch (err) {
       setError('An unexpected error occurred.' + err.errorMessages);
       console.error(err);
@@ -105,6 +114,7 @@ export default function SignupPage() {
           margin="normal"
           value={formData.first_name}
           onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+          required
         />
 
         <TextField
@@ -118,29 +128,47 @@ export default function SignupPage() {
 
         <TextField
           fullWidth
+          required
+          helperText={usernameErrorText}
+          error={usernameErrorText !== ''}
           label="نام کاربری"
           margin="normal"
           value={formData.username}
-          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+          onChange={(e) => {
+            setFormData({ ...formData, username: e.target.value });
+            setUsernameErrorText('');
+          }}
         />
 
         <TextField
           fullWidth
+          required
           label="ایمیل"
+          helperText={emailErrorText}
+          error={emailErrorText !== ''}
           type="email"
           variant="outlined"
           margin="normal"
           value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          onChange={(e) => {
+            setFormData({ ...formData, email: e.target.value });
+            setEmailErrorText('');
+          }}
         />
 
         <TextField
           fullWidth
           label="شماره تلفن"
           variant="outlined"
+          helperText={phoneErrorText}
+          error={phoneErrorText !== ''}
           margin="normal"
           value={formData.phone_number}
-          onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
+          onChange={(e) => {
+            setFormData({ ...formData, phone_number: e.target.value })
+            setPhoneErrorText('');
+          }
+          }
         />
 
         <TextField
@@ -163,8 +191,11 @@ export default function SignupPage() {
 
         <TextField
           fullWidth
+          required
           label="رمز عبور"
           type={showPassword ? 'text' : 'password'}
+          helperText={passwordErrorText}
+          error={passwordErrorText !== ''}
           variant="outlined"
           margin="normal"
           value={formData.password}
@@ -182,7 +213,10 @@ export default function SignupPage() {
 
         <TextField
           fullWidth
+          required
           label="تکرار رمز عبور"
+          helperText={confirmPasswordErrorText}
+          error={confirmPasswordErrorText !== ''}
           type={showConfirmPassword ? 'text' : 'password'}
           variant="outlined"
           margin="normal"
@@ -198,12 +232,6 @@ export default function SignupPage() {
             )
           }}
         />
-
-        {error && (
-          <Typography color="error" sx={{ mt: 2 }}>
-            {error}
-          </Typography>
-        )}
 
         <Button
           type="submit"

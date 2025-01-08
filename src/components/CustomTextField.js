@@ -7,7 +7,9 @@ export function CustomTextField({
   multiline = false,
   value,
   label,
-  onChange
+  onChange,
+  error,
+  helperText
 }) {
   return (
     <Box sx={{ mb: 3 }}>
@@ -24,6 +26,8 @@ export function CustomTextField({
         multiline={multiline}
         rows={multiline ? 4 : 1}
         value={value}
+        error={error}
+        helperText={helperText}
         onChange={e => onChange(e.target.value)}
       />
     </Box>

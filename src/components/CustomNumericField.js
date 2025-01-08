@@ -6,6 +6,8 @@ export function CustomNumericField({
   placeholder,
   value,
   onChange,
+  error,
+  helperText
 }) {
   const handleChange = (e) => {
     const newValue = e.target.value;
@@ -30,7 +32,9 @@ export function CustomNumericField({
         value={value}
         onChange={handleChange}
         variant="outlined"
-        type="number" // Make it numeric
+        type="number"
+        error={error}
+        helperText={helperText}
       />
     </Box>
   );
