@@ -8,12 +8,11 @@ import {
   IconButton,
   InputAdornment,
   CircularProgress,
-  Link
+  Link,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/api';
 import AppLayout from '../AppLayout';
-import { flattenErrors } from '../../services/Utils';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -33,14 +32,18 @@ export default function SignupPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [passwordErrorText, setPasswordErrorText] = useState('');
+  const [confirmPasswordErrorText, setConfirmPasswordErrorText] = useState('');
+  const [usernameErrorText, setUsernameErrorText] = useState('');
+  const [emailErrorText, setEmailErrorText] = useState('');
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     if (formData.password !== formData.confirmPassword) {
-      setError('رمز عبور و تکرار آن مطابقت ندارند');
-      setLoading(false);
+      setConfirmPasswordErrorText('رمز عبور و تکرار آن تطابق نداند.')
       return;
     }
 
@@ -59,15 +62,16 @@ export default function SignupPage() {
 
     try {
       const response = await ApiService.post('/account/signup/', data);
+      
+      console.log(response);
 
       if (response.isBadRequest) {
-        let errorMessages = '';
-        let errorResponse = flattenErrors(response.data);
-        for (let key in errorResponse) {
-          const fieldError = errorResponse[key];
-          errorMessages += fieldError;
+        for (let key in response.data) {
+          if (key == 'password') 
+            setPasswordErrorText(response.data[key].join("\r\n"));
+          if (key == 'username')
+            setUsernameErrorText(response.data[key].join("\r\n"));
         }
-        setError(errorMessages);
       }
 
       if (response.isSuccess) {
@@ -118,20 +122,32 @@ export default function SignupPage() {
 
         <TextField
           fullWidth
+          required
+          helperText={usernameErrorText}
+          error={usernameErrorText !== ''}
           label="نام کاربری"
           margin="normal"
           value={formData.username}
-          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+          onChange={(e) => {
+            setFormData({ ...formData, username: e.target.value });
+            setUsernameErrorText('');
+          }}
         />
 
         <TextField
           fullWidth
+          required
           label="ایمیل"
+          helperText={emailErrorText}
+          error={emailErrorText !== ''}
           type="email"
           variant="outlined"
           margin="normal"
           value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          onChange={(e) => {
+            setFormData({ ...formData, email: e.target.value });
+            setEmailErrorText('');
+          }}
         />
 
         <TextField
@@ -163,8 +179,11 @@ export default function SignupPage() {
 
         <TextField
           fullWidth
+          required
           label="رمز عبور"
           type={showPassword ? 'text' : 'password'}
+          helperText={passwordErrorText}
+          error={passwordErrorText !== ''}
           variant="outlined"
           margin="normal"
           value={formData.password}
@@ -182,7 +201,10 @@ export default function SignupPage() {
 
         <TextField
           fullWidth
+          required
           label="تکرار رمز عبور"
+          helperText={confirmPasswordErrorText}
+          error={confirmPasswordErrorText !== ''}
           type={showConfirmPassword ? 'text' : 'password'}
           variant="outlined"
           margin="normal"
@@ -198,12 +220,6 @@ export default function SignupPage() {
             )
           }}
         />
-
-        {error && (
-          <Typography color="error" sx={{ mt: 2 }}>
-            {error}
-          </Typography>
-        )}
 
         <Button
           type="submit"
