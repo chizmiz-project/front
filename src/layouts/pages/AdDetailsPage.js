@@ -24,7 +24,7 @@ export default function AdDetailsPage() {
       if (response.isSuccess) {
         console.log(response.data);
         setAd(response.data);
-        setIsFavorite(response.data.isFavorite || false); // Initialize favorite status
+        setIsFavorite(response.data.favorite || false); // Initialize favorite status
       } else {
         console.error('Fetch failed:', response);
       }
