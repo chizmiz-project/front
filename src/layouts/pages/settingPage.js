@@ -24,7 +24,7 @@ export default function SettingsPage() {
         <CutomListItem
           type="navigation"
           label="آگهی‌های ذخیره‌شده"
-          to="/saved-ads"
+          to="/favorite-ads"
         />
         <CutomListItem
           type="navigation"
