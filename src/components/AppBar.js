@@ -65,10 +65,10 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
       {
         isLoggedIn ?
           <>
-            <Typography variant='body2' onClick={() => navigate('/temp')} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
+            <Typography variant='body2' onClick={() => navigate('/my-ads')} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
               آگهی‌های من
             </Typography>
-            <Typography variant='body2' onClick={() => navigate('/temp')} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
+            <Typography variant='body2' onClick={() => navigate('/saved-ads')} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
               ذخیره‌شده‌ها
             </Typography>
             <Button variant='contained' onClick={() => navigate('/add')}>

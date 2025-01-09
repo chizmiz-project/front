@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Grid2 } from '@mui/material'
 import { useEffect, useState } from 'react'
-import ApiService from '../../services/api'
+import ApiService from '../../services/Api'
 import AppLayout from '../AppLayout'
 import { useDebounce } from '../../components/useDebounce'
 import EmptyState from '../../components/EmptyState'

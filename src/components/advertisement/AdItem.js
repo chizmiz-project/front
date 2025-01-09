@@ -1,6 +1,6 @@
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import timeAgo from '../../services/calender';
+import timeAgo from '../../services/Calender';
 import {getFormattedPrice} from '../../services/Utils';
 
 export default function AdItem({ ad }) {
