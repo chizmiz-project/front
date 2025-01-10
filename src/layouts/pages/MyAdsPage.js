@@ -2,7 +2,6 @@ import AppLayout from '../AppLayout';
 import { useEffect, useState } from 'react';
 import ApiService from '../../services/Api';
 import AdGrid from '../../components/advertisement/AdGrid';
-import EmptyState from '../../components/EmptyState';
 import { Box, CircularProgress } from '@mui/material';
 import { useDebounce } from '../../components/useDebounce';
 
@@ -46,11 +45,7 @@ export default function MyAdsPage() {
           </Box>
         ) : null}
 
-        {ads.length === 0 && !isLoading ? (
-          <EmptyState />
-        ) : (
-          <AdGrid ads={ads} />
-        )}
+        <AdGrid ads={ads} />
       </Box>
     </AppLayout>
   );
