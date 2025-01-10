@@ -1,9 +1,8 @@
 import { Box, CircularProgress, Grid2 } from '@mui/material'
 import { useEffect, useState } from 'react'
-import ApiService from '../../services/api'
+import ApiService from '../../services/Api'
 import AppLayout from '../AppLayout'
 import { useDebounce } from '../../components/useDebounce'
-import EmptyState from '../../components/EmptyState'
 import AdGrid from '../../components/advertisement/AdGrid'
 import { CategoryItem } from '../../components/category/CategoryItem'
 
@@ -62,10 +61,7 @@ export default function MainPage() {
           </Box>
         ) : null}
 
-        <AdGrid ads={ads}/>
-
-        {ads.length === 0 && searchQuery && <EmptyState />}
-
+        <AdGrid ads={ads}/>  
       </Box>
     </AppLayout>
   )

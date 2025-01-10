@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { TextField, Button, Typography, Box, CircularProgress } from '@mui/material';
-import ApiService from '../../services/api';
+import ApiService from '../../services/Api';
 import AppLayout from '../AppLayout';
 import { useUser } from '../../context/UserContext';
 import { useSnackbar } from '../../context/SnackbarProvider';

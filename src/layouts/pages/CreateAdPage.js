@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
-import ApiService from "../../services/api";
+import ApiService from "../../services/Api";
 import AppLayout from "../AppLayout";
 import { ImageUploader } from "../../components/ImageUploader";
 import { CustomTextField } from "../../components/CustomTextField";

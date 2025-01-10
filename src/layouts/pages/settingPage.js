@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { UserAccountSection } from "../../components/list/userAccountSection"
+import { UserAccountSection } from "../../components/list/UserAccountSection"
 import { CustomListGroup } from "../../components/list/CutomListGroup"
 import { CutomListItem } from "../../components/list/CutomListItem"
 import AppLayout from "../AppLayout"
@@ -24,7 +24,7 @@ export default function SettingsPage() {
         <CutomListItem
           type="navigation"
           label="آگهی‌های ذخیره‌شده"
-          to="/saved-ads"
+          to="/favorite-ads"
         />
         <CutomListItem
           type="navigation"
