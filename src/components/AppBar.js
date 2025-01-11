@@ -1,19 +1,36 @@
-import { Search, MoreVert, ChevronLeft } from '@mui/icons-material';
-import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button } from '@mui/material';
+import { Search, MoreVert, ChevronLeft, PersonAdd, Logout } from '@mui/icons-material';
+import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button, Menu, MenuItem, ListItemIcon, Avatar, Divider, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import { Settings } from 'lucide-react';
+import { useState } from 'react';
+import SettingsPage from '../layouts/pages/settingPage';
+import { CustomListGroup } from './list/CutomListGroup';
+import { CutomListItem } from './list/CutomListItem';
+import { UserAccountSection } from './list/userAccountSection';
+import { backgroundColor, backgroundColorTop, borderColor } from '../theme';
 
 export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, logoutUser } = useUser();
   const isLoggedIn = !!user;
+  const [darkMode, setDarkMode] = useState(false);  
 
   const handleSearchChange = (event) => {
     onSearchChange?.(event.target.value);
   }
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const setting = variant === 'search' ? (
-    <IconButton onClick={() => navigate('/settings')}>
+    <IconButton onClick={handleClick}>
       <MoreVert />
     </IconButton>
   ) : null;
@@ -99,6 +116,55 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
           {navigation}
         </Container>
       </Toolbar>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      slotProps={{
+          paper: {
+            sx: {
+              width: '280px',
+              overflow: 'visible',
+              // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        >
+        
+      <UserAccountSection
+        isLoggedIn={!!user}
+        userData={user}
+        onLogin={() => { }}
+        onLogout={logoutUser}
+      />
+
+      <CustomListGroup>
+        <CutomListItem
+          type="navigation"
+          label="آگهی‌های ذخیره‌شده"
+          to="/saved-ads"
+        />
+        <CutomListItem
+          type="navigation"
+          label="آگهی‌های من"
+          to="/my-ads"
+        />
+        <CutomListItem
+          type="navigation"
+          label="بازدیدهای اخیر"
+          to="/recent-views"
+        />
+        <CutomListItem
+          type="switch"
+          label="حالت شب"
+          checked={darkMode}
+          onCheckedChange={setDarkMode}
+        />
+      </CustomListGroup>
+
+      </Menu>
     </MuiAppBar>
   );
 }
