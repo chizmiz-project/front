@@ -1,10 +1,9 @@
 import './App.css';
-import { CacheProvider, ThemeProvider } from '@emotion/react';
+import { CacheProvider } from '@emotion/react';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import createCache from '@emotion/cache';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Theme from './theme.js'
 import MainPage from './layouts/pages/MainPage.js';
 import CategoryPage from './layouts/pages/CategoryMainPage.js';
 import AdDetailsPage from './layouts/pages/AdDetailsPage.js';
@@ -18,6 +17,7 @@ import FavoriteAdsPage from './layouts/pages/FavoriteAdsPage.js';
 import CreateAdPage from './layouts/pages/CreateAdPage.js';
 import { UserProvider } from './context/UserContext';
 import { SnackbarProvider } from './context/SnackbarProvider.js';
+import { ThemeProvider } from './context/ThemeContext.js';
 
 const cacheRtl = createCache({
   key: 'muirtl',
@@ -27,8 +27,8 @@ const cacheRtl = createCache({
 function App() {
   return (
     <UserProvider>
-      <CacheProvider value={cacheRtl}>
-        <ThemeProvider theme={Theme}>
+      <ThemeProvider>
+        <CacheProvider value={cacheRtl}>
           <SnackbarProvider>
             <BrowserRouter>
               <Routes>
@@ -46,9 +46,9 @@ function App() {
               </Routes>
             </BrowserRouter>
           </SnackbarProvider>
-        </ThemeProvider>
-      </CacheProvider>
-    </UserProvider>
+        </CacheProvider>
+      </ThemeProvider>
+    </UserProvider >
   );
 }
 

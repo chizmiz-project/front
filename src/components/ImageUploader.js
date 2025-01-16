@@ -7,7 +7,6 @@ import {
   CircularProgress
 } from "@mui/material"
 import { Close, AddPhotoAlternate, AddAPhoto } from "@mui/icons-material"
-import { backgroundColor, backgroundColorTop, dividerColor, labelColor, labelPrimary, labelSecondary, primaryColor, textColor } from "../theme"
 
 export function ImageUploader({onImageSelect, isUploading = false}) {
     const [preview, setPreview] = useState(null);
@@ -108,9 +107,9 @@ export function ImageUploader({onImageSelect, isUploading = false}) {
               size="small"
               aria-label="تغییر تصویر"
               sx={{
-                bgcolor: backgroundColor,
+                bgcolor: 'background.default',
                 "&:hover": {
-                  bgcolor: backgroundColorTop
+                  bgcolor: "background.paper"
                 },
                 boxShadow: 2
               }}
@@ -128,9 +127,9 @@ export function ImageUploader({onImageSelect, isUploading = false}) {
               size="small"
               aria-label="حذف تصویر"
               sx={{
-                bgcolor: backgroundColor,
+                bgcolor: "background.default",
                 "&:hover": {
-                  bgcolor: backgroundColorTop
+                  bgcolor: "background.paper"
                 },
                 boxShadow: 2
               }}
@@ -157,14 +156,14 @@ export function ImageUploader({onImageSelect, isUploading = false}) {
         gap: 1,
         p: 4,
         border: "2px dashed",
-        borderColor: isDragging ? labelPrimary : dividerColor,
+        borderColor: isDragging ? 'active' : 'inActive',
         borderRadius: 2,
         cursor: isUploading ? "default" : "pointer",
         mb: 3,
         transition: "all 0.2s ease",
         bgcolor: isDragging ? "action.hover" : "transparent",
         "&:hover": {
-          borderColor: isUploading ? dividerColor : "primary.main",
+          borderColor: isUploading ? 'active' : "inActive",
           bgcolor: isUploading ? "transparent" : "action.hover"
         },
         pointerEvents: isUploading ? "none" : "auto"
@@ -184,10 +183,10 @@ export function ImageUploader({onImageSelect, isUploading = false}) {
           <AddAPhoto
             sx={{
               fontSize: 40,
-              color: isDragging ? primaryColor : labelSecondary
+              color: isDragging ? 'active' : 'inActive'
             }}
           />
-          <Typography color={isDragging ? primaryColor : labelSecondary}>
+          <Typography color={isDragging ? 'active' : 'inactive'}>
             تصویر را اینجا رها کنید یا کلیک کنید
           </Typography>
         </>

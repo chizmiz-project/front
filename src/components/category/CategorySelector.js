@@ -1,5 +1,5 @@
 import { Grid2, Paper, Typography } from "@mui/material"
-import { primaryColor } from "../../theme"
+import { primaryColor } from "../../context/Configs"
 
 export default function CategorySelector({ categories, selectedCategory, onSelect }) {
   return (
