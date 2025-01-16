@@ -21,9 +21,8 @@ export const SnackbarProvider = ({ children }) => {
             case 'error':
                 setBackgroundColor(errorColor);
                 break;
-            case 'server':
+            default:
                 setBackgroundColor(warningColor)
-                break;
         }
         setOpen(true);
     };
