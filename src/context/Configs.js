@@ -45,6 +45,9 @@ export const fillColorSecondary_dark = '#78788045';
 export const fillColorTertiary_light = '#7676801c';
 export const fillColorTertiary_dark = '#76768036';
 
+export const appbar_light = '#F9F9F9'
+export const appbar_dark = '#1C1C1E'
 
 
-export const borderRadius = '0.5rem'
+
+export const borderRadius ='0.5rem'

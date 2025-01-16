@@ -6,10 +6,10 @@ import * as Configs from './Configs';
 
 const ThemeContext = createContext({
   toggleTheme: () => { },
-  mode: 'light',
+  mode: 'light'
 });
 
-export const useTheme = () => useContext(ThemeContext);
+export const useCustomTheme = () => useContext(ThemeContext);
 
 const getDesignTokens = (mode) => ({
   palette: {
@@ -132,6 +132,7 @@ const getDesignTokens = (mode) => ({
           cursor: 'pointer',
           borderRadius: Configs.borderRadius,
           boxShadow: 'none',
+          backgroundImage: 'none'
         },
       },
     },
@@ -155,7 +156,8 @@ const getDesignTokens = (mode) => ({
       styleOverrides: {
         root: {
           borderRadius: 0,
-          background: mode === 'light' ? Configs.fillColorTertiary_light : Configs.fillColorTertiary_dark,
+          borderBottom: `1px solid ${mode === 'light' ? Configs.dividerColorTransparent_light : Configs.dividerColorTransparent_dark}`,
+          background: mode === 'light' ? Configs.backgroundColor_light : Configs.backgroundColor_dark,
         },
       },
     },

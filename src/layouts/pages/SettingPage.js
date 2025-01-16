@@ -4,15 +4,15 @@ import { CutomListItem } from "../../components/list/CutomListItem"
 import AppLayout from "../AppLayout"
 import { useUser } from '../../context/UserContext';
 import { Box } from "@mui/material"
-import { useTheme } from "../../context/ThemeContext"
+import { useCustomTheme } from "../../context/ThemeContext"
 
 export default function SettingsPage() {
   const { user, logoutUser } = useUser();
-  const { mode, toggleTheme } = useTheme();
+  const { mode, toggleTheme } = useCustomTheme();
 
   return (
     <AppLayout title="تنظیمات">
-      <Box>
+      <Box display={'flex'} flexDirection={'column'} gap={2}>
       <UserAccountSection
         isLoggedIn={!!user}
         userData={user}
@@ -38,16 +38,14 @@ export default function SettingsPage() {
         />
       </CustomListGroup>
 
-      <CustomListGroup children={
-        [
-          <CutomListItem
+      <CustomListGroup>
+      <CutomListItem
           type="switch"
           label="حالت شب"
           checked={mode === 'dark'}
           onCheckedChange={toggleTheme}
         />
-        ]
-      }/>
+      </CustomListGroup>
       </Box>
     </AppLayout>
   )
