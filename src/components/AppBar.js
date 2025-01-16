@@ -7,6 +7,7 @@ import { CustomListGroup } from './list/CutomListGroup';
 import { CutomListItem } from './list/CutomListItem';
 import { useTheme } from '@emotion/react';
 import { useCustomTheme } from '../context/ThemeContext';
+import { primaryColor } from '../context/Configs';
 
 export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
     : null;
 
   const navigation = hasNavigate ? (
-    <IconButton sx={{ marginLeft: 'auto' }} onClick={() => navigate(-1)}>
+    <IconButton sx={{ color: primaryColor, opacity: 1, marginLeft: 'auto' }} onClick={() => navigate(-1)}>
       <ChevronLeft />
     </IconButton>
   ) : null;
@@ -131,7 +132,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
             width: '300px',
             overflow: 'visible',
             boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-            mt: 2.5,
+            mt: 1.5,
             '&::before': {
               content: '""',
               display: 'block',
