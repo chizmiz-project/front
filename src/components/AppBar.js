@@ -1,14 +1,11 @@
-import { Search, MoreVert, ChevronLeft, PersonAdd, Logout } from '@mui/icons-material';
-import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button, Menu, MenuItem, ListItemIcon, Avatar, Divider, Paper } from '@mui/material';
+import { Search, MoreVert, ChevronLeft } from '@mui/icons-material';
+import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button, Menu } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
-import { Settings } from 'lucide-react';
 import { useState } from 'react';
-import SettingsPage from '../layouts/pages/settingPage';
 import { CustomListGroup } from './list/CutomListGroup';
 import { CutomListItem } from './list/CutomListItem';
-import { UserAccountSection } from './list/userAccountSection';
-import { backgroundColor, backgroundColorTop, borderColor } from '../theme';
+import { UserAccountSection } from './list/UserAccountSection';
 
 export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
   const navigate = useNavigate();

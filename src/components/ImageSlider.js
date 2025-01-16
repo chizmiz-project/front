@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Box, IconButton } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
-import { backgroundColor, backgroundColorTop } from '../context/Configs';
 
 export function ImageSlider({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
