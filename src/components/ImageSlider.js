@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, IconButton } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
-import { backgroundColor, backgroundColorTop } from '../theme';
+import { backgroundColor, backgroundColorTop } from '../context/Configs';
 
 export function ImageSlider({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -38,8 +38,8 @@ export function ImageSlider({ images }) {
               left: 8,
               top: '50%',
               transform: 'translateY(-50%)',
-              bgcolor: backgroundColor,
-              '&:hover': { bgcolor: backgroundColorTop }
+              bgcolor: 'background.default',
+              '&:hover': { bgcolor: 'background.paper' }
             }}
           >
             <ChevronRight />
@@ -52,8 +52,8 @@ export function ImageSlider({ images }) {
               right: 8,
               top: '50%',
               transform: 'translateY(-50%)',
-              bgcolor: backgroundColor,
-              '&:hover': { bgcolor: backgroundColorTop }
+              bgcolor: 'background.default',
+              '&:hover': { bgcolor: 'background.paper' }
             }}
           >
             <ChevronLeft />

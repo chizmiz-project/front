@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Snackbar, Slide, SnackbarContent } from '@mui/material';
-import { errorColor, infoColor, successColor, warningColor } from '../theme';
+import { errorColor, infoColor, successColor, warningColor } from './Configs';
 
 const SnackbarContext = createContext();
 
