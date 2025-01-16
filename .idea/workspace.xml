@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f22c12b7-2abf-4787-89dc-3287399efb91" name="Changes" comment="" />
+    <list default="true" id="f22c12b7-2abf-4787-89dc-3287399efb91" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AppBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AppBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/pages/AdDetailsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/pages/AdDetailsPage.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,7 +46,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "#12 on create-ad",
+    "git-widget-placeholder": "saved-and-my-ads",
     "last_opened_file_path": "/Users/ali/Documents/semester 9/agile/front",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",

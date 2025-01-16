@@ -11,7 +11,7 @@ import {
   Link,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import ApiService from '../../services/api';
+import ApiService from '../../services/Api';
 import AppLayout from '../AppLayout';
 import { flattenErrors } from '../../services/Utils';
 

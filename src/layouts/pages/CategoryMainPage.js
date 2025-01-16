@@ -1,9 +1,8 @@
 import AppLayout from '../AppLayout'
 import { useEffect, useState } from 'react';
-import ApiService from '../../services/api';
+import ApiService from '../../services/Api';
 import { useParams } from 'react-router-dom';
 import AdGrid from '../../components/advertisement/AdGrid';
-import EmptyState from '../../components/EmptyState';
 
 export default function CategoryPage() {
   const { id } = useParams();
@@ -27,7 +26,6 @@ export default function CategoryPage() {
 
   return (
     <AppLayout variant='search'>
-        {ads.length === 0 && <EmptyState />}
         <AdGrid ads={ads}/>
     </AppLayout>
   )

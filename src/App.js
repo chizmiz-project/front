@@ -10,9 +10,11 @@ import CategoryPage from './layouts/pages/CategoryMainPage.js';
 import AdDetailsPage from './layouts/pages/AdDetailsPage.js';
 import LoginPage from './layouts/pages/Login.js';
 import SignupPage from './layouts/pages/Signup.js';
-import VerifyOTPPage from './layouts/pages/verify-otp.js';
-import SettingsPage from './layouts/pages/settingPage.js';
+import VerifyOTPPage from './layouts/pages/Verify-otp.js';
+import SettingsPage from './layouts/pages/SettingPage.js';
 import ProfileEditPage from './layouts/pages/ProfileEditPage.js';
+import MyAdsPage from './layouts/pages/MyAdsPage.js';
+import FavoriteAdsPage from './layouts/pages/FavoriteAdsPage.js';
 import CreateAdPage from './layouts/pages/CreateAdPage.js';
 import { UserProvider } from './context/UserContext';
 import { SnackbarProvider } from './context/SnackbarProvider.js';
@@ -39,6 +41,8 @@ function App() {
                 <Route path="/verify-otp" element={<VerifyOTPPage />} />
                 <Route path="/add" element={<CreateAdPage />} />
                 <Route path="/profile/edit" element={<ProfileEditPage />} />
+                <Route path="/my-ads" element={<MyAdsPage />} />
+                <Route path="/favorite-ads" element={<FavoriteAdsPage />} />
               </Routes>
             </BrowserRouter>
           </SnackbarProvider>

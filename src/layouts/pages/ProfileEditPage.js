@@ -6,7 +6,7 @@ import {
   Typography,
   CircularProgress
 } from '@mui/material';
-import ApiService from '../../services/api';
+import ApiService from '../../services/Api';
 import AppLayout from '../AppLayout';
 
 export default function ProfileEditPage() {
