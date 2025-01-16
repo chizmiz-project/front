@@ -8,7 +8,6 @@ import { CustomTextField } from "../../components/CustomTextField";
 import { CustomNumericField } from "../../components/CustomNumericField";
 import CategorySelector from '../../components/category/CategorySelector';
 import { useSnackbar } from "../../context/SnackbarProvider";
-import { errorColor } from "../../theme";
 
 export default function CreateAdPage() {
   const [categories, setCategories] = useState([])

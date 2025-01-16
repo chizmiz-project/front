@@ -5,10 +5,11 @@ import { CutomListItem } from "../../components/list/CutomListItem"
 import AppLayout from "../AppLayout"
 import { useUser } from '../../context/UserContext';
 import { Box } from "@mui/material"
+import { useTheme } from "../../context/ThemeContext"
 
 export default function SettingsPage() {
   const { user, logoutUser } = useUser();
-  const [darkMode, setDarkMode] = useState(false)
+  const { mode, toggleTheme } = useTheme();
 
   return (
     <AppLayout title="تنظیمات">
@@ -43,8 +44,8 @@ export default function SettingsPage() {
           <CutomListItem
           type="switch"
           label="حالت شب"
-          checked={darkMode}
-          onCheckedChange={setDarkMode}
+          checked={mode === 'dark'}
+          onCheckedChange={toggleTheme}
         />
         ]
       }/>
