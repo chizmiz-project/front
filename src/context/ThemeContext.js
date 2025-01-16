@@ -111,6 +111,7 @@ const getDesignTokens = (mode) => ({
     },
     MuiListItemText: {
       styleOverrides: {
+        fontSize: '.5rem',
         secondary: {
           color: mode === 'light' ? Configs.textColor_light : Configs.textColor_dark
         },
@@ -139,7 +140,15 @@ const getDesignTokens = (mode) => ({
     MuiDivider: {
       styleOverrides: {
         root: {
-          marginLeft: '1rem',
+          marginLeft: '4rem',
+        }
+      }
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          minWidth: 'fit-content', 
+          marginRight: '1rem'
         }
       }
     },
