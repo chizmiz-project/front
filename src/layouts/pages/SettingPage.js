@@ -5,6 +5,8 @@ import AppLayout from "../AppLayout"
 import { useUser } from '../../context/UserContext';
 import { Box } from "@mui/material"
 import { useCustomTheme } from "../../context/ThemeContext"
+import { StyledIconWrapper } from "../../components/StyledIconWrapper";
+import { Bedtime, Bookmark, Folder, Inventory, PushPin, Update, WatchLater, Wifi } from "@mui/icons-material";
 
 export default function SettingsPage() {
   const { user, logoutUser } = useUser();
@@ -25,16 +27,31 @@ export default function SettingsPage() {
           type="navigation"
           label="آگهی‌های ذخیره‌شده"
           to="/favorite-ads"
+          icon={
+            <StyledIconWrapper backgroundColor="#02ccfe">
+            <Bookmark />
+        </StyledIconWrapper>
+          }
         />
         <CutomListItem
           type="navigation"
           label="آگهی‌های من"
           to="/my-ads"
+          icon={
+            <StyledIconWrapper backgroundColor="#FF2D55">
+            <Folder />
+        </StyledIconWrapper>
+          }
         />
         <CutomListItem
           type="navigation"
           label="بازدیدهای اخیر"
           to="/recent-views"
+          icon={
+            <StyledIconWrapper backgroundColor="#95a5a6">
+            <WatchLater/>
+        </StyledIconWrapper>
+          }
         />
       </CustomListGroup>
 
@@ -44,6 +61,11 @@ export default function SettingsPage() {
           label="حالت شب"
           checked={mode === 'dark'}
           onCheckedChange={toggleTheme}
+          icon={
+            <StyledIconWrapper backgroundColor="#5856D6">
+            <Bedtime />
+        </StyledIconWrapper>
+          }
         />
       </CustomListGroup>
       </Box>
