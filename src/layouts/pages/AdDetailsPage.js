@@ -9,8 +9,8 @@ import ApiService from '../../services/Api';
 import timeAgo from '../../services/Calender';
 import AppLayout from '../AppLayout';
 import { getFormattedPrice } from '../../services/Utils';
-import { CustomListGroup } from '../../components/list/CutomListGroup';
-import { CutomListItem } from '../../components/list/CutomListItem';
+import { CustomListGroup } from '../../components/list/CustomListGroup';
+import { CustomListItem } from '../../components/list/CustomListItem';
 
 export default function AdDetailsPage() {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
@@ -93,7 +93,7 @@ export default function AdDetailsPage() {
 
             <CustomListGroup>
               {adDetails.details.map((detail) => (
-                <CutomListItem type="key-value" label={detail.key} value={detail.value} />
+                <CustomListItem type="key-value" label={detail.key} value={detail.value} />
               ))}
             </CustomListGroup>  
 
