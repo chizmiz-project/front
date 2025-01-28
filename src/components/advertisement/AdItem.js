@@ -4,6 +4,7 @@ import timeAgo from '../../services/Calender';
 import {getFormattedPrice} from '../../services/Utils';
 
 export default function AdItem({ ad }) {
+    console.log(ad)
     return (
         <Card elevation={0} sx={{
             textDecoration: 'none',
@@ -23,7 +24,7 @@ export default function AdItem({ ad }) {
 
             <CardMedia
                 component="img"
-                image='https://static.vecteezy.com/system/resources/thumbnails/052/934/746/small/pixel-art-yellow-car-game-asset-design-vector.jpg'
+                image={ad.main_picture}
                 alt={ad.title}
                 sx={{ width: '130px', aspectRatio: 1, objectFit: 'cover' }}
             />
