@@ -161,7 +161,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
         <CutomListItem
           type="navigation"
           label="آگهی‌های ذخیره‌شده"
-          to="/saved-ads"
+          to="/favorite-ads"
         />
         <CutomListItem
           type="navigation"
