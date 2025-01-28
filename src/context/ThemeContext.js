@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useMemo } from 'react';
 import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
+import Cookies from 'js-cookie';
 import CssBaseline from '@mui/material/CssBaseline';
 import * as Configs from './Configs';
 
@@ -195,10 +196,16 @@ const getDesignTokens = (mode) => ({
 });
 
 export function ThemeProvider({ children }) {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState(() => {
+    return Cookies.get('themeMode') || 'light';
+  });
 
   const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    setMode((prevMode) => {
+      const newMode = prevMode === 'light' ? 'dark' : 'light';
+      Cookies.set('themeMode', newMode, { expires: 30 });
+      return newMode;
+    });
   };
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);

@@ -13,7 +13,6 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/Api';
 import AppLayout from '../AppLayout';
-import { flattenErrors } from '../../services/Utils';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -46,6 +45,7 @@ export default function SignupPage() {
 
     if (formData.password !== formData.confirmPassword) {
       setConfirmPasswordErrorText('رمز عبور و تکرار آن تطابق نداند.')
+      setLoading(false);
       return;
     }
 
@@ -68,8 +68,7 @@ export default function SignupPage() {
       console.log(response);
 
       if (response.isBadRequest) {
-        let errors = flattenErrors(response.data);
-        for (let key in errors) {
+        for (let key in response.data) {
           if (key === 'password') 
             setPasswordErrorText(error[key].join("\r\n"));
           if (key === 'username')

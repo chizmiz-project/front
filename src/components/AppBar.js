@@ -11,7 +11,7 @@ import { primaryColor } from '../context/Configs';
 
 export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
   const navigate = useNavigate();
-  const { user, logoutUser } = useUser();
+  const { user } = useUser();
   const isLoggedIn = !!user;
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
