@@ -113,6 +113,7 @@ export default function ProfileEditPage() {
           sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
           fullWidth
           variant="outlined"
+          disabled
           margin="normal"
           value={userDetails.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
@@ -121,6 +122,7 @@ export default function ProfileEditPage() {
         <Typography variant="body">آدرس ایمیل</Typography>
         <TextField
           sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
+          disabled
           fullWidth
           variant="outlined"
           margin="normal"
@@ -132,6 +134,7 @@ export default function ProfileEditPage() {
         <TextField
           sx={{ marginBottom: '1rem', marginTop: '0.5rem' }}
           fullWidth
+          disabled
           variant="outlined"
           margin="normal"
           value={userDetails.account.phone_number}
@@ -167,6 +170,7 @@ export default function ProfileEditPage() {
         <Button
           type="submit"
           fullWidth
+          size='large'
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
           disabled={loading}
