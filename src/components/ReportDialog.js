@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Radio, RadioGroup, FormControlLabel, FormControl, TextField } from '@mui/material';
 import ApiService from '../services/Api';
+import { useSnackbar } from '../context/SnackbarProvider';
 
 export default function ReportDialog({ open, onClose, onSubmit, adId }) {
   const [formData, setFormData] = useState({ reason: '', description: '' });
   const [descriptionErrorText, setDescriptionErrorText] = useState('');
+  const {openSnackbar} = useSnackbar()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,10 +24,13 @@ export default function ReportDialog({ open, onClose, onSubmit, adId }) {
 
       if (response.isSuccess) {
         onSubmit(formData); // Notify the parent component
+        openSnackbar("گزارش با موفقیت ارسال شد.", 'success');
       } else {
+        openSnackbar('خطا در ارسال گزارش', 'error')
         console.error('Failed to submit report:', response);
       }
     } catch (error) {
+      openSnackbar('خطا در ارسال گزارش', 'error')
       console.error('Error while submitting report:', error);
     }
   };
