@@ -55,7 +55,7 @@ export default function AdDetailsPage() {
 
   const fetchPhoneNumber = async () => {
     try {
-      const response = await ApiService.get(`/advertisement/${id}/owner-phone/--`);
+      const response = await ApiService.get(`/advertisement/${id}/owner-phone/`);
       if (response.isSuccess) {
         setContactButtonText(response.data.phone_number);
       } else {
@@ -141,9 +141,10 @@ export default function AdDetailsPage() {
       </Box>
 
       <ReportDialog
-        open={isReportDialogOpen}
-        onClose={() => setIsReportDialogOpen(false)}
-        onSubmit={handleReport}
+      open={isReportDialogOpen}
+      onClose={() => setIsReportDialogOpen(false)}
+      onSubmit={handleReport}
+      adId={ad.id}
       />
     </AppLayout>
   );
