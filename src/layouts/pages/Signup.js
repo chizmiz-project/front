@@ -69,8 +69,7 @@ export default function SignupPage() {
       console.log(response);
 
       if (response.isBadRequest) {
-        let errors = flattenErrors(response.data);
-        for (let key in errors) {
+        for (let key in response.data) {
           if (key === 'password') 
             setPasswordErrorText(error[key].join("\r\n"));
           if (key === 'username')
