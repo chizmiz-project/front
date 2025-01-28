@@ -27,6 +27,7 @@ jobs:
       run: |
         docker build \
         --build-arg REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} \
+        --build-arg BASE_URL=${{ secrets.BASE_URL }} \
         -t ghcr.io/${{ github.repository }}/frontend:latest .
         docker push ghcr.io/${{ github.repository }}/frontend:latest
 
