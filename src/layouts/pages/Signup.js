@@ -46,6 +46,7 @@ export default function SignupPage() {
 
     if (formData.password !== formData.confirmPassword) {
       setConfirmPasswordErrorText('رمز عبور و تکرار آن تطابق نداند.')
+      setLoading(false);
       return;
     }
 
