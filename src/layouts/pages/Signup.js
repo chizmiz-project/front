@@ -13,7 +13,6 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/Api';
 import AppLayout from '../AppLayout';
-import { flattenErrors } from '../../services/Utils';
 
 export default function SignupPage() {
   const navigate = useNavigate();

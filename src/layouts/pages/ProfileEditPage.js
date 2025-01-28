@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   TextField,
   Button,
@@ -10,7 +9,6 @@ import ApiService from '../../services/Api';
 import AppLayout from '../AppLayout';
 
 export default function ProfileEditPage() {
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: '',
