@@ -23,6 +23,7 @@ export default function AdDetailsPage() {
       description: "",
   });
   const [isFavorite, setIsFavorite] = useState(false);
+  const [contactButtonText, setContactButtonText] = useState("شماره تماس");
   const { id } = useParams();
 
   useEffect(() => {
@@ -49,6 +50,19 @@ export default function AdDetailsPage() {
       setIsFavorite(!isFavorite);
     } catch (error) {
       console.error('Failed to toggle favorite status:', error);
+    }
+  };
+
+  const fetchPhoneNumber = async () => {
+    try {
+      const response = await ApiService.get(`/advertisement/${id}/owner-phone/--`);
+      if (response.isSuccess) {
+        setContactButtonText(response.data.phone_number);
+      } else {
+        console.error('Failed to fetch phone number:', response);
+      }
+    } catch (error) {
+      console.error('Error fetching phone number:', error);
     }
   };
 
@@ -106,14 +120,25 @@ export default function AdDetailsPage() {
         </Grid2>
       </Grid2>
 
-      <Button
-        variant="outlined"
-        size="large"
-        fullWidth
-        onClick={() => setIsReportDialogOpen(true)}
-      >
-        گزارش آگهی
-      </Button>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <Button
+          variant="contained"
+          size="large"
+          fullWidth
+          onClick={fetchPhoneNumber}
+        >
+          {contactButtonText}
+        </Button>
+
+        <Button
+          variant="outlined"
+          size="large"
+          fullWidth
+          onClick={() => setIsReportDialogOpen(true)}
+        >
+          گزارش آگهی
+        </Button>
+      </Box>
 
       <ReportDialog
         open={isReportDialogOpen}
