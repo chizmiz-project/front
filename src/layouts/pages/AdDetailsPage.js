@@ -74,7 +74,7 @@ export default function AdDetailsPage() {
               <Typography variant="h1" gutterBottom>
                 {adDetails.title}
               </Typography>
-              <IconButton onClick={toggleFavorite}>
+              <IconButton sx={{opacity: .9}} onClick={toggleFavorite}>
                 {isFavorite ? (
                   <FavoriteIcon color="error" />
                 ) : (
@@ -83,7 +83,7 @@ export default function AdDetailsPage() {
               </IconButton>
             </Box>
 
-            <Typography variant="subtitle1" gutterBottom>
+            <Typography mb={3} variant="subtitle1" gutterBottom>
               {adDetails.time}
             </Typography>
 
@@ -93,7 +93,7 @@ export default function AdDetailsPage() {
               ))}
             </CustomListGroup>
 
-            <Typography variant="h2" gutterBottom>
+            <Typography mt={3} variant="h2" gutterBottom>
               توضیحات
             </Typography>
 
