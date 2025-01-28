@@ -76,7 +76,6 @@ export default function AdDetailsPage() {
   };
 
   const handleReport = (reason) => {
-    console.log('Report submitted:', reason);
     setIsReportDialogOpen(false);
   };
 
