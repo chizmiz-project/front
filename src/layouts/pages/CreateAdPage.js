@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import ApiService from "../../services/Api";
 import AppLayout from "../AppLayout";
 import { ImageUploader } from "../../components/ImageUploader";
@@ -8,7 +8,6 @@ import { CustomTextField } from "../../components/CustomTextField";
 import { CustomNumericField } from "../../components/CustomNumericField";
 import CategorySelector from '../../components/category/CategorySelector';
 import { useSnackbar } from "../../context/SnackbarProvider";
-import { errorColor } from "../../theme";
 
 export default function CreateAdPage() {
   const [categories, setCategories] = useState([])
@@ -64,13 +63,13 @@ export default function CreateAdPage() {
       } else {
         if (response.isBadRequest) {
           for (let key in response.data) {
-            if (key == 'title')
+            if (key === 'title')
               setTitleErrorText(response.data[key].join("\r\n"));
-            if (key == 'description')
+            if (key === 'description')
               setDescriptionErrorText(response.data[key].join("\r\n"));
-            if (key == 'price')
+            if (key === 'price')
               setPriceErrorText(response.data[key].join("\r\n"));
-            if (key == 'main_picture')
+            if (key === 'main_picture')
               alert('image');
           }
         }

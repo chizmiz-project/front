@@ -70,13 +70,13 @@ export default function SignupPage() {
       if (response.isBadRequest) {
         let errors = flattenErrors(response.data);
         for (let key in errors) {
-          if (key == 'password') 
+          if (key === 'password') 
             setPasswordErrorText(error[key].join("\r\n"));
-          if (key == 'username')
+          if (key === 'username')
             setUsernameErrorText(error[key].join("\r\n"));
-          if (key == 'email')
+          if (key === 'email')
             setEmailErrorText(error[key].join("\r\n"));
-          if (key == 'account.phone_number')
+          if (key === 'account.phone_number')
             setPhoneErrorText(error[key].join("\r\n"));
         }
       }
@@ -87,7 +87,7 @@ export default function SignupPage() {
           'password': formData.password
         };
 
-        const loginResponse = await ApiService.post('/account/login/', loginData);
+        await ApiService.post('/account/login/', loginData);
 
         navigate('/verify-otp', {
           state: {
@@ -242,7 +242,7 @@ export default function SignupPage() {
           size='large'
         >
           {loading ? (
-            <CircularProgress size={24} color="white" />
+            <CircularProgress size={24} color="#FFFFFF" />
           ) : (
             'ثبت‌نام'
           )}
