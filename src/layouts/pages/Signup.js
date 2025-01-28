@@ -13,7 +13,6 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/Api';
 import AppLayout from '../AppLayout';
-import { flattenErrors } from '../../services/Utils';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -46,6 +45,7 @@ export default function SignupPage() {
 
     if (formData.password !== formData.confirmPassword) {
       setConfirmPasswordErrorText('رمز عبور و تکرار آن تطابق نداند.')
+      setLoading(false);
       return;
     }
 
@@ -69,13 +69,13 @@ export default function SignupPage() {
 
       if (response.isBadRequest) {
         for (let key in response.data) {
-          if (key == 'password') 
+          if (key === 'password') 
             setPasswordErrorText(error[key].join("\r\n"));
-          if (key == 'username')
+          if (key === 'username')
             setUsernameErrorText(error[key].join("\r\n"));
-          if (key == 'email')
+          if (key === 'email')
             setEmailErrorText(error[key].join("\r\n"));
-          if (key == 'account.phone_number')
+          if (key === 'account.phone_number')
             setPhoneErrorText(error[key].join("\r\n"));
         }
       }
@@ -86,7 +86,7 @@ export default function SignupPage() {
           'password': formData.password
         };
 
-        const loginResponse = await ApiService.post('/account/login/', loginData);
+        await ApiService.post('/account/login/', loginData);
 
         navigate('/verify-otp', {
           state: {
@@ -241,7 +241,7 @@ export default function SignupPage() {
           size='large'
         >
           {loading ? (
-            <CircularProgress size={24} color="white" />
+            <CircularProgress size={24} color="#FFFFFF" />
           ) : (
             'ثبت‌نام'
           )}

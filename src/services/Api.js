@@ -60,31 +60,25 @@ const ApiService = (() => {
     }
   };
 
-  const createAd = async (endpoint, data) => {
-    try {
-      const formData = new FormData();
-      
-      formData.append("title", data.title);
-      formData.append("description", data.description);
-      formData.append("price", data.price);
-      formData.append("category", data.categoryId);
-      formData.append("main_picture", data.main_picture);
-  
-      const csrfToken = getCsrfToken();
-  
-      const response = await fetch(`${BASE_URL}${endpoint}`, {
-        method: "POST",
-        headers: {
-          "X-CSRFToken": csrfToken,
-        },
-        credentials: "include",
-        body: formData,
-      });
-      return handleResponse(response);
-    } catch (error) {
-      handleError(error);
-    }
-  };  
+  const uploadFile = async file => {
+    const formData = new FormData()
+    formData.append("file", file)
+
+    const csrfToken = getCsrfToken();
+
+    const response = await fetch(`${BASE_URL}${'/file/picture'}`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrfToken
+      },
+      credentials: "include",
+      body: formData
+    })
+
+    console.log(response)
+
+    return handleResponse(response);
+  }
 
   const put = async (endpoint, body) => {
     try {
@@ -121,7 +115,7 @@ const ApiService = (() => {
     }
   };
 
-  return { get, post, put, delete: del, createAd };
+  return { get, post, put, delete: del, uploadFile };
 })();
 
 export default ApiService;

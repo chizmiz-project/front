@@ -35,7 +35,7 @@ export default function FavoriteAdsPage() {
   return (
     <AppLayout 
       variant="search" 
-      hasNavigate={false} 
+      hasNavigate 
       onSearchChange={setSearchQuery}
     >
       <Box>
