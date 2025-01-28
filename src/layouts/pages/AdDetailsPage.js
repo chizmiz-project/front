@@ -14,7 +14,14 @@ import { CutomListItem } from '../../components/list/CutomListItem';
 
 export default function AdDetailsPage() {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
-  const [ad, setAd] = useState({});
+  const [ad, setAd] = useState({
+      id: 0,
+      title: "در حال دریافت",
+      time: timeAgo(0),
+      pictures: [],
+      details: [],
+      description: "",
+  });
   const [isFavorite, setIsFavorite] = useState(false);
   const { id } = useParams();
 
@@ -22,7 +29,6 @@ export default function AdDetailsPage() {
     const fetchAd = async () => {
       const response = await ApiService.get(`/advertisement/${id}`);
       if (response.isSuccess) {
-        console.log(response.data);
         setAd(response.data);
         setIsFavorite(response.data.favorite || false); // Initialize favorite status
       } else {
@@ -50,9 +56,7 @@ export default function AdDetailsPage() {
     id: id,
     title: ad.title,
     time: timeAgo(ad.created_at),
-    images: [
-      ad.main_picture,
-    ],
+    images: ad.pictures.map(obj => obj.picture),
     details: [{ key: 'قیمت', value: getFormattedPrice(ad.price) }],
     description: ad.description,
   };
@@ -74,7 +78,7 @@ export default function AdDetailsPage() {
               <Typography variant="h1" gutterBottom>
                 {adDetails.title}
               </Typography>
-              <IconButton sx={{opacity: .9}} onClick={toggleFavorite}>
+              <IconButton onClick={toggleFavorite}>
                 {isFavorite ? (
                   <FavoriteIcon color="error" />
                 ) : (
@@ -83,7 +87,7 @@ export default function AdDetailsPage() {
               </IconButton>
             </Box>
 
-            <Typography mb={3} variant="subtitle1" gutterBottom>
+            <Typography variant="subtitle1" gutterBottom>
               {adDetails.time}
             </Typography>
 
@@ -91,9 +95,9 @@ export default function AdDetailsPage() {
               {adDetails.details.map((detail) => (
                 <CutomListItem type="key-value" label={detail.key} value={detail.value} />
               ))}
-            </CustomListGroup>
+            </CustomListGroup>  
 
-            <Typography mt={3} variant="h2" gutterBottom>
+            <Typography variant="h2" gutterBottom>
               توضیحات
             </Typography>
 
