@@ -54,6 +54,11 @@ const getDesignTokens = (mode) => ({
       fontWeight: '400',
       marginBottom: 5,
     },
+    nav: {
+      fontSize: '0.95rem',
+      opacity: 0.8,
+      color: mode === 'light' ? Configs.textColor_light : Configs.textColor_dark,
+    }
   },
   direction: 'rtl',
   components: {
