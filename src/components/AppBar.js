@@ -114,6 +114,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
       aria-label="add"
       sx={{
         position: 'fixed',
+        transform: 'scale(1.1)',
         bottom: theme.spacing(2),
         right: theme.spacing(2),
         zIndex: 1000,
