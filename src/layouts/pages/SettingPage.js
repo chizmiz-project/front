@@ -6,7 +6,7 @@ import { useUser } from '../../context/UserContext';
 import { Box } from "@mui/material"
 import { useCustomTheme } from "../../context/ThemeContext"
 import { StyledIconWrapper } from "../../components/StyledIconWrapper";
-import { Bedtime, Bookmark, Folder, Inventory, PushPin, Update, WatchLater, Wifi } from "@mui/icons-material";
+import { Bedtime, Bookmark, Folder, WatchLater } from "@mui/icons-material";
 
 export default function SettingsPage() {
   const { user, logoutUser } = useUser();
