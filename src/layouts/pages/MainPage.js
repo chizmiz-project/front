@@ -50,11 +50,9 @@ export default function MainPage() {
     fetchAds();
   }, [debouncedSearch]);
 
-  // Only show Fab button on the main page
-  const isMainPage = location.pathname === '/';
 
   return (
-    <AppLayout variant='search' hasNavigate={false} onSearchChange={setSearchQuery}>
+    <AppLayout hasFloatButton variant='search' hasNavigate={false} onSearchChange={setSearchQuery}>
       <Box>
         <Grid2 container spacing={2} mb={2}>
           {categories.map(category => (
@@ -72,23 +70,6 @@ export default function MainPage() {
 
         <AdGrid ads={ads}/>  
       </Box>
-
-      {isMainPage && isSmallScreen && (
-        <Fab
-          color="primary"
-          aria-label="add"
-          sx={{
-            position: 'fixed',
-            transform: 'scale(1.1)',
-            bottom: theme.spacing(2),
-            right: theme.spacing(2),
-            zIndex: 1000,
-          }}
-          onClick={() => navigate('/add')}
-        >
-          <Add />
-        </Fab>
-      )}
     </AppLayout>
   );
 }

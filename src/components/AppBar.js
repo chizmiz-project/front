@@ -1,6 +1,6 @@
 import React from 'react';
 import { Search, MoreVert, ChevronLeft, Add } from '@mui/icons-material';
-import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button, Menu, useMediaQuery } from '@mui/material';
+import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button, Menu, useMediaQuery, Fab } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import { useState } from 'react';
@@ -9,33 +9,34 @@ import { CustomListItem } from './list/CustomListItem';
 import { useTheme } from '@emotion/react';
 import { useCustomTheme } from '../context/ThemeContext';
 import { primaryColor } from '../context/Configs';
+import { UserAccountSection } from './list/UserAccountSection';
+import Logo from './Logo';
 
-export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
+export function AppBar({ variant = "title", title, hasNavigate = true, hasFloatButton = false, onSearchChange }) {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, logoutUser } = useUser();
   const isLoggedIn = !!user;
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const { mode, toggleTheme } = useCustomTheme();
 
   const handleSearchChange = (event) => {
     onSearchChange?.(event.target.value);
+    onSearchChange?.(event.target.value);
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
-    if (isSmallScreen)
-      navigate('/settings')
-    else
-      setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const setting = variant === 'search' ? (
-    <IconButton onClick={handleClick}>
+    <IconButton onClick={() => navigate('/settings')}>
       <MoreVert />
     </IconButton>
   ) : null;
@@ -80,11 +81,32 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
     </IconButton>
   ) : null;
 
+  const mobileAddButton = (
+    <Fab
+          color="primary"
+          aria-label="add"
+          sx={{
+            position: 'fixed',
+            transform: 'scale(1.1)',
+            bottom: theme.spacing(2),
+            right: theme.spacing(2),
+            zIndex: 1000,
+          }}
+          onClick={() => navigate('/add')}
+        >
+          <Add />
+        </Fab>
+  )
+
   const desktopPlugins = variant !== 'title' ?
     <Box alignItems={'center'} gap={2} sx={{ display: { md: 'flex', sm: 'none', xs: 'none' } }}>
       {
         isLoggedIn ?
           <>
+            <Typography variant='nav' onClick={handleClick} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
+              چیزمیز من
+            </Typography>
+
             <Typography variant='nav' onClick={() => navigate('/my-ads')} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
               آگهی‌های من
             </Typography>
@@ -97,37 +119,37 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
           </>
           :
           <>
-          <Button variant='contained' onClick={() => navigate('/login')}>
-            ورود
-          </Button>
-          <Button variant='outlined' onClick={() => navigate('/signup')}>
-            ثبت‌نام
-          </Button>
+            <Button variant='contained' onClick={() => navigate('/login')}>
+              ورود
+            </Button>
+            <Button variant='outlined' onClick={() => navigate('/signup')}>
+              ثبت‌نام
+            </Button>
           </>
-          
+
       }
     </Box> : null;
 
   return (
-    <>
-      <MuiAppBar position="sticky" elevation={0}>
-        <Toolbar sx={{ paddingY: { xs: 1}}}>
-          <Container sx={{ gap: 1, py: .5, display: 'flex', alignItems: 'center', flexDirection: 'row', p: 0 }}>
-            {setting}
-            {searchInput}
-            {header}
-            {desktopPlugins}
-            {navigation}
-          </Container>
-        </Toolbar>
-        <Menu
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          PaperProps={{
+    <MuiAppBar position="sticky" elevation={0}>
+      <Toolbar sx={{ paddingY: { xs: 1 } }}>
+        <Container sx={{ px: {sm: 0, lg:3}, gap: 1, py: .5, display: 'flex', alignItems: 'center', flexDirection: 'row', p: 0 }}>
+          {isSmallScreen ? setting : variant === 'search' ? <Logo /> : null}
+          {searchInput}
+          {header}
+          {desktopPlugins}
+          {navigation}
+        </Container>
+      </Toolbar>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        slotProps={{
+          paper: {
+            backgroundColor: theme.palette.background.paper,
+            elevation: 0,
             sx: {
-              backgroundColor: theme.palette.background.paper,
-              elevation: 0,
               width: '300px',
               overflow: 'visible',
               boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
@@ -146,41 +168,56 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
                 zIndex: 1000,
               },
             },
-          }}
-          MenuListProps={{ sx: { 
-            py: 0, 
-          } }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-          <CustomListGroup hasPadding>
-            <CustomListItem
-              type="navigation"
-              label="آگهی‌های ذخیره‌شده"
-              to="/favorite-ads"
-              disabled={!isLoggedIn}
-            />
-            <CustomListItem
-              type="navigation"
-              label="آگهی‌های من"
-              to="/my-ads"
-              disabled={!isLoggedIn}
-            />
-            <CustomListItem
-              type="navigation"
-              label="بازدیدهای اخیر"
-              to="/recent-views"
-              disabled={!isLoggedIn}
-            />
-            <CustomListItem
-              type="switch"
-              label="حالت شب"
-              checked={mode === 'dark'}
-              onCheckedChange={toggleTheme}
-            />
-          </CustomListGroup>
-        </Menu>
-      </MuiAppBar>
-    </>
+          },
+
+        }}
+        MenuListProps={{
+          sx: {
+            py: 0,
+          }
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+
+        {
+          isLoggedIn ?
+            <UserAccountSection
+              isLoggedIn={!!user}
+              userData={user}
+              onLogin={() => { }}
+              onLogout={logoutUser}
+            /> : null
+        }
+        <CustomListGroup hasPadding>
+          <CustomListItem
+            type="navigation"
+            label="آگهی‌های ذخیره‌شده"
+            to="/favorite-ads"
+            disabled={!isLoggedIn}
+          />
+          <CustomListItem
+            type="navigation"
+            label="آگهی‌های من"
+            to="/my-ads"
+            disabled={!isLoggedIn}
+          />
+          <CustomListItem
+            type="navigation"
+            label="بازدیدهای اخیر"
+            to="/recent-views"
+            disabled={!isLoggedIn}
+          />
+          <CustomListItem
+            type="switch"
+            label="حالت شب"
+            checked={mode === 'dark'}
+            onCheckedChange={toggleTheme}
+          />
+        </CustomListGroup>
+
+      </Menu>
+      {isSmallScreen && hasFloatButton && mobileAddButton}
+    </MuiAppBar>
   );
 }

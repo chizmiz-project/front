@@ -9,7 +9,7 @@ export function CategoryItem({ category }) {
       sx={{ p: 2, textAlign: 'center' }}
       onClick={() => navigate(`/category/${category.id}`)}
     >
-      <Typography variant="body2">{category.title}</Typography>
+      <Typography variant="category">{category.title}</Typography>
     </Paper>
   );
 }

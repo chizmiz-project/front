@@ -13,6 +13,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ApiService from '../../services/Api';
 import AppLayout from '../AppLayout';
+import { useSnackbar } from '../../context/SnackbarProvider';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -37,7 +38,8 @@ export default function SignupPage() {
   const [usernameErrorText, setUsernameErrorText] = useState('');
   const [emailErrorText, setEmailErrorText] = useState('');
   const [phoneErrorText, setPhoneErrorText] = useState('');
-
+  const {openSnackbar} = useSnackbar();
+      
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -65,7 +67,9 @@ export default function SignupPage() {
     try {
       const response = await ApiService.post('/account/signup/', data);
       if (response.isBadRequest) {
-        for (let key in response.data) {
+        let error = response.data;
+        for (let key in error) {
+          console.log(key === 'username')
           if (key === 'password') 
             setPasswordErrorText(error[key].join("\r\n"));
           if (key === 'username')
@@ -75,6 +79,7 @@ export default function SignupPage() {
           if (key === 'account.phone_number')
             setPhoneErrorText(error[key].join("\r\n"));
         }
+        openSnackbar('لطفا مقادیر ورودی را اصلاح کنید', 'error');
       }
 
       if (response.isSuccess) {
@@ -84,6 +89,7 @@ export default function SignupPage() {
         };
 
         await ApiService.post('/account/login/', loginData);
+        openSnackbar('ایمیلی حاوی کد ورود برای شما ارسال شد', 'info')
 
         navigate('/verify-otp', {
           state: {

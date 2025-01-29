@@ -24,7 +24,7 @@ export default function CategoryPage() {
   }, []);
 
   return (
-    <AppLayout variant='search'>
+    <AppLayout hasFloatButton variant='search'>
         <AdGrid ads={ads}/>
     </AppLayout>
   )
