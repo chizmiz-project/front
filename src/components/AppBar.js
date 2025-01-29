@@ -9,6 +9,7 @@ import { useTheme } from '@emotion/react';
 import { useCustomTheme } from '../context/ThemeContext';
 import { primaryColor } from '../context/Configs';
 import { UserAccountSection } from './list/UserAccountSection';
+import Logo from './Logo';
 
 export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
   const navigate = useNavigate();
@@ -26,17 +27,14 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
-    if (isSmallScreen)
-      navigate('/settings')
-    else
-      setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const setting = variant === 'search' ? (
-    <IconButton onClick={handleClick}>
+    <IconButton onClick={() => navigate('/settings')}>
       <MoreVert />
     </IconButton>
   ) : null;
@@ -88,6 +86,11 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
       {
         isLoggedIn ?
           <>
+
+            <Typography variant='nav' onClick={handleClick} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
+              چیزمیز من
+            </Typography>
+
             <Typography variant='nav' onClick={() => navigate('/my-ads')} sx={{ minWidth: 'fit-content', textWrap: 'nowrap' }}>
               آگهی‌های من
             </Typography>
@@ -114,8 +117,8 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
   return (
     <MuiAppBar position="sticky" elevation={0}>
       <Toolbar sx={{ paddingY: { xs: 1 } }}>
-        <Container sx={{ gap: 1, py: .5, display: 'flex', alignItems: 'center', flexDirection: 'row', p: 0 }}>
-          {setting}
+        <Container sx={{ px: {sm: 0, lg:3}, gap: 1, py: .5, display: 'flex', alignItems: 'center', flexDirection: 'row', p: 0 }}>
+          {isSmallScreen ? setting : variant === 'search' ? <Logo /> : null}
           {searchInput}
           {header}
           {desktopPlugins}
@@ -162,13 +165,13 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
       >
 
         {
-          isLoggedIn ? 
-          <UserAccountSection
-          isLoggedIn={!!user}
-          userData={user}
-          onLogin={() => { }}
-          onLogout={logoutUser}
-        /> : null
+          isLoggedIn ?
+            <UserAccountSection
+              isLoggedIn={!!user}
+              userData={user}
+              onLogin={() => { }}
+              onLogout={logoutUser}
+            /> : null
         }
         <CustomListGroup hasPadding>
           <CutomListItem
