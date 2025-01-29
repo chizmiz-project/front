@@ -9,7 +9,7 @@ export const SnackbarProvider = ({ children }) => {
     const [message, setMessage] = useState('');
     const [backgroundColor, setBackgroundColor] = useState(infoColor);
 
-    const openSnackbar = (msg, state) => {
+    const openSnackbar = (msg, state, open = true) => {
         setMessage(msg);
         switch (state) {
             case 'success':
@@ -24,7 +24,7 @@ export const SnackbarProvider = ({ children }) => {
             default:
                 setBackgroundColor(warningColor)
         }
-        setOpen(true);
+        setOpen(open);
     };
 
     const handleClose = () => {

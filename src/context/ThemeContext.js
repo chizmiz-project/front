@@ -21,6 +21,7 @@ const getDesignTokens = (mode) => ({
     background: {
       default: mode === 'light' ? Configs.backgroundColor_light : Configs.backgroundColor_dark,
       paper: mode === 'light' ? Configs.backgroundColorTop_light : Configs.backgroundColorTop_dark,
+      input: mode === 'light' ? Configs.fillColorTertiary_light : Configs.fillColorTertiary_dark
     },
     text: {
       primary: mode === 'light' ? Configs.textColor_light : Configs.textColor_dark,
@@ -59,6 +60,10 @@ const getDesignTokens = (mode) => ({
       fontSize: '0.95rem',
       opacity: 0.8,
       color: mode === 'light' ? Configs.textColor_light : Configs.textColor_dark,
+    },
+    category: {
+      fontSize: '0.9rem',
+      fontWeight: '400',
     }
   },
   direction: 'rtl',
