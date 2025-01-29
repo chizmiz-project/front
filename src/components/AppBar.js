@@ -8,11 +8,13 @@ import { CutomListItem } from './list/CutomListItem';
 import { useTheme } from '@emotion/react';
 import { useCustomTheme } from '../context/ThemeContext';
 import { primaryColor } from '../context/Configs';
+import { UserAccountSection } from './list/UserAccountSection';
 
 export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, logoutUser } = useUser();
   const isLoggedIn = !!user;
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const { mode, toggleTheme } = useCustomTheme();
@@ -159,6 +161,12 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
 
+      <UserAccountSection
+        isLoggedIn={!!user}
+        userData={user}
+        onLogin={() => { }}
+        onLogout={logoutUser}
+      />
         <CustomListGroup hasPadding>
           <CutomListItem
             type="navigation"
