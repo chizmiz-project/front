@@ -4,7 +4,6 @@ import timeAgo from '../../services/Calender';
 import {getFormattedPrice} from '../../services/Utils';
 
 export default function AdItem({ ad }) {
-    console.log(ad)
     return (
         <Card elevation={0} sx={{
             textDecoration: 'none',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Search, MoreVert, ChevronLeft, Add } from '@mui/icons-material';
-import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button, Menu, useMediaQuery, Fab } from '@mui/material';
+import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button, Menu, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import { useState } from 'react';
@@ -114,23 +114,6 @@ export function AppBar({ variant = "title", title, hasNavigate = true, hasFloatB
       }
     </Box> : null;
 
-  const mobileAddButton = (
-    <Fab
-      color="primary"
-      aria-label="add"
-      sx={{
-        position: 'fixed',
-        transform: 'scale(1.1)',
-        bottom: theme.spacing(2),
-        right: theme.spacing(2),
-        zIndex: 1000,
-      }}
-      onClick={() => isLoggedIn ? navigate('/add') : navigate('/login')}
-    >
-      <Add />
-    </Fab>
-  );
-
   return (
     <MuiAppBar position="sticky" elevation={0}>
       <Toolbar sx={{ paddingY: { xs: 1 } }}>
@@ -195,16 +178,19 @@ export function AppBar({ variant = "title", title, hasNavigate = true, hasFloatB
             type="navigation"
             label="آگهی‌های ذخیره‌شده"
             to="/favorite-ads"
+            disabled={!isLoggedIn}
           />
           <CustomListItem
             type="navigation"
             label="آگهی‌های من"
             to="/my-ads"
+            disabled={!isLoggedIn}
           />
           <CustomListItem
             type="navigation"
             label="بازدیدهای اخیر"
             to="/recent-views"
+            disabled={!isLoggedIn}
           />
           <CustomListItem
             type="switch"

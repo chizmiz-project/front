@@ -14,7 +14,6 @@ export default function CategoryPage() {
         category: id
       });
       if (response.isSuccess) {
-        console.log(response.data);
         setAds(response.data);
       } else {
         console.error('Fetch failed:', response);

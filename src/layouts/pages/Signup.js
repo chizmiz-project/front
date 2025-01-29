@@ -66,9 +66,6 @@ export default function SignupPage() {
 
     try {
       const response = await ApiService.post('/account/signup/', data);
-      
-      console.log(response);
-
       if (response.isBadRequest) {
         let error = response.data;
         for (let key in error) {
