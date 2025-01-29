@@ -15,6 +15,7 @@ import ProfileEditPage from './layouts/pages/ProfileEditPage.js';
 import MyAdsPage from './layouts/pages/MyAdsPage.js';
 import FavoriteAdsPage from './layouts/pages/FavoriteAdsPage.js';
 import CreateAdPage from './layouts/pages/CreateAdPage.js';
+import EditAdPage from './layouts/pages/EditAdPage.js';
 import { UserProvider } from './context/UserContext';
 import { SnackbarProvider } from './context/SnackbarProvider.js';
 import { ThemeProvider } from './context/ThemeContext.js';
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/profile/edit" element={<ProfileEditPage />} />
                 <Route path="/my-ads" element={<MyAdsPage />} />
                 <Route path="/favorite-ads" element={<FavoriteAdsPage />} />
+                <Route path="/ad/details/:id/edit" element={<EditAdPage />} />
               </Routes>
             </BrowserRouter>
           </SnackbarProvider>

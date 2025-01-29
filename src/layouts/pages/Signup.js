@@ -64,9 +64,6 @@ export default function SignupPage() {
 
     try {
       const response = await ApiService.post('/account/signup/', data);
-      
-      console.log(response);
-
       if (response.isBadRequest) {
         for (let key in response.data) {
           if (key === 'password') 

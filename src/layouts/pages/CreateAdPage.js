@@ -26,6 +26,7 @@ export default function CreateAdPage() {
     description: "",
     image: null,
     price: "",
+    status: 1,
   });
 
   useEffect(() => {

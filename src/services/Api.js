@@ -75,8 +75,6 @@ const ApiService = (() => {
       body: formData
     })
 
-    console.log(response)
-
     return handleResponse(response);
   }
 
