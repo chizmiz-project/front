@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { Button, Select, MenuItem, FormControl, InputLabel, Typography } from "@mui/material";
 import ApiService from "../../services/Api";
 import AppLayout from "../AppLayout";
 import { CustomTextField } from "../../components/CustomTextField";
@@ -22,7 +22,7 @@ export default function EditAdPage() {
   const [categories, setCategories] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  
+
   const [formData, setFormData] = useState({
     categoryId: "",
     title: "",
@@ -127,8 +127,10 @@ export default function EditAdPage() {
           onChange={(price) => setFormData({ ...formData, price })}
         />
 
-        <FormControl fullWidth>
-          <InputLabel>وضعیت</InputLabel>
+        <Typography variant="h2" gutterBottom>
+          وضعیت آگهی
+        </Typography>
+        <FormControl fullWidth sx={{ mb: 2 }}>
           <Select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
