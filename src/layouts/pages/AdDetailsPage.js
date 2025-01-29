@@ -12,6 +12,7 @@ import AppLayout from '../AppLayout';
 import { getFormattedPrice } from '../../services/Utils';
 import { CustomListGroup } from '../../components/list/CustomListGroup';
 import { CustomListItem } from '../../components/list/CustomListItem';
+import { useSnackbar } from '../../context/SnackbarProvider';
 
 export default function AdDetailsPage() {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
@@ -29,6 +30,7 @@ export default function AdDetailsPage() {
   const [userId, setUserId] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+  const { openSnackbar } = useSnackbar();
 
   useEffect(() => {
     const fetchAd = async () => {
@@ -54,14 +56,24 @@ export default function AdDetailsPage() {
 
   const toggleFavorite = async () => {
     try {
+      let response;
       if (isFavorite) {
-        await ApiService.put(`/advertisement/${id}/delete_favorite/`);
+        response = await ApiService.put(`/advertisement/${id}/delete_favorite/`);
       } else {
-        await ApiService.put(`/advertisement/${id}/add_favorite/`);
+        response = await ApiService.put(`/advertisement/${id}/add_favorite/`);
       }
-      setIsFavorite(!isFavorite);
+
+      if (response.status === 403) {
+        openSnackbar("لطفا ابتدا وارد حساب کاربری خود شوید!", "error");
+      } else if (response.isSuccess) {
+        setIsFavorite(!isFavorite);
+      } else {
+        console.error('Failed to toggle favorite status:', response);
+        openSnackbar("خطا در تغییر وضعیت علاقه‌مندی", "error");
+      }
     } catch (error) {
       console.error('Failed to toggle favorite status:', error);
+      openSnackbar("مشکلی در تغییر وضعیت علاقه‌مندی پیش آمد", "error");
     }
   };
 
