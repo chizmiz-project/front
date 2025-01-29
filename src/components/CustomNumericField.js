@@ -20,7 +20,7 @@ export function CustomNumericField({
 
   return (
     <Box sx={{ mb: 3 }}>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="h2" gutterBottom>
         {title}
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
