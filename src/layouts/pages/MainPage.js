@@ -16,7 +16,6 @@ export default function MainPage() {
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await ApiService.get('/category/')
-      console.log(response)
       if (response.isSuccess)
         setCategories(response.data)
     }

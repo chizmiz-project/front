@@ -6,7 +6,6 @@ import {
     CircularProgress,
     Grid,
 } from "@mui/material"
-
 import { Close, AddAPhoto } from "@mui/icons-material"
 import ApiService from "../services/Api"
 import { useSnackbar } from "../context/SnackbarProvider"
@@ -19,25 +18,25 @@ export default function ImageUploader({
     const [images, setImages] = useState([])
     const [isDragging, setIsDragging] = useState(false)
     const [error, setError] = useState(null)
-    
-    const {openSnackbar} = useSnackbar();
+
+    const { openSnackbar } = useSnackbar()
+
     useEffect(() => {
-        openSnackbar(error, 'error', !!error)
-      }, [error]);
+        openSnackbar(error, "error", !!error)
+    }, [error])
 
-
-    const handleFileSelect = event => {
+    const handleFileSelect = (event) => {
         const files = Array.from(event.target.files || [])
         handleFiles(files)
     }
 
-    const handleFiles = async files => {
+    const handleFiles = async (files) => {
         if (images.length + files.length > maxImages) {
             setError(`حداکثر ${maxImages} تصویر می‌توانید آپلود کنید`)
             return
         }
 
-        const validFiles = files.filter(file => {
+        const validFiles = files.filter((file) => {
             if (!file.type.startsWith("image/")) {
                 setError("لطفا فقط فایل تصویری آپلود کنید")
                 return false
@@ -45,31 +44,27 @@ export default function ImageUploader({
             return true
         })
 
-        const newImages = validFiles.map(file => ({
-            id: Math.random()
-                .toString(36)
-                .substr(2, 9),
+        const newImages = validFiles.map((file) => ({
+            id: Math.random().toString(36).substr(2, 9),
             file,
             preview: URL.createObjectURL(file),
-            isUploading: true
+            isUploading: true,
         }))
 
-        setImages(prev => [...prev, ...newImages])
+        setImages((prev) => [...prev, ...newImages])
 
         for (const image of newImages) {
             const response = await ApiService.uploadFile(image.file)
 
             if (response.isSuccess) {
-                onFilesChange([...uploadedFiles, {picture: response.data.file_url}])
+                onFilesChange([...uploadedFiles, { picture: response.data.file_url }])
 
-                setImages(prev =>
-                    prev.map(img =>
-                        img.id === image.id ? { ...img, isUploading: false } : img
-                    )
+                setImages((prev) =>
+                    prev.filter((img) => img.id !== image.id)
                 )
             } else {
-                setImages(prev =>
-                    prev.map(img =>
+                setImages((prev) =>
+                    prev.map((img) =>
                         img.id === image.id
                             ? { ...img, isUploading: false, error: "خطا در آپلود تصویر" }
                             : img
@@ -79,44 +74,81 @@ export default function ImageUploader({
         }
     }
 
-    const handleDragOver = event => {
+    const handleDragOver = (event) => {
         event.preventDefault()
         setIsDragging(true)
     }
 
-    const handleDragLeave = event => {
+    const handleDragLeave = (event) => {
         event.preventDefault()
         setIsDragging(false)
     }
 
-    const handleDrop = event => {
+    const handleDrop = (event) => {
         event.preventDefault()
         setIsDragging(false)
         const files = Array.from(event.dataTransfer.files)
         handleFiles(files)
     }
 
-    const handleRemove = imageId => {
-        const imageToRemove = images.find(img => img.id === imageId)
-        if (!imageToRemove) return
-
-        // Remove from parent's file list
-        const imageIndex = images.findIndex(img => img.id === imageId)
-        const updatedFiles = [...uploadedFiles]
-        updatedFiles.splice(imageIndex, 1)
-        onFilesChange(updatedFiles)
-
-        // Remove from local state and cleanup
-        setImages(prev => {
-            URL.revokeObjectURL(imageToRemove.preview)
-            return prev.filter(img => img.id !== imageId)
+    const handleRemove = (imageId) => {
+        setImages((prev) => {
+            const imageToRemove = prev.find((img) => img.id === imageId)
+            if (imageToRemove) {
+                URL.revokeObjectURL(imageToRemove.preview)
+            }
+            return prev.filter((img) => img.id !== imageId)
         })
+
+        const updatedFiles = uploadedFiles.filter((file) => file.picture !== imageId)
+        onFilesChange(updatedFiles)
     }
 
     return (
         <>
             <Grid container spacing={2} sx={{ mb: 2 }}>
-                {images.map(image => (
+                {uploadedFiles.map((file, index) => (
+                    <Grid item xs={6} sm={4} key={`uploaded-${index}`}>
+                        <Box
+                            sx={{
+                                position: "relative",
+                                borderRadius: 2,
+                                overflow: "hidden",
+                                boxShadow: 1,
+                                aspectRatio: "1",
+                            }}
+                        >
+                            <Box
+                                component="img"
+                                src={file.picture}
+                                alt="تصویر آپلود شده"
+                                sx={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover",
+                                }}
+                            />
+                            <IconButton
+                                onClick={() => handleRemove(file.picture)}
+                                size="small"
+                                sx={{
+                                    position: "absolute",
+                                    top: 8,
+                                    right: 8,
+                                    bgcolor: "background.paper",
+                                    "&:hover": {
+                                        bgcolor: "background.paper",
+                                    },
+                                    boxShadow: 1,
+                                }}
+                            >
+                                <Close />
+                            </IconButton>
+                        </Box>
+                    </Grid>
+                ))}
+
+                {images.map((image) => (
                     <Grid item xs={6} sm={4} key={image.id}>
                         <Box
                             sx={{
@@ -124,7 +156,7 @@ export default function ImageUploader({
                                 borderRadius: 2,
                                 overflow: "hidden",
                                 boxShadow: 1,
-                                aspectRatio: "1"
+                                aspectRatio: "1",
                             }}
                         >
                             <Box
@@ -136,7 +168,7 @@ export default function ImageUploader({
                                     height: "100%",
                                     objectFit: "cover",
                                     filter: image.isUploading ? "blur(2px)" : "none",
-                                    transition: "filter 0.2s"
+                                    transition: "filter 0.2s",
                                 }}
                             />
                             {image.isUploading ? (
@@ -145,7 +177,7 @@ export default function ImageUploader({
                                         position: "absolute",
                                         top: "50%",
                                         left: "50%",
-                                        transform: "translate(-50%, -50%)"
+                                        transform: "translate(-50%, -50%)",
                                     }}
                                 >
                                     <CircularProgress size={24} />
@@ -160,9 +192,9 @@ export default function ImageUploader({
                                         right: 8,
                                         bgcolor: "background.paper",
                                         "&:hover": {
-                                            bgcolor: "background.paper"
+                                            bgcolor: "background.paper",
                                         },
-                                        boxShadow: 1
+                                        boxShadow: 1,
                                     }}
                                 >
                                     <Close />
@@ -179,7 +211,7 @@ export default function ImageUploader({
                                         color: "white",
                                         p: 0.5,
                                         fontSize: "0.75rem",
-                                        textAlign: "center"
+                                        textAlign: "center",
                                     }}
                                 >
                                     {image.error}
@@ -189,7 +221,8 @@ export default function ImageUploader({
                     </Grid>
                 ))}
 
-                {images.length < maxImages && (
+                {/* File upload area */}
+                {images.length + uploadedFiles.length < maxImages && (
                     <Grid item xs={6} sm={4}>
                         <Box
                             component="label"
@@ -212,8 +245,8 @@ export default function ImageUploader({
                                 bgcolor: isDragging ? "action.hover" : "transparent",
                                 "&:hover": {
                                     borderColor: "primary.main",
-                                    bgcolor: "action.hover"
-                                }
+                                    bgcolor: "action.hover",
+                                },
                             }}
                         >
                             <input
@@ -226,7 +259,7 @@ export default function ImageUploader({
                             <AddAPhoto
                                 sx={{
                                     fontSize: 40,
-                                    color: isDragging ? "primary.main" : "text.secondary"
+                                    color: isDragging ? "primary.main" : "text.secondary",
                                 }}
                             />
                             <Typography

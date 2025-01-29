@@ -30,7 +30,6 @@ export default function VerifyOTPPage() {
       const response = await ApiService.post('/account/verify-otp/', data);
 
       if (response.isSuccess) {
-        console.log(response.data);
         updateUser({
           username: state.username,
           phone_number: response.data.phone_number,

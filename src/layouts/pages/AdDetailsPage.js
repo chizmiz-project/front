@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Box, Typography, Button, Grid2, IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import EditIcon from '@mui/icons-material/Edit';
 import { ImageSlider } from '../../components/ImageSlider';
 import ReportDialog from '../../components/ReportDialog';
 import ApiService from '../../services/Api';
@@ -15,29 +16,40 @@ import { CustomListItem } from '../../components/list/CustomListItem';
 export default function AdDetailsPage() {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
   const [ad, setAd] = useState({
-      id: 0,
-      title: "در حال دریافت",
-      time: timeAgo(0),
-      pictures: [],
-      details: [],
-      description: "",
+    id: 0,
+    title: "در حال دریافت",
+    time: timeAgo(0),
+    pictures: [],
+    details: [],
+    description: "",
+    author: null,
   });
   const [isFavorite, setIsFavorite] = useState(false);
   const [contactButtonText, setContactButtonText] = useState("شماره تماس");
+  const [userId, setUserId] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAd = async () => {
       const response = await ApiService.get(`/advertisement/${id}`);
       if (response.isSuccess) {
         setAd(response.data);
-        setIsFavorite(response.data.favorite || false); // Initialize favorite status
+        setIsFavorite(response.data.favorite || false);
       } else {
         console.error('Fetch failed:', response);
       }
     };
 
+    const fetchUser = async () => {
+      const response = await ApiService.get('/account/me');
+      if (response.isSuccess) {
+        setUserId(response.data.id);
+      }
+    };
+
     fetchAd();
+    fetchUser();
   }, [id]);
 
   const toggleFavorite = async () => {
@@ -71,7 +83,7 @@ export default function AdDetailsPage() {
     2: "رزرو شده",
     3: "فروخته شد",
   };
-  
+
   let adDetails = {
     id: id,
     title: ad.title,
@@ -81,7 +93,7 @@ export default function AdDetailsPage() {
       { key: 'قیمت', value: getFormattedPrice(ad.price) },
       { key: 'وضعیت', value: STATUS_CHOICES[ad.status] || "نامشخص" },
     ],
-      description: ad.description,
+    description: ad.description,
   };
 
   const handleReport = (reason) => {
@@ -100,13 +112,16 @@ export default function AdDetailsPage() {
               <Typography variant="h1" gutterBottom>
                 {adDetails.title}
               </Typography>
-              <IconButton sx={{opacity: .9}} onClick={toggleFavorite}>
-                {isFavorite ? (
-                  <FavoriteIcon color="error" />
-                ) : (
-                  <FavoriteBorderIcon color="error" />
+              <Box display="flex" alignItems="center">
+                {userId === ad.author && (
+                  <IconButton onClick={() => navigate(`/ad/details/${id}/edit`)}>
+                    <EditIcon color="primary" />
+                  </IconButton>
                 )}
-              </IconButton>
+                <IconButton sx={{ opacity: .9 }} onClick={toggleFavorite}>
+                  {isFavorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon color="error" />}
+                </IconButton>
+              </Box>
             </Box>
 
             <Typography mb={3} variant="subtitle1" gutterBottom>
@@ -114,10 +129,10 @@ export default function AdDetailsPage() {
             </Typography>
 
             <CustomListGroup>
-              {adDetails.details.map((detail) => (
-                <CustomListItem type="key-value" label={detail.key} value={detail.value} />
+              {adDetails.details.map((detail, index) => (
+                <CustomListItem key={index} type="key-value" label={detail.key} value={detail.value} />
               ))}
-            </CustomListGroup>  
+            </CustomListGroup>
 
             <Typography mt={3} variant="h2" gutterBottom>
               توضیحات
@@ -129,31 +144,16 @@ export default function AdDetailsPage() {
       </Grid2>
 
       <Box display="flex" flexDirection="column" gap={2}>
-        <Button
-          variant="contained"
-          size="large"
-          fullWidth
-          onClick={fetchPhoneNumber}
-        >
+        <Button variant="contained" size="large" fullWidth onClick={fetchPhoneNumber}>
           {contactButtonText}
         </Button>
 
-        <Button
-          variant="outlined"
-          size="large"
-          fullWidth
-          onClick={() => setIsReportDialogOpen(true)}
-        >
+        <Button variant="outlined" size="large" fullWidth onClick={() => setIsReportDialogOpen(true)}>
           گزارش آگهی
         </Button>
       </Box>
 
-      <ReportDialog
-      open={isReportDialogOpen}
-      onClose={() => setIsReportDialogOpen(false)}
-      onSubmit={handleReport}
-      adId={ad.id}
-      />
+      <ReportDialog open={isReportDialogOpen} onClose={() => setIsReportDialogOpen(false)} onSubmit={handleReport} adId={ad.id} />
     </AppLayout>
   );
 }
