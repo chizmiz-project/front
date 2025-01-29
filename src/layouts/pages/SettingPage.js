@@ -1,6 +1,6 @@
 import { UserAccountSection } from "../../components/list/UserAccountSection"
-import { CustomListGroup } from "../../components/list/CutomListGroup"
-import { CutomListItem } from "../../components/list/CutomListItem"
+import { CustomListGroup } from "../../components/list/CustomListGroup"
+import { CustomListItem } from "../../components/list/CustomListItem"
 import AppLayout from "../AppLayout"
 import { useUser } from '../../context/UserContext';
 import { Box } from "@mui/material"
@@ -23,7 +23,7 @@ export default function SettingsPage() {
       />
 
       <CustomListGroup>
-        <CutomListItem
+        <CustomListItem
           type="navigation"
           label="آگهی‌های ذخیره‌شده"
           to="/favorite-ads"
@@ -33,7 +33,7 @@ export default function SettingsPage() {
         </StyledIconWrapper>
           }
         />
-        <CutomListItem
+        <CustomListItem
           type="navigation"
           label="آگهی‌های من"
           to="/my-ads"
@@ -43,7 +43,7 @@ export default function SettingsPage() {
         </StyledIconWrapper>
           }
         />
-        <CutomListItem
+        <CustomListItem
           type="navigation"
           label="بازدیدهای اخیر"
           to="/recent-views"
@@ -56,7 +56,7 @@ export default function SettingsPage() {
       </CustomListGroup>
 
       <CustomListGroup>
-      <CutomListItem
+      <CustomListItem
           type="switch"
           label="حالت شب"
           checked={mode === 'dark'}

@@ -1,10 +1,11 @@
-import { Search, MoreVert, ChevronLeft, Person } from '@mui/icons-material';
-import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button, Menu, useMediaQuery } from '@mui/material';
+import React from 'react';
+import { Search, MoreVert, ChevronLeft, Add } from '@mui/icons-material';
+import { AppBar as MuiAppBar, IconButton, Toolbar, Box, TextField, Typography, InputAdornment, Container, Button, Menu, useMediaQuery, Fab } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import { useState } from 'react';
-import { CustomListGroup } from './list/CutomListGroup';
-import { CutomListItem } from './list/CutomListItem';
+import { CustomListGroup } from './list/CustomListGroup';
+import { CustomListItem } from './list/CustomListItem';
 import { useTheme } from '@emotion/react';
 import { useCustomTheme } from '../context/ThemeContext';
 import { primaryColor } from '../context/Configs';
@@ -21,6 +22,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
   const { mode, toggleTheme } = useCustomTheme();
 
   const handleSearchChange = (event) => {
+    onSearchChange?.(event.target.value);
     onSearchChange?.(event.target.value);
   }
 
@@ -45,20 +47,18 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
         placeholder="جستجو کنید"
         fullWidth
         onChange={handleSearchChange}
-        slotProps={{
-          input: {
-            sx: {
-              maxHeight: '45px',
-              maxWidth: {
-                md: '500px'
-              }
-            },
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            ),
+        InputProps={{
+          sx: {
+            maxHeight: '45px',
+            maxWidth: {
+              md: '500px'
+            }
           },
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search />
+            </InputAdornment>
+          ),
         }} />
     </Box>;
 
@@ -113,6 +113,23 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
 
       }
     </Box> : null;
+
+  const mobileAddButton = (
+    <Fab
+      color="primary"
+      aria-label="add"
+      sx={{
+        position: 'fixed',
+        transform: 'scale(1.1)',
+        bottom: theme.spacing(2),
+        right: theme.spacing(2),
+        zIndex: 1000,
+      }}
+      onClick={() => isLoggedIn ? navigate('/add') : navigate('/login')}
+    >
+      <Add />
+    </Fab>
+  );
 
   return (
     <MuiAppBar position="sticky" elevation={0}>
@@ -174,22 +191,22 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
             /> : null
         }
         <CustomListGroup hasPadding>
-          <CutomListItem
+          <CustomListItem
             type="navigation"
             label="آگهی‌های ذخیره‌شده"
             to="/favorite-ads"
           />
-          <CutomListItem
+          <CustomListItem
             type="navigation"
             label="آگهی‌های من"
             to="/my-ads"
           />
-          <CutomListItem
+          <CustomListItem
             type="navigation"
             label="بازدیدهای اخیر"
             to="/recent-views"
           />
-          <CutomListItem
+          <CustomListItem
             type="switch"
             label="حالت شب"
             checked={mode === 'dark'}
@@ -198,6 +215,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
         </CustomListGroup>
 
       </Menu>
+      {isSmallScreen && mobileAddButton}
     </MuiAppBar>
   );
 }
