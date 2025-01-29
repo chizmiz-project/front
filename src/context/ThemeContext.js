@@ -151,7 +151,7 @@ const getDesignTokens = (mode) => ({
     MuiDivider: {
       styleOverrides: {
         root: {
-          marginLeft: '4rem',
+          marginLeft: '2rem',
         }
       }
     },
