@@ -66,13 +66,22 @@ export default function AdDetailsPage() {
     }
   };
 
+  const STATUS_CHOICES = {
+    1: "فعال",
+    2: "رزرو شده",
+    3: "فروخته شد",
+  };
+  
   let adDetails = {
     id: id,
     title: ad.title,
     time: timeAgo(ad.created_at),
     images: ad.pictures.map(obj => obj.picture),
-    details: [{ key: 'قیمت', value: getFormattedPrice(ad.price) }],
-    description: ad.description,
+    details: [
+      { key: 'قیمت', value: getFormattedPrice(ad.price) },
+      { key: 'وضعیت', value: STATUS_CHOICES[ad.status] || "نامشخص" },
+    ],
+      description: ad.description,
   };
 
   const handleReport = (reason) => {
