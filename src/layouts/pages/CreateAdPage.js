@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import ApiService from "../../services/Api";
 import AppLayout from "../AppLayout";
 import { CustomTextField } from "../../components/CustomTextField";
@@ -90,6 +90,12 @@ export default function CreateAdPage() {
     <AppLayout title="ساخت آگهی">
       <form onSubmit={handleSubmit}>
 
+        <Typography variant="h2" gutterBottom>
+          دسته‌بندی
+        </Typography>
+        <Typography variant="subtitle1" >
+          لطفا دسته‌بندی آگهی خود را انتخاب کنید
+        </Typography>
         <CategorySelector
           categories={categories}
           selectedCategory={formData.categoryId}
