@@ -9,12 +9,13 @@ export default function CategorySelector({ categories, selectedCategory, onSelec
           <Paper
             sx={{ p: 2, 
               textAlign: 'center', 
-              border: category.id === selectedCategory ? 2 : 0,
-              borderColor: primaryColor
+              backgroundColor: category.id === selectedCategory ? primaryColor : 'background.input',
+              color: category.id === selectedCategory ? 'white' : 'text.secondary',
+              transition: 'all .3s'
             }}
             onClick={() => onSelect(category.id)}
           >
-            <Typography width={'100%'} variant="body2">{category.title}</Typography>
+            <Typography width={'100%'} variant="category">{category.title}</Typography>
           </Paper>
         </Grid2>
       ))}
