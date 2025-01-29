@@ -92,7 +92,7 @@ export default function SignupPage() {
         };
 
         await ApiService.post('/account/login/', loginData);
-        openSnackbar('ثبت‌نام اولیه انجام شد.', 'success');
+        openSnackbar('ایمیلی حاوی کد ورود برای شما ارسال شد', 'info')
 
         navigate('/verify-otp', {
           state: {
