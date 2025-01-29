@@ -34,6 +34,7 @@ export default function MyAdsPage() {
 
   return (
     <AppLayout 
+      hasFloatButton
       variant="search" 
       hasNavigate
       onSearchChange={setSearchQuery}

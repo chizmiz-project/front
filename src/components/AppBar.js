@@ -12,7 +12,7 @@ import { primaryColor } from '../context/Configs';
 import { UserAccountSection } from './list/UserAccountSection';
 import Logo from './Logo';
 
-export function AppBar({ variant = "title", title, hasNavigate = true, onSearchChange }) {
+export function AppBar({ variant = "title", title, hasNavigate = true, hasFloatButton = false, onSearchChange }) {
   const navigate = useNavigate();
   const { user, logoutUser } = useUser();
   const isLoggedIn = !!user;
@@ -215,7 +215,7 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
         </CustomListGroup>
 
       </Menu>
-      {isSmallScreen && mobileAddButton}
+      {isSmallScreen && hasFloatButton && mobileAddButton}
     </MuiAppBar>
   );
 }

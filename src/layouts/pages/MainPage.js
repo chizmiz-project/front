@@ -45,7 +45,7 @@ export default function MainPage() {
   }, [debouncedSearch])
 
   return (
-    <AppLayout variant='search' hasNavigate={false} onSearchChange={setSearchQuery}>
+    <AppLayout hasFloatButton variant='search' hasNavigate={false} onSearchChange={setSearchQuery}>
       <Box>
         <Grid2 container spacing={2} mb={2}>
           {categories.map(category => (
