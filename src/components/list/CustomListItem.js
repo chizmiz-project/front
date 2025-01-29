@@ -4,60 +4,70 @@ import { ListItem, ListItemText, Switch, Checkbox, IconButton, Typography, ListI
 
 export function CustomListItem(props) {
     const navigate = useNavigate();
-    const { label, type, value, icon = null } = props;
+    const { label, type, value, icon = null, disabled = false } = props;
+
+    const textStyle = disabled ? { color: 'rgba(0, 0, 0, 0.38)' } : {};
 
     if (type === "navigation") {
         return (
             <ListItem
+                disabled={disabled}
                 secondaryAction={
-                    <IconButton edge="end">
+                    <IconButton edge="end" disabled={disabled}>
                         <ChevronLeft />
                     </IconButton>
-                } button onClick={() => navigate(props.to)}>
-                <ListItemIcon children={icon}/>
-                <ListItemText primary={label} />
+                }
+                button
+                onClick={() => !disabled && navigate(props.to)}
+            >
+                <ListItemIcon children={icon} />
+                <ListItemText primary={label} style={textStyle} />
             </ListItem>
         );
     }
 
     if (type === "switch") {
         return (
-            <ListItem secondaryAction={
-                <Switch
-                    edge="end"
-                    checked={props.checked}
-                    onChange={(e) => props.onCheckedChange(e.target.checked)}
-                />
-            }>
-                <ListItemIcon children={icon}/>
-                <ListItemText  primary={label} />
+            <ListItem
+                disabled={disabled}
+                secondaryAction={
+                    <Switch
+                        edge="end"
+                        checked={props.checked}
+                        onChange={(e) => props.onCheckedChange(e.target.checked)}
+                        disabled={disabled}
+                    />
+                }
+            >
+                <ListItemIcon children={icon} />
+                <ListItemText primary={label} style={textStyle} />
             </ListItem>
         );
     }
 
     if (type === "key-value") {
         return (
-            <ListItem secondaryAction={
-                <Typography variant='subtitle1'>{value}</Typography>
-            }>
-                <ListItemIcon children={icon}/>
-                <ListItemText primary={label} />
+            <ListItem disabled={disabled} secondaryAction={<Typography variant="subtitle1" style={textStyle}>{value}</Typography>}>
+                <ListItemIcon children={icon} />
+                <ListItemText primary={label} style={textStyle} />
             </ListItem>
         );
     }
 
     return (
-        <ListItem secondaryAction={
-            <Checkbox
-                edge="end"
-                checked={props.checked}
-                onChange={(e) => props.onCheckedChange(e.target.checked)}
-            />
-        }>
-            <ListItemIcon children={icon}/>
-            <ListItemText primary={label} />
-
+        <ListItem
+            disabled={disabled}
+            secondaryAction={
+                <Checkbox
+                    edge="end"
+                    checked={props.checked}
+                    onChange={(e) => props.onCheckedChange(e.target.checked)}
+                    disabled={disabled}
+                />
+            }
+        >
+            <ListItemIcon children={icon} />
+            <ListItemText primary={label} style={textStyle} />
         </ListItem>
     );
 }
-

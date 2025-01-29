@@ -175,16 +175,19 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
               type="navigation"
               label="آگهی‌های ذخیره‌شده"
               to="/favorite-ads"
+              disabled={!isLoggedIn}
             />
             <CustomListItem
               type="navigation"
               label="آگهی‌های من"
               to="/my-ads"
+              disabled={!isLoggedIn}
             />
             <CustomListItem
               type="navigation"
               label="بازدیدهای اخیر"
               to="/recent-views"
+              disabled={!isLoggedIn}
             />
             <CustomListItem
               type="switch"
