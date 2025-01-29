@@ -161,12 +161,15 @@ export function AppBar({ variant = "title", title, hasNavigate = true, onSearchC
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
 
-      <UserAccountSection
-        isLoggedIn={!!user}
-        userData={user}
-        onLogin={() => { }}
-        onLogout={logoutUser}
-      />
+        {
+          isLoggedIn ? 
+          <UserAccountSection
+          isLoggedIn={!!user}
+          userData={user}
+          onLogin={() => { }}
+          onLogout={logoutUser}
+        /> : null
+        }
         <CustomListGroup hasPadding>
           <CutomListItem
             type="navigation"
