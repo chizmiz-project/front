@@ -107,7 +107,7 @@ export default function AdDetailsPage() {
           <ImageSlider images={adDetails.images} />
         </Grid2>
         <Grid2 item size={{ xs: 12, md: 6 }}>
-          <Box p={2}>
+          <Box p={{ md: 2}}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
               <Typography variant="h1" gutterBottom>
                 {adDetails.title}
@@ -115,7 +115,7 @@ export default function AdDetailsPage() {
               <Box display="flex" alignItems="center">
                 {userId === ad.author && (
                   <IconButton onClick={() => navigate(`/ad/details/${id}/edit`)}>
-                    <EditIcon color="primary" />
+                    <EditIcon/>
                   </IconButton>
                 )}
                 <IconButton sx={{ opacity: .9 }} onClick={toggleFavorite}>
